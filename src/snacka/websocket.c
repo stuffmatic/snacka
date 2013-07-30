@@ -41,6 +41,11 @@
 #include "frame.h"
 #include <stdarg.h>
 
+#define SN_DEFAULT_MAX_FRAME_SIZE 1 << 16
+
+#define SN_DEFAULT_WRITE_CHUNK_SIZE 1 << 16
+
+
 /** */
 struct snWebsocket
 {
@@ -107,26 +112,6 @@ static int generateMaskingKey()
     return rand();
 }
 
-static void snWebsocket_sendBytes(snWebsocket* ws, char* bytes, int numBytes)
-{
-    int numBytesSentTot = 0;
-    while (numBytesSentTot < numBytes)
-    {
-        int numBytesSent = 0;
-        
-        const int chunkSize = numBytes - numBytesSent;
-        ws->ioCallbacks.writeCallback(ws->ioObject,
-                                      &bytes[numBytesSent],
-                                      chunkSize,
-                                      &numBytesSent);
-        numBytesSentTot += numBytesSent;
-        if (numBytesSent > 0)
-        {
-            //log(ws, "sent %d/%d\n", numBytesSent, numBytes);
-        }
-    }
-}
-
 snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBytes, const char* payload)
 {
     if (ws->hasSentCloseFrame)
@@ -158,7 +143,12 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
     assert(payloadSize + headerSize <= ws->maxFrameSize);
     
     //send header
-    snWebsocket_sendBytes(ws, headerBytes, headerSize);
+    int nBytesWritten = 0;
+    snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject, headerBytes, headerSize, &nBytesWritten);
+    if (sendResult != SN_NO_ERROR)
+    {
+        return sendResult;
+    }
     
     //send masked payload in chunks
     int numBytesSent = 0;
@@ -171,10 +161,16 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
         //apply mask in place
         snFrameHeader_applyMask(&f.header, ws->writeChunkBuffer, chunkSize, numBytesSent);
         //send masked bytes
-        snWebsocket_sendBytes(ws, ws->writeChunkBuffer, chunkSize);
+        snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject, ws->writeChunkBuffer, chunkSize, &nBytesWritten);
+        if (sendResult != SN_NO_ERROR)
+        {
+            return sendResult;
+        }
         //move to the next chunk
         numBytesSent += chunkSize;
     }
+    
+    return SN_NO_ERROR;
 }
 
 static void sendCloseFrame(snWebsocket* ws, snStatusCode code)
@@ -382,7 +378,7 @@ snWebsocket* snWebsocket_createWithSettings(snReadyStateCallback stateCallback,
         memset(ws->readBuffer, 0, ws->maxFrameSize);
     }
     
-    ws->writeChunkSize = 1 << 10;
+    ws->writeChunkSize = SN_DEFAULT_WRITE_CHUNK_SIZE;
     ws->writeChunkBuffer = malloc(ws->writeChunkSize);
         
     snFrameParser_init(&ws->frameParser,

@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text message message with payload of length 8 * 2**20 (8M).",
    "droppedByMe": true,
-   "duration": 17347,
+   "duration": 17362,
    "expectation": "Receive echo'ed text message (with payload as sent).",
    "expected": {},
    "expectedClose": {
@@ -37,12 +37,11 @@
    },
    "rxOctetStats": {
       "8": 1,
+      "14": 1,
       "182": 1,
-      "19470": 1,
-      "46080": 1,
-      "65536": 127
+      "65536": 128
    },
-   "started": "2013-07-30T09:58:35Z",
+   "started": "2013-07-30T13:46:03Z",
    "txFrameStats": {
       "1": 1,
       "8": 1

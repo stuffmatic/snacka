@@ -91,7 +91,15 @@ extern "C"
     } snFrameParser;
     
     /**
-     *
+     * Initializes a frame parser.
+     * @param parser The parser to initialize.
+     * @param frameCallback A function to invoke for every received valid frame.
+     * @param frameDataCallback A pointer to pass to \c frameCallback.
+     * @param messageCallback A function to invoke when receiving a ping or pong
+     * or a full text or binary message.
+     * @param messageCallbackData A pointer to pass to \c messageCallback.
+     * @param readBuffer A buffer to store received payloads in.
+     * @param maxFrameSize The maximum allowed frame size.
      */
     void snFrameParser_init(snFrameParser* parser,
                             snFrameCallback frameCallback,
@@ -102,18 +110,22 @@ extern "C"
                             int maxFrameSize);
     
     /**
-     *
+     * Deinitializes a frame parser and frees any allocated memory.
+     * @param parser The parser to deinit.
      */
     void snFrameParser_deinit(snFrameParser* parser);
     
     /**
      * Resets the parser state.
-     *
+     * @param parser The parser to reset.
      */
     void snFrameParser_reset(snFrameParser* parser);
     
     /**
-     * 
+     * Process a new chunk of data. 
+     * @param parser The parser doing the processing.
+     * @param bytes The bytes to process.
+     * @param numBytes The number of bytes to process.
      * @return An error code, SN_NO_ERROR on success.
      */
     snError snFrameParser_processBytes(snFrameParser* parser,

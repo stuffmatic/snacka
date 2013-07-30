@@ -154,32 +154,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        uint32_t utf8State;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    } <a class="code" href="frameparser_8h.html#aeee5bf35888308f5f8dc02428f5d9b9d">snFrameParser</a>;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> snFrameParser_init(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser,</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                            <a class="code" href="websocket_8h.html#a29d08f4de2fef79094ca5c14ffc7fb90">snFrameCallback</a> frameCallback,</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                            <span class="keywordtype">void</span>* frameCallbackData,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                            <a class="code" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                            <span class="keywordtype">void</span>* messageCallbackData,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                            <span class="keywordtype">char</span>* readBuffer,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                            <span class="keywordtype">int</span> maxFrameSize);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> snFrameParser_deinit(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> snFrameParser_reset(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> snFrameParser_processBytes(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser,</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                                       <span class="keyword">const</span> <span class="keywordtype">char</span>* bytes,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                                       <span class="keywordtype">int</span> numBytes);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*SN_FRAME_PARSER_H*/</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> snFrameParser_init(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                            <a class="code" href="websocket_8h.html#a29d08f4de2fef79094ca5c14ffc7fb90">snFrameCallback</a> frameCallback,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                            <span class="keywordtype">void</span>* frameCallbackData,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                            <a class="code" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                            <span class="keywordtype">void</span>* messageCallbackData,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                            <span class="keywordtype">char</span>* readBuffer,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                            <span class="keywordtype">int</span> maxFrameSize);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">void</span> snFrameParser_deinit(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> snFrameParser_reset(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> snFrameParser_processBytes(<a class="code" href="structsn_frame_parser.html">snFrameParser</a>* parser,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                       <span class="keyword">const</span> <span class="keywordtype">char</span>* bytes,</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                                       <span class="keywordtype">int</span> numBytes);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*SN_FRAME_PARSER_H*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 12:02:47 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

@@ -226,14 +226,18 @@ int stfSocket_connect(stfSocket* s,
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
-    char service[265];
+    char service[256];
     sprintf(service, "%d", port);
+    
+    //TODO: this call is blocking...
     int error = getaddrinfo(host, service, &hints, &addrinfoResult);
     assert(error == 0);
     
     // loop through all the results and connect to the first we can
     for(struct addrinfo* p = addrinfoResult; p != NULL; p = p->ai_next)
     {
+        int connected = 0;
+        
         s->fileDescriptor = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
         if (s->fileDescriptor == -1)
         {
@@ -241,225 +245,92 @@ int stfSocket_connect(stfSocket* s,
             continue;
         }
         
-        if (connect(s->fileDescriptor, p->ai_addr, p->ai_addrlen) == -1)
+        //set socket to non-blocking
+        int flags = fcntl(s->fileDescriptor, F_GETFL, 0);
+        fcntl(s->fileDescriptor, F_SETFL, flags | O_NONBLOCK);
+        
+        //attempt async connect, regularly
+        //invoking connectWaitCallback to see if we should
+        //abort the connection attempt
+        const float timeout = 3.0f;
+        float t = 0.0f;
+        float dt = 0.01f;
+        struct fd_set fdset;
+        FD_ZERO(&fdset);
+        FD_SET(s->fileDescriptor, &fdset);
+        assert(FD_ISSET(s->fileDescriptor, &fdset));
+        
+        connect(s->fileDescriptor, p->ai_addr, p->ai_addrlen);
+        
+        while (t < timeout)
         {
-            close(s->fileDescriptor);
-            //printf("client: connect, errno %d\n", errno);
-            continue;
+            if (connectWaitCallback)
+            {
+                if (connectWaitCallback(callbackData) == 0)
+                {
+                    //caller requested timeout
+                    stfSocket_disconnect(s);
+                    return 0;
+                }
+            }
+            
+            struct timeval timeoutStruct = { 0, 1000000 * dt };
+            int selRes = select(s->fileDescriptor + 1, NULL, &fdset, NULL, &timeoutStruct);
+            
+            assert(selRes >= 0);
+            
+            if (selRes > 0)
+            {
+                socklen_t len = sizeof(errno);
+                
+                getsockopt(s->fileDescriptor, SOL_SOCKET, SO_ERROR, &errno, &len);
+                
+                if (errno == 0)
+                {
+                    //connected
+                    connected = 1;
+                    break;
+                }
+                else
+                {
+                    log(s, "select() following non blocking connect() failed, errno %d\n", errno);
+                    break;
+                }
+            }
+            
+            t += dt;
+            usleep(1000 * dt);
         }
         
-        break;
+        if (t >= timeout)
+        {
+            close(s->fileDescriptor);
+            s->fileDescriptor = -1;
+        }
+        
+        if (connected)
+        {
+            break;
+        }
     }
     
     if (s->fileDescriptor < 0)
     {
-        int b = 0;
-        assert(0);
+        return 0;
     }
     
-    //set to non-blocking
-    int flags = fcntl(s->fileDescriptor, F_GETFL, 0);
-    fcntl(s->fileDescriptor, F_SETFL, flags | O_NONBLOCK);
+    //disable nagle's algrithm
+    //int flag = 1;
+    //int result = setsockopt(s->fileDescriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof flag);
+    //assert(result == 0);
     
-    int flag = 1;
-    int result = setsockopt(s->fileDescriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof flag);
+    //disable sigpipe
+    int set = 1;
+    int result = setsockopt(s->fileDescriptor, SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof(int));
     assert(result == 0);
     
     return 1;
-    /*
-     
-     s->fileDescriptor = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
-     
-     int flag = 1;
-     int result = setsockopt(s->fileDescriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof flag);
-     assert(result == 0);
-     
-     //log(s, "setsockopt errno %d\n", errno);
-     
-     if (-1 == s->fileDescriptor)
-     {
-     log(s, "socket() failed, cannot create socket\n");
-     
-     
-     return 0;
-     }
-     
-     struct sockaddr_in socketAddress;
-     memset(&socketAddress, 0, sizeof(socketAddress));
-     
-     socketAddress.sin_family = AF_INET;
-     socketAddress.sin_port = htons(port);
-     const int ptonResult =  inet_pton(AF_INET, host, &socketAddress.sin_addr);
-     //app::Log::debugPrint("inet_pton: result %d\n", ptonResult);
-     if (0 > ptonResult)
-     {
-     //perror("error: first parameter is not a valid address family");
-     close(s->fileDescriptor);
-     return 0;
-     }
-     else if (0 == ptonResult)
-     {
-     //perror("char string (second parameter does not contain valid ipaddress)");
-     //printf("errno %d\n", errno);
-     close(s->fileDescriptor);
-     return 0;
-     }
-     
-     if (connectWaitCallback)
-     {
-     int flags = fcntl(s->fileDescriptor, F_GETFL, 0);
-     int setFlagResult = fcntl(s->fileDescriptor, F_SETFL, flags | O_NONBLOCK);
-     assert(setFlagResult == 0);
-     }
-     
-     int connectResult = connect(s->fileDescriptor,
-     testAddr->ai_addr, testAddr->ai_addrlen);
-     
-     if (connectWaitCallback)
-     {
-     const float timeout = 3.0f;
-     float t = 0.0f;
-     float dt = 0.01f;
-     while (t < timeout)
-     {
-     if (connectWaitCallback(callbackData) == 0)
-     {
-     //caller requested timeout
-     stfSocket_disconnect(s);
-     return 0;
-     }
-     
-     struct pollfd fd;
-     fd.fd = s->fileDescriptor;
-     fd.events =
-     fd.revents = POLLIN;
-     
-     struct fd_set fdset;
-     struct timeval timeout = {
-     0, 1000000 * dt
-     };
-     FD_ZERO(&fdset);
-     
-     FD_SET(s->fileDescriptor, &fdset);
-     assert(FD_ISSET(s->fileDescriptor, &fdset));
-     int selRes = select(s->fileDescriptor + 1, NULL, &fdset, NULL, &timeout);
-     
-     
-     assert(selRes >= 0);
-     
-     if (selRes > 0)
-     {
-     socklen_t len = sizeof(errno);
-     
-     getsockopt(s->fileDescriptor, SOL_SOCKET, SO_ERROR, &errno, &len);
-     
-     if (errno == 0)
-     {
-     //connected
-     break;
-     }
-     else
-     {
-     log(s, "select() following non blocking connect() failed, errno %d\n", errno);
-     return 0;
-     }
-     }
-     
-     t += dt;
-     //usleep(1000 * dt);
-     }
-     
-     if (t >= timeout)
-     {
-     //timed out
-     return 0;
-     }
-     }
-     
-     //error handling for blocking connect
-     if (-1 == connectResult && !connectWaitCallback)
-     {
-     log(s, "connect() failed, errno %d, could not connect to socket. return value %d\n", errno, connectResult);
-     
-    else if (errno == EACCES || errno == EPERM)
-     {
-     log(s, "errno == EACCES || errno == EPERM: The user tried to connect to a broadcast address without having the socket broadcast flag enabled or the connection request failed because of a local firewall rule.\n");
-     }
-     else if (errno == EADDRINUSE)
-     {
-     log(s, "errno == EADDRINUSE: Local address is already in use.\n");
-     }
-     else if (errno == EAFNOSUPPORT)
-     {
-     log(s, "errno == EAFNOSUPPORT: The passed address didn't have the correct address family in its sa_family field.\n");
-     }
-     else if (errno == EAGAIN)
-     {
-     log(s, "errno == EAGAIN: No more free local ports or insufficient entries in the routing cache. For AF_INET see the description of /proc/sys/net/ipv4/ip_local_port_range ip(7) for information on how to increase the number of local ports.\n");
-     }
-     else if (errno == EALREADY)
-     {
-     log(s, "errno == EALREADY: The socket is nonblocking and a previous connection attempt has not yet been completed.\n");
-     }
-     else if (errno == EBADF)
-     {
-     log(s, "errno == EBADF: The file descriptor is not a valid index in the descriptor table.\n");
-     }
-     else if (errno == ECONNREFUSED)
-     {
-     log(s, "errno == ECONNREFUSED: No-one listening on the remote address.\n");
-     }
-     else if (errno == EFAULT)
-     {
-     log(s, "errno == EFAULT: The socket structure address is outside the user's address space.\n");
-     }
-     else if (errno == EINPROGRESS)
-     {
-     log(s, "errno == EINPROGRESS: The socket is nonblocking and the connection cannot be completed immediately. It is possible to select(2) or poll(2) for completion by selecting the socket for writing. After select(2) indicates writability, use getsockopt(2) to read the SO_ERROR option at level SOL_SOCKET to determine whether connect() completed successfully (SO_ERROR is zero) or unsuccessfully (SO_ERROR is one of the usual error codes listed here, explaining the reason for the failure).\n");
-     }
-     else if (errno == EINTR)
-     {
-     log(s, "errno == EINTR: The system call was interrupted by a signal that was caught; see signal(7).\n");
-     }
-     else if (errno == EISCONN)
-     {
-     log(s, "errno == EISCONN: The socket is already connected.\n");
-     }
-     else if (errno == ENETUNREACH)
-     {
-     log(s, "errno == ENETUNREACH: Network is unreachable.\n");
-     }
-     else if (errno == ENOTSOCK)
-     {
-     log(s, "errno == ENOTSOCK: The file descriptor is not associated with a socket.\n");
-     }
-     else if (errno == ETIMEDOUT)
-     {
-     log(s, "errno == ETIMEDOUT: Timeout while attempting connection. The server may be too busy to accept new connections. Note that for IP sockets the timeout may be very long when syncookies are enabled on the server.\n");
-     }
-     close(s->fileDescriptor);
-     return 0;
-     }
-     
-     if (!connectWaitCallback)
-     {
-     int flags = fcntl(s->fileDescriptor, F_GETFL, 0);
-     fcntl(s->fileDescriptor, F_SETFL, flags | O_NONBLOCK);
-     }
-     
-     int set = 1;
-     result = setsockopt(s->fileDescriptor, SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof(int));
-     //log(s, "setsockopt SO_NOSIGPIPE errno %d\n", errno);
-     assert(result == 0);
-     //result = setsockopt(s->fileDescriptor, SOL_SOCKET, IPPROTO_TCP, (void *)&set, sizeof(int));
-     //log(s, "setsockopt IPPROTO_TCP errno %d\n", errno);
-     //assert(result == 0);
-     
-     
-     s->host = malloc(strlen(host) + 1);
-     memccpy(s->host, host, 1, strlen(host) + 1);
-     */
-    return 1;
+   
 }
 
 void stfSocket_disconnect(stfSocket* socket)
@@ -473,20 +344,65 @@ void stfSocket_disconnect(stfSocket* socket)
     socket->fileDescriptor = -1;
 }
 
-int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSentBytes)
+int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSentBytes,
+                       stfSocketConnectWaitCallback connectWaitCallback, void* callbackData)
 {
-    errno = 0;
-    int success = 1;
-    ssize_t ret = send(s->fileDescriptor,
-                       (const void*)data,
-                       numBytes,
-                       0);
+    int numBytesSentTot = 0;
+    while (numBytesSentTot < numBytes)
+    {
+        //wait for the socket to become availalbe for writing
+        fd_set rfds;
+        FD_ZERO(&rfds);
+        FD_SET(s->fileDescriptor, &rfds);
+        
+        struct timeval tv;
+        tv.tv_sec = 0;
+        tv.tv_usec = 10000; //10 ms
+        
+        int selRet = select(s->fileDescriptor + 1, NULL, &rfds, NULL, &tv);
+        
+        if (selRet == -1)
+        {
+            return 0;
+        }
+        else if (selRet == 0)
+        {
+            //printf("no data yet\n");
+        }
+        else
+        {
+            //printf("new data available\n");
+        }
+        
+        //check if we should abort
+        if (connectWaitCallback)
+        {
+            if (connectWaitCallback(callbackData) == 0)
+            {
+                return 0;
+            }
+        }
+        
+        //try to send all the bytes we have left
+        const int chunkSize = numBytes - numBytesSentTot;
+        ssize_t ret = send(s->fileDescriptor,
+                           (const void*)(&data[numBytesSentTot]),
+                           chunkSize,
+                           0);
+        
+        //check errors
+        int ignores[2] = {EAGAIN, EWOULDBLOCK};
+        checkError(s, errno, ignores, 2);
+        
+        if (ret >= 0)
+        {
+            numBytesSentTot += ret;
+        }
+        
+        //printf("sent %d/%d\n", numBytesSentTot, numBytes);
+    }
     
-    *numSentBytes = ret < 0 ? 0 : ret;
-   int ignores[2] = {EAGAIN, EWOULDBLOCK};
-    checkError(s, errno, ignores, 2);
-    
-    return success;
+    return 1;
 }
 
 int stfSocket_receiveData(stfSocket* s, char* data, int maxNumBytes, int* numBytesReceived)

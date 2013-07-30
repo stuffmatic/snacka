@@ -110,11 +110,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a85417f7ebe5e2ffde3a12ee39c175a8e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85417f7ebe5e2ffde3a12ee39c175a8e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>snFrameParser_init</b> (<a class="el" href="structsn_frame_parser.html">snFrameParser</a> *parser, <a class="el" href="websocket_8h.html#a29d08f4de2fef79094ca5c14ffc7fb90">snFrameCallback</a> frameCallback, void *frameCallbackData, <a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback, void *messageCallbackData, char *readBuffer, int maxFrameSize)</td></tr>
+<tr class="memitem:a85417f7ebe5e2ffde3a12ee39c175a8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frameparser_8h.html#a85417f7ebe5e2ffde3a12ee39c175a8e">snFrameParser_init</a> (<a class="el" href="structsn_frame_parser.html">snFrameParser</a> *parser, <a class="el" href="websocket_8h.html#a29d08f4de2fef79094ca5c14ffc7fb90">snFrameCallback</a> frameCallback, void *frameCallbackData, <a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback, void *messageCallbackData, char *readBuffer, int maxFrameSize)</td></tr>
 <tr class="separator:a85417f7ebe5e2ffde3a12ee39c175a8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d51d7b082fb3536bd332d45a9e49fe1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d51d7b082fb3536bd332d45a9e49fe1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>snFrameParser_deinit</b> (<a class="el" href="structsn_frame_parser.html">snFrameParser</a> *parser)</td></tr>
+<tr class="memitem:a8d51d7b082fb3536bd332d45a9e49fe1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frameparser_8h.html#a8d51d7b082fb3536bd332d45a9e49fe1">snFrameParser_deinit</a> (<a class="el" href="structsn_frame_parser.html">snFrameParser</a> *parser)</td></tr>
 <tr class="separator:a8d51d7b082fb3536bd332d45a9e49fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1542beba616a4a3c54cca378f74d46c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frameparser_8h.html#ad1542beba616a4a3c54cca378f74d46c">snFrameParser_reset</a> (<a class="el" href="structsn_frame_parser.html">snFrameParser</a> *parser)</td></tr>
 <tr class="separator:ad1542beba616a4a3c54cca378f74d46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +134,98 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>snFrameParser_deinit<
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a8d51d7b082fb3536bd332d45a9e49fe1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void snFrameParser_deinit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsn_frame_parser.html">snFrameParser</a> *&#160;</td>
+          <td class="paramname"><em>parser</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deinitializes a frame parser and frees any allocated memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parser</td><td>The parser to deinit. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a85417f7ebe5e2ffde3a12ee39c175a8e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void snFrameParser_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsn_frame_parser.html">snFrameParser</a> *&#160;</td>
+          <td class="paramname"><em>parser</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#a29d08f4de2fef79094ca5c14ffc7fb90">snFrameCallback</a>&#160;</td>
+          <td class="paramname"><em>frameCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>frameCallbackData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a>&#160;</td>
+          <td class="paramname"><em>messageCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>messageCallbackData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>readBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxFrameSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initializes a frame parser. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parser</td><td>The parser to initialize. </td></tr>
+    <tr><td class="paramname">frameCallback</td><td>A function to invoke for every received valid frame. </td></tr>
+    <tr><td class="paramname">frameDataCallback</td><td>A pointer to pass to <code>frameCallback</code>. </td></tr>
+    <tr><td class="paramname">messageCallback</td><td>A function to invoke when receiving a ping or pong or a full text or binary message. </td></tr>
+    <tr><td class="paramname">messageCallbackData</td><td>A pointer to pass to <code>messageCallback</code>. </td></tr>
+    <tr><td class="paramname">readBuffer</td><td>A buffer to store received payloads in. </td></tr>
+    <tr><td class="paramname">maxFrameSize</td><td>The maximum allowed frame size. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a6b4687dcf2ab9565684a3bcd7b2f3d12"></a>
 <div class="memitem">
 <div class="memproto">
@@ -165,6 +255,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>snFrameParser_deinit<
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Process a new chunk of data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parser</td><td>The parser doing the processing. </td></tr>
+    <tr><td class="paramname">bytes</td><td>The bytes to process. </td></tr>
+    <tr><td class="paramname">numBytes</td><td>The number of bytes to process. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>An error code, SN_NO_ERROR on success. </dd></dl>
 
 </div>
@@ -183,13 +282,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>snFrameParser_deinit<
       </table>
 </div><div class="memdoc">
 <p>Resets the parser state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parser</td><td>The parser to reset. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 12:02:47 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

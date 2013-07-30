@@ -146,7 +146,8 @@ extern "C"
     int snFrameHeader_equals(const snFrameHeader* h1, const snFrameHeader* h2);
     
     /**
-     *
+     * Prints info about a given frame header to stdout.
+     * @param h The frame header to print.
      */
     void snFrameHeader_log(const snFrameHeader* h);
     

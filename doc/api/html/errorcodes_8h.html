@@ -95,8 +95,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a4c303122d0fa790565cd2427088248ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c303122d0fa790565cd2427088248ad"></a>
-typedef enum <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>snError</b></td></tr>
+<tr class="memitem:a4c303122d0fa790565cd2427088248ad"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="errorcodes_8h.html#a4c303122d0fa790565cd2427088248ad">snError</a></td></tr>
 <tr class="separator:a4c303122d0fa790565cd2427088248ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -110,15 +109,29 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a28c8517b9da9cf71d85716c6c39c8d6c">SN_INVALID_OPCODE</a>, 
 <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a49fd7609629fee5f5565f879c6749195">SN_INVALID_URL</a>, 
 <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ade5b65fd8a4d768ab9d9dc61741bd965">SN_INVALID_UTF8</a>, 
-<b>SN_UNEXPECTED_CONTINUATION_FRAME</b>, 
+<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60aa96d92d3ca341a36a498ed49f9f25378">SN_UNEXPECTED_CONTINUATION_FRAME</a>, 
 <br/>
-&#160;&#160;<b>SN_EXPECTED_CONTINUATION_FRAME</b>, 
-<b>SN_NONZERO_RESVERVED_BIT</b>, 
-<b>SN_EXCEEDED_MAX_PAYLOAD_SIZE</b>
+&#160;&#160;<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a630bf9212409ce94386cdfb1bc2d7793">SN_EXPECTED_CONTINUATION_FRAME</a>, 
+<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ab934cf469147e679faaee8cac9834649">SN_NONZERO_RESVERVED_BIT</a>, 
+<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60adc019a9b7dbffadf2fc7147d43f1145f">SN_EXCEEDED_MAX_PAYLOAD_SIZE</a>
 <br/>
  }</td></tr>
 <tr class="separator:a355e09416ce79ad0dc2052002f215f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a4c303122d0fa790565cd2427088248ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>  <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Snacka error codes. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a class="anchor" id="a355e09416ce79ad0dc2052002f215f60"></a>
 <div class="memitem">
@@ -129,6 +142,7 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Snacka error codes. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4"></a>SN_NO_ERROR</em>&nbsp;</td><td class="fielddoc">
 <p>Success. </p>
@@ -151,6 +165,18 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60ade5b65fd8a4d768ab9d9dc61741bd965"></a>SN_INVALID_UTF8</em>&nbsp;</td><td class="fielddoc">
 <p>Encountered invalid UTF-8 data. </p>
 </td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60aa96d92d3ca341a36a498ed49f9f25378"></a>SN_UNEXPECTED_CONTINUATION_FRAME</em>&nbsp;</td><td class="fielddoc">
+<p>Received an unexpected continuation frame. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60a630bf9212409ce94386cdfb1bc2d7793"></a>SN_EXPECTED_CONTINUATION_FRAME</em>&nbsp;</td><td class="fielddoc">
+<p>Expected to get a continuation frame but got something else. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60ab934cf469147e679faaee8cac9834649"></a>SN_NONZERO_RESVERVED_BIT</em>&nbsp;</td><td class="fielddoc">
+<p>At least one of the reserved header bits RSV1, RSV2, RSV3 is not zero. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60adc019a9b7dbffadf2fc7147d43f1145f"></a>SN_EXCEEDED_MAX_PAYLOAD_SIZE</em>&nbsp;</td><td class="fielddoc">
+<p>Received a frame header with a payload size exceeding the maximum size. </p>
+</td></tr>
 </table>
 
 </div>
@@ -158,7 +184,7 @@ Enumerations</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 12:02:47 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

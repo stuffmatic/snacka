@@ -27,6 +27,8 @@
  * either expressed or implied, of the copyright holders.
  */
 
+/*! \file */
+
 #ifndef SN_LOGGING_H
 #define SN_LOGGING_H
 

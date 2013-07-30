@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send unsolicited pong with payload. Send ping with payload. Verify pong for ping is received.",
    "droppedByMe": true,
-   "duration": 3,
+   "duration": 2,
    "expectation": "Nothing in reply to own Pong, but Pong with payload echo'ed in reply to Ping. Clean close with normal code.",
    "expected": {
       "OK": [
@@ -52,7 +52,7 @@
       "18": 1,
       "181": 1
    },
-   "started": "2013-07-30T09:58:16Z",
+   "started": "2013-07-30T13:45:45Z",
    "txFrameStats": {
       "8": 1,
       "9": 1,

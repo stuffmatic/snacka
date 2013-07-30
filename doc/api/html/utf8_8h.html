@@ -104,17 +104,81 @@ typedef unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>uint3
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6ac45b590de54a038268960d75888deb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ac45b590de54a038268960d75888deb"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>snUTF8ValidateStringIncremental</b> (uint8_t *firstByte, int numBytes, uint32_t *state)</td></tr>
+<tr class="memitem:a6ac45b590de54a038268960d75888deb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8h.html#a6ac45b590de54a038268960d75888deb">snUTF8ValidateStringIncremental</a> (uint8_t *firstByte, int numBytes, uint32_t *state)</td></tr>
 <tr class="separator:a6ac45b590de54a038268960d75888deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7ae12071338964d1df535198d94f735"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7ae12071338964d1df535198d94f735"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>snUTF8ValidateString</b> (const char *string)</td></tr>
+<tr class="memitem:af7ae12071338964d1df535198d94f735"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8h.html#af7ae12071338964d1df535198d94f735">snUTF8ValidateString</a> (const char *string)</td></tr>
 <tr class="separator:af7ae12071338964d1df535198d94f735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="af7ae12071338964d1df535198d94f735"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int snUTF8ValidateString </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>string</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks if a string is valid UTF-8. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>The null terminated string to validate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the string is not valid UTF-8, non-zero otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6ac45b590de54a038268960d75888deb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int snUTF8ValidateStringIncremental </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>firstByte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *&#160;</td>
+          <td class="paramname"><em>state</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Does UTF-8 validation on a set of bytes, starting from a given state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">firstyByte</td><td>The first byte to process. </td></tr>
+    <tr><td class="paramname">numBytes</td><td>The number of bytes to process. </td></tr>
+    <tr><td class="paramname">state</td><td>On input, the initial validator state. On output, the validator state after processing the data. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 12:02:47 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

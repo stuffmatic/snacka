@@ -38,7 +38,7 @@ extern "C"
 #endif /* __cplusplus */
  
     /**
-     *
+     * Snacka error codes.
      */
     typedef enum snError
     {
@@ -56,13 +56,13 @@ extern "C"
         SN_INVALID_URL,
         /** Encountered invalid UTF-8 data. */
         SN_INVALID_UTF8,
-        /** */
+        /** Received an unexpected continuation frame. */
         SN_UNEXPECTED_CONTINUATION_FRAME,
-        /** */
+        /** Expected to get a continuation frame but got something else. */
         SN_EXPECTED_CONTINUATION_FRAME,
-        /** */
+        /** At least one of the reserved header bits RSV1, RSV2, RSV3 is not zero. */
         SN_NONZERO_RESVERVED_BIT,
-        /** */
+        /** Received a frame header with a payload size exceeding the maximum size. */
         SN_EXCEEDED_MAX_PAYLOAD_SIZE
     } snError;
     

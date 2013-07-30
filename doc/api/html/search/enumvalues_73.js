@@ -1,12 +1,15 @@
 var searchData=
 [
   ['sn_5fcontrol_5fframe_5fpayload_5ftoo_5flarge',['SN_CONTROL_FRAME_PAYLOAD_TOO_LARGE',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a3a7f4fc14a63563f589d181f82a5545a',1,'errorcodes.h']]],
+  ['sn_5fexceeded_5fmax_5fpayload_5fsize',['SN_EXCEEDED_MAX_PAYLOAD_SIZE',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60adc019a9b7dbffadf2fc7147d43f1145f',1,'errorcodes.h']]],
+  ['sn_5fexpected_5fcontinuation_5fframe',['SN_EXPECTED_CONTINUATION_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a630bf9212409ce94386cdfb1bc2d7793',1,'errorcodes.h']]],
   ['sn_5finvalid_5fopcode',['SN_INVALID_OPCODE',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a28c8517b9da9cf71d85716c6c39c8d6c',1,'errorcodes.h']]],
   ['sn_5finvalid_5furl',['SN_INVALID_URL',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a49fd7609629fee5f5565f879c6749195',1,'errorcodes.h']]],
   ['sn_5finvalid_5futf8',['SN_INVALID_UTF8',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ade5b65fd8a4d768ab9d9dc61741bd965',1,'errorcodes.h']]],
   ['sn_5fmasking_5fkey_5fis_5fzero',['SN_MASKING_KEY_IS_ZERO',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ac40b0c3563a2cf7f997b09699c8904a5',1,'errorcodes.h']]],
   ['sn_5fno_5ferror',['SN_NO_ERROR',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4',1,'errorcodes.h']]],
   ['sn_5fnon_5ffinal_5fcontrol_5fframe',['SN_NON_FINAL_CONTROL_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ad97208308325f856cc6827457b122684',1,'errorcodes.h']]],
+  ['sn_5fnonzero_5fresverved_5fbit',['SN_NONZERO_RESVERVED_BIT',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ab934cf469147e679faaee8cac9834649',1,'errorcodes.h']]],
   ['sn_5fstatus_5fendpoint_5fgoing_5faway',['SN_STATUS_ENDPOINT_GOING_AWAY',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca4575418ca776fbd3eb58251d6300ea1e',1,'websocket.h']]],
   ['sn_5fstatus_5finconsistent_5fdata',['SN_STATUS_INCONSISTENT_DATA',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca1ffc460ce6e760bee00feead6bf6701c',1,'websocket.h']]],
   ['sn_5fstatus_5finvalid_5fdata',['SN_STATUS_INVALID_DATA',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca70c606773af8aef704746e3c78a2a411',1,'websocket.h']]],
@@ -19,5 +22,6 @@ var searchData=
   ['sn_5fstatus_5freserved_5f2',['SN_STATUS_RESERVED_2',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049cadcb1d990ac23c177d9c1b1c67133d282',1,'websocket.h']]],
   ['sn_5fstatus_5freserved_5f3',['SN_STATUS_RESERVED_3',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca161d9317916809abc3adcb98fe58e90b',1,'websocket.h']]],
   ['sn_5fstatus_5freserved_5f4',['SN_STATUS_RESERVED_4',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049caf3249f7b5e97d6bf566be3a5ab7c717c',1,'websocket.h']]],
-  ['sn_5fstatus_5funexpected_5ferror',['SN_STATUS_UNEXPECTED_ERROR',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049caa0a2ae1b2dc80f0e5aa1738d0999297f',1,'websocket.h']]]
+  ['sn_5fstatus_5funexpected_5ferror',['SN_STATUS_UNEXPECTED_ERROR',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049caa0a2ae1b2dc80f0e5aa1738d0999297f',1,'websocket.h']]],
+  ['sn_5funexpected_5fcontinuation_5fframe',['SN_UNEXPECTED_CONTINUATION_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60aa96d92d3ca341a36a498ed49f9f25378',1,'errorcodes.h']]]
 ];

@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text message with payload of length 65536 auto-fragmented with <b>autoFragmentSize = 1300</b>.",
    "droppedByMe": true,
-   "duration": 136,
+   "duration": 140,
    "expectation": "Receive echo'ed text message (with payload as sent and transmitted frame counts as expected). Clean close with normal code.",
    "expected": {
       "OK": [
@@ -51,11 +51,11 @@
    },
    "rxOctetStats": {
       "8": 1,
+      "14": 1,
       "182": 1,
-      "27662": 1,
-      "37888": 1
+      "65536": 1
    },
-   "started": "2013-07-30T10:03:24Z",
+   "started": "2013-07-30T13:50:51Z",
    "txFrameStats": {
       "0": 50,
       "1": 1,
@@ -1217,14 +1217,14 @@
       [
          "RO",
          [
-            27662,
-            "81ff000000000001000074c044ef5eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea ..."
+            14,
+            "81ff000000000001000074c044ef"
          ]
       ],
       [
          "RO",
          [
-            37888,
+            65536,
             "5eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec55eea6ec5 ..."
          ]
       ],

@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send binary message message with payload of length 65535.",
    "droppedByMe": true,
-   "duration": 136,
+   "duration": 133,
    "expectation": "Receive echo'ed binary message (with payload as sent). Clean close with normal code.",
    "expected": {
       "OK": [
@@ -50,12 +50,11 @@
       "8": 1
    },
    "rxOctetStats": {
-      "8": 1,
+      "8": 2,
       "181": 1,
-      "13320": 1,
-      "52223": 1
+      "65535": 1
    },
-   "started": "2013-07-30T09:58:16Z",
+   "started": "2013-07-30T13:45:44Z",
    "txFrameStats": {
       "2": 1,
       "8": 1
@@ -115,14 +114,14 @@
       [
          "RO",
          [
-            13320,
-            "82feffff53b39dd6ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328 ..."
+            8,
+            "82feffff53b39dd6"
          ]
       ],
       [
          "RO",
          [
-            52223,
+            65535,
             "ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328ad4d6328 ..."
          ]
       ],

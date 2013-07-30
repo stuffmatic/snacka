@@ -1,10 +1,12 @@
 var searchData=
 [
+  ['snerror',['snError',['../errorcodes_8h.html#a4c303122d0fa790565cd2427088248ad',1,'errorcodes.h']]],
   ['snframe',['snFrame',['../frame_8h.html#af3108888927657a0dfb24f82c16c533d',1,'frame.h']]],
   ['snframecallback',['snFrameCallback',['../websocket_8h.html#a29d08f4de2fef79094ca5c14ffc7fb90',1,'websocket.h']]],
   ['snframeheader',['snFrameHeader',['../frameheader_8h.html#ac180ced86fe08e1afcdffe137f40aabf',1,'frameheader.h']]],
   ['snframeparser',['snFrameParser',['../frameparser_8h.html#aeee5bf35888308f5f8dc02428f5d9b9d',1,'frameparser.h']]],
   ['sniocallbacks',['snIOCallbacks',['../iocallbacks_8h.html#a594b482ea21ad5547acb619aa57c54e8',1,'iocallbacks.h']]],
+  ['snlogcallback',['snLogCallback',['../logging_8h.html#a81e60c85127063a72d4313242c14771e',1,'logging.h']]],
   ['snmessagecallback',['snMessageCallback',['../websocket_8h.html#ae88607b775bfd8582e0594bba3960342',1,'websocket.h']]],
   ['snopcode',['snOpcode',['../frameheader_8h.html#ae03a75ba7fedfb7489113e6b289c8447',1,'frameheader.h']]],
   ['snreadystate',['snReadyState',['../websocket_8h.html#af4c53db5552eee33a84d826485974221',1,'websocket.h']]],
@@ -15,5 +17,6 @@ var searchData=
   ['snwebsocketiodisconnectcallback',['snWebsocketIODisconnectCallback',['../iocallbacks_8h.html#adfcb73b97e9b97a4fdd70690161d6b8f',1,'iocallbacks.h']]],
   ['snwebsocketioinitcallback',['snWebsocketIOInitCallback',['../iocallbacks_8h.html#ae791e32a9a9211b7d7fece27015206e1',1,'iocallbacks.h']]],
   ['snwebsocketioreadcallback',['snWebsocketIOReadCallback',['../iocallbacks_8h.html#abf87216883ebcf4013f09244da034d95',1,'iocallbacks.h']]],
-  ['snwebsocketiowritecallback',['snWebsocketIOWriteCallback',['../iocallbacks_8h.html#ac4b1d504bf4c390b981f243414390fd2',1,'iocallbacks.h']]]
+  ['snwebsocketiowritecallback',['snWebsocketIOWriteCallback',['../iocallbacks_8h.html#ac4b1d504bf4c390b981f243414390fd2',1,'iocallbacks.h']]],
+  ['snwebsocketsettings',['snWebsocketSettings',['../websocket_8h.html#a3e88e034b6a30310989aba5cd2b04269',1,'websocket.h']]]
 ];

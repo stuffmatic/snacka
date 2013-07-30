@@ -43,12 +43,19 @@ extern "C"
 #endif /* __cplusplus */
    
     /**
-     *
+     * Does UTF-8 validation on a set of bytes, starting from a given
+     * state. 
+     * @param firstyByte The first byte to process.
+     * @param numBytes The number of bytes to process.
+     * @param state On input, the initial validator state. On output, the validator
+     * state after processing the data. 
      */
     int snUTF8ValidateStringIncremental(uint8_t* firstByte, int numBytes, uint32_t* state);
     
     /** 
-     * 
+     * Checks if a string is valid UTF-8.
+     * @param string The null terminated string to validate.
+     * @return 0 if the string is not valid UTF-8, non-zero otherwise.
      */
     int snUTF8ValidateString(const char* string);
        

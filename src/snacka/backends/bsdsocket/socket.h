@@ -73,7 +73,8 @@ extern "C"
     int stfSocket_isConnected(stfSocket* socket);
     
     /** */
-    int stfSocket_sendData(stfSocket* socket, const char* data, int numBytes, int* numSentBytes);
+    int stfSocket_sendData(stfSocket* socket, const char* data, int numBytes, int* numSentBytes,
+                           stfSocketConnectWaitCallback connectWaitCallback, void* callbackData);
 
     /** */    
     int stfSocket_receiveData(stfSocket* s, char* data, int maxNumBytes, int* numBytesReceived);

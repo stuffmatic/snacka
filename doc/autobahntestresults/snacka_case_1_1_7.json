@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text message message with payload of length 65536.",
    "droppedByMe": true,
-   "duration": 139,
+   "duration": 138,
    "expectation": "Receive echo'ed text message (with payload as sent). Clean close with normal code.",
    "expected": {
       "OK": [
@@ -51,11 +51,11 @@
    },
    "rxOctetStats": {
       "8": 1,
+      "14": 1,
       "180": 1,
-      "14350": 1,
-      "51200": 1
+      "65536": 1
    },
-   "started": "2013-07-30T09:58:15Z",
+   "started": "2013-07-30T13:45:44Z",
    "txFrameStats": {
       "1": 1,
       "8": 1
@@ -115,14 +115,14 @@
       [
          "RO",
          [
-            14350,
-            "81ff0000000000010000046cdbe22e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46 ..."
+            14,
+            "81ff0000000000010000046cdbe2"
          ]
       ],
       [
          "RO",
          [
-            51200,
+            65536,
             "2e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c82e46f1c8 ..."
          ]
       ],

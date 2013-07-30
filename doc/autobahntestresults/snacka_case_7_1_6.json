@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send 256K message followed by close then a ping",
    "droppedByMe": true,
-   "duration": 546,
+   "duration": 545,
    "expectation": "Case outcome depends on implimentation defined close behavior. Message and close frame are sent back to back. If the close frame is processed before the text message write is complete (as can happen in asyncronous processing models) the close frame is processed first and the text message may not be recieved or may only be partially recieved.",
    "expected": {
       "NON-STRICT": [],
@@ -56,12 +56,12 @@
       "8": 1
    },
    "rxOctetStats": {
+      "14": 1,
+      "26": 1,
       "182": 1,
-      "11278": 1,
-      "54298": 1,
-      "65536": 3
+      "65536": 4
    },
-   "started": "2013-07-30T09:58:23Z",
+   "started": "2013-07-30T13:45:51Z",
    "txFrameStats": {
       "1": 2,
       "8": 1,
@@ -190,15 +190,8 @@
       [
          "RO",
          [
-            11278,
-            "81ff000000000004000078eda9163aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4ade ..."
-         ]
-      ],
-      [
-         "RO",
-         [
-            65536,
-            "4fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e ..."
+            14,
+            "81ff000000000004000078eda916"
          ]
       ],
       [
@@ -218,8 +211,15 @@
       [
          "RO",
          [
-            54298,
+            65536,
             "0b899e3012859b253aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4adeeb570b899e30 ..."
+         ]
+      ],
+      [
+         "RO",
+         [
+            65536,
+            "4adeeb570b899e3012859b253aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4adeeb570b899e3012859b253aacda724fcbc37e4adeeb57 ..."
          ]
       ],
       [
@@ -233,6 +233,13 @@
          0,
          true,
          "78eda916"
+      ],
+      [
+         "RO",
+         [
+            26,
+            "818c3af82160729d4d0c55d8760f489445418882785743de7bbf"
+         ]
       ],
       [
          "RF",

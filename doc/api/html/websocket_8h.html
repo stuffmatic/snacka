@@ -85,7 +85,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">websocket.h File Reference</div>  </div>
@@ -94,7 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="errorcodes_8h_source.html">errorcodes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="frame_8h_source.html">frame.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="iocallbacks_8h_source.html">iocallbacks.h</a>&quot;</code><br/>
-<code>#include &quot;logging.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="logging_8h_source.html">logging.h</a>&quot;</code><br/>
 </div>
 <p><a href="websocket_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -102,12 +101,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:afd9e8246f03627d2b81bddfe14161c43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd9e8246f03627d2b81bddfe14161c43"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SN_DEFAULT_MAX_FRAME_SIZE</b>&#160;&#160;&#160;1 &lt;&lt; 16</td></tr>
-<tr class="separator:afd9e8246f03627d2b81bddfe14161c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -157,8 +150,7 @@ Constants</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 API</h2></td></tr>
-<tr class="memitem:a3e88e034b6a30310989aba5cd2b04269"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e88e034b6a30310989aba5cd2b04269"></a>
-typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><b>snWebsocketSettings</b></td></tr>
+<tr class="memitem:a3e88e034b6a30310989aba5cd2b04269"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a3e88e034b6a30310989aba5cd2b04269">snWebsocketSettings</a></td></tr>
 <tr class="separator:a3e88e034b6a30310989aba5cd2b04269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74e7146d26fe3f19e9bc1147425a0433"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a74e7146d26fe3f19e9bc1147425a0433">snWebsocket_create</a> (<a class="el" href="websocket_8h.html#a3141677cb6695b276e354a7e2f451ec1">snReadyStateCallback</a> stateCallback, <a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback, void *callbackData)</td></tr>
 <tr class="separator:a74e7146d26fe3f19e9bc1147425a0433"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,9 +211,9 @@ typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocket
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userData</td><td>Custom user data. </td></tr>
-    <tr><td class="paramname">opcode</td><td>The message type. One of <code>SN_OPCODE_PING</code>, <code>SN_OPCODE_PONG</code>, <code>SN_OPCODE_TEST</code> and <code>SN_OPCODE_BINARY</code>. </td></tr>
-    <tr><td class="paramname">bytes</td><td></td></tr>
-    <tr><td class="paramname">numBytes</td><td></td></tr>
+    <tr><td class="paramname">opcode</td><td>The message type. One of <code>SN_OPCODE_PING</code>, <code>SN_OPCODE_PONG</code>, <code>SN_OPCODE_TEXT</code> and <code>SN_OPCODE_BINARY</code>. </td></tr>
+    <tr><td class="paramname">bytes</td><td>The message data. </td></tr>
+    <tr><td class="paramname">numBytes</td><td>The number of message bytes. If <code>opcode</code> is <code>SN_OPCODE_TEXT</code>, <code>bytes</code> is null terminated and <code>numBytes</code> is the message size excluding the last null byte. </td></tr>
   </table>
   </dd>
 </dl>
@@ -274,6 +266,19 @@ typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocket
 </div><div class="memdoc">
 <p>Websocket status codes. </p>
 <dl class="section see"><dt>See Also</dt><dd><a href="https://tools.ietf.org/html/rfc6455#section-7.4.1">https://tools.ietf.org/html/rfc6455#section-7.4.1</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3e88e034b6a30310989aba5cd2b04269"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a>  <a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Websocket creation settings. </p>
 
 </div>
 </div>
@@ -412,11 +417,11 @@ typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocket
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initializes a web socket using socket I/O. </p>
+<p>Creates a new web socket. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stateCallback</td><td>Ignored if NULL. </td></tr>
-    <tr><td class="paramname">messageCallback</td><td>Ignored if NULL. </td></tr>
+    <tr><td class="paramname">stateCallback</td><td>A function to call when the connection state changes. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">messageCallback</td><td>A function to call when receiving pings, pongs or full text or binary messages. Ignored if NULL. </td></tr>
     <tr><td class="paramname">callbackData</td><td>A pointer passed to <code>stateCallback</code> and <code>messageCallback</code>. </td></tr>
   </table>
   </dd>
@@ -460,13 +465,13 @@ typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocket
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initializes a web socket using custom I/O. </p>
+<p>Initializes a web socket using custom settings. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stateCallback</td><td>Ignored if NULL. </td></tr>
-    <tr><td class="paramname">messageCallback</td><td>Ignored if NULL. </td></tr>
+    <tr><td class="paramname">stateCallback</td><td>A function to call when the connection state changes. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">messageCallback</td><td>A function to call when receiving pings, pongs or full text or binary messages. Ignored if NULL. </td></tr>
     <tr><td class="paramname">callbackData</td><td>A pointer passed to <code>stateCallback</code> and <code>messageCallback</code>. </td></tr>
-    <tr><td class="paramname">settings</td><td>Additional websocket settings. </td></tr>
+    <tr><td class="paramname">settings</td><td>Custom websocket settings. </td></tr>
   </table>
   </dd>
 </dl>
@@ -738,7 +743,7 @@ typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocket
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 12:02:47 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

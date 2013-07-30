@@ -47,7 +47,6 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-#define SN_DEFAULT_MAX_FRAME_SIZE 1 << 16
     
     typedef struct snWebsocket snWebsocket;
 
@@ -182,9 +181,11 @@ extern "C"
      * Called when a new incoming ping/pong or text/binary message is available.
      * @param userData Custom user data.
      * @param opcode The message type. One of \c SN_OPCODE_PING, \c SN_OPCODE_PONG,
-     * \c SN_OPCODE_TEST and \c SN_OPCODE_BINARY.
-     * @param bytes 
-     * @param numBytes
+     * \c SN_OPCODE_TEXT and \c SN_OPCODE_BINARY.
+     * @param bytes The message data.
+     * @param numBytes The number of message bytes. If \c opcode is \c SN_OPCODE_TEXT,
+     * \c bytes is null terminated and \c numBytes is the message size excluding the
+     * last null byte.
      */
     typedef void (*snMessageCallback)(void* userData, snOpcode opcode, const char* bytes, int numBytes);
     
@@ -204,7 +205,7 @@ extern "C"
     /** @{ */
     
     /**
-     *
+     * Websocket creation settings.
      */
     typedef struct snWebsocketSettings
     {
@@ -222,9 +223,10 @@ extern "C"
     } snWebsocketSettings;
     
     /**
-     * Initializes a web socket using socket I/O.
-     * @param stateCallback Ignored if NULL.
-     * @param messageCallback Ignored if NULL.
+     * Creates a new web socket.
+     * @param stateCallback A function to call when the connection state changes. Ignored if NULL.
+     * @param messageCallback A function to call when receiving pings, pongs or 
+     * full text or binary messages. Ignored if NULL.
      * @param callbackData A pointer passed to \c stateCallback and \c messageCallback.
      * @return The created websocket or NULL on error.
      */
@@ -233,11 +235,12 @@ extern "C"
                                     void* callbackData);
     
     /**
-     * Initializes a web socket using custom I/O.
-     * @param stateCallback Ignored if NULL.
-     * @param messageCallback Ignored if NULL.
+     * Initializes a web socket using custom settings.
+     * @param stateCallback A function to call when the connection state changes. Ignored if NULL.
+     * @param messageCallback A function to call when receiving pings, pongs or
+     * full text or binary messages. Ignored if NULL.
      * @param callbackData A pointer passed to \c stateCallback and \c messageCallback.
-     * @param settings Additional websocket settings.
+     * @param settings Custom websocket settings.
      * @return The created websocket or NULL on error.
      */
     snWebsocket* snWebsocket_createWithSettings(snReadyStateCallback stateCallback,

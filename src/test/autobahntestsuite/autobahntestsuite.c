@@ -122,6 +122,7 @@ int main(int argc, const char* argv[])
         printf("----------------------\n");
         
         for (int i = 0; i < test.testCount; i++)
+        //for (int i = 246; i < 254; i++)
         {
             //form the URL of the current test and connect
             char testCaseURL[1024];

@@ -45,14 +45,15 @@ extern "C"
      */
     typedef struct snFrame
     {
-        /**  */
+        /** The frame header. */
         snFrameHeader header;
-        /** */
+        /** The frame payload. */
         const char* payload;
     } snFrame;
     
     /**
-     * 
+     * Prints info about a given frame to stdout.
+     * @param frame The frame to print.
      */
     void snFrame_log(const snFrame* frame);
     
