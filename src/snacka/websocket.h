@@ -1,0 +1,328 @@
+/*
+ * Copyright (c) 2013, Per Gantelius
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * The views and conclusions contained in the software and documentation are those
+ * of the authors and should not be interpreted asrepresenting official policies,
+ * either expressed or implied, of the copyright holders.
+ */
+
+#ifndef SN_WEBSOCKET_H
+#define SN_WEBSOCKET_H
+
+/*! \file
+ 
+ http://www.w3.org/TR/2011/WD-websockets-20110419/
+ https://tools.ietf.org/html/rfc6455
+ 
+ */
+
+#include "errorcodes.h"
+#include "frame.h"
+#include "iocallbacks.h"
+#include "logging.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+    
+#define SN_DEFAULT_MAX_FRAME_SIZE 1 << 16
+    
+    typedef struct snWebsocket snWebsocket;
+
+    /**
+     * @name Constants
+     */
+    /** @{ */
+    
+    /**
+     * Websocket ready states.
+     * @see http://www.w3.org/TR/2011/WD-websockets-20110419/#the-websocket-interface
+     */
+    typedef enum snReadyState
+    {
+        SN_STATE_CONNECTING = 0,
+        SN_STATE_OPEN = 1,
+        SN_STATE_CLOSING = 2,
+        SN_STATE_CLOSED = 3
+    } snReadyState;
+    
+    /**
+     * Websocket status codes.
+     * @see https://tools.ietf.org/html/rfc6455#section-7.4.1
+     */
+    typedef enum snStatusCode
+    {
+        /**
+         * Indicates a normal closure, meaning that the purpose for
+         * which the connection was established has been fulfilled.
+         */
+        SN_STATUS_NORMAL_CLOSURE = 1000,
+        /**
+         * Indicates that an endpoint is "going away", such as a server
+         * going down or a browser having navigated away from a page.
+         */
+        SN_STATUS_ENDPOINT_GOING_AWAY = 1001,
+        /**
+         * Indicates that an endpoint is terminating the connection due
+         * to a protocol error.
+         */
+        SN_STATUS_PROTOCOL_ERROR = 1002,
+        /**
+         * Indicates that an endpoint is terminating the connection
+         * because it has received a type of data it cannot accept (e.g., an
+         * endpoint that understands only text data MAY send this if it
+         * receives a binary message).
+         */
+        SN_STATUS_INVALID_DATA = 1003,
+        /**
+         * Reserved. The specific meaning might be defined in the future.
+         */
+        SN_STATUS_RESERVED_1 = 1004,
+        /**
+         * A reserved value and MUST NOT be set as a status code in a
+         * Close control frame by an endpoint.  It is designated for use in
+         * applications expecting a status code to indicate that no status
+         * code was actually present.
+         */
+        SN_STATUS_RESERVED_2 = 1005,
+        /**
+         * A reserved value and MUST NOT be set as a status code in a
+         * Close control frame by an endpoint.  It is designated for use in
+         * applications expecting a status code to indicate that the
+         * connection was closed abnormally, e.g., without sending or
+         * receiving a Close control frame.
+         */
+        SN_STATUS_RESERVED_3 = 1006,
+        /**
+         * Indicates that an endpoint is terminating the connection
+         * because it has received data within a message that was not
+         * consistent with the type of the message (e.g., non-UTF-8 [RFC3629]
+         * data within a text message).
+         */
+        SN_STATUS_INCONSISTENT_DATA = 1007,
+        /**
+         * Indicates that an endpoint is terminating the connection
+         * because it has received a message that violates its policy.  This
+         * is a generic status code that can be returned when there is no
+         * other more suitable status code (e.g., 1003 or 1009) or if there
+         * is a need to hide specific details about the policy.
+         */
+        SN_STATUS_POLICY_VIOLATION = 1008,
+        /**
+         * Indicates that an endpoint is terminating the connection
+         * because it has received a message that is too big for it to
+         * process.
+         */
+        SN_STATUS_MESSAGE_TOO_BIG = 1009,
+        /**
+         * Indicates that an endpoint (client) is terminating the
+         * connection because it has expected the server to negotiate one or
+         * more extension, but the server didn't return them in the response
+         * message of the WebSocket handshake.  The list of extensions that
+         * are needed SHOULD appear in the /reason/ part of the Close frame.
+         * Note that this status code is not used by the server, because it
+         * can fail the WebSocket handshake instead.
+         */
+        SN_STATUS_MISSING_EXTENSION = 1010,
+        /**
+         * Indicates that a server is terminating the connection because
+         * it encountered an unexpected condition that prevented it from
+         * fulfilling the request.
+         */
+        SN_STATUS_UNEXPECTED_ERROR = 1011,
+        /**
+         * Is a reserved value and MUST NOT be set as a status code in a
+         * Close control frame by an endpoint.  It is designated for use in
+         * applications expecting a status code to indicate that the
+         * connection was closed due to a failure to perform a TLS handshake
+         * (e.g., the server certificate can't be verified).
+         */
+        SN_STATUS_RESERVED_4 = 1015,
+        
+    } snStatusCode;
+    
+    /** @} */
+    
+    /**
+     * @name Callbacks
+     */
+    /** @{ */
+    
+    /**
+     * Called when a new incoming frame is available,
+     * including non-final continuation frames.
+     * @param userData Custom user data.
+     * @param frame The received frame.
+     */
+    typedef void (*snFrameCallback)(void* userData, const snFrame* frame);
+    
+    /**
+     * Called when a new incoming ping/pong or text/binary message is available.
+     * @param userData Custom user data.
+     * @param opcode The message type. One of \c SN_OPCODE_PING, \c SN_OPCODE_PONG,
+     * \c SN_OPCODE_TEST and \c SN_OPCODE_BINARY.
+     * @param bytes 
+     * @param numBytes
+     */
+    typedef void (*snMessageCallback)(void* userData, snOpcode opcode, const char* bytes, int numBytes);
+    
+    /**
+     * Notifies the application of connection state changes.
+     * @param userData
+     * @param state
+     * @param statusCode 
+     */
+    typedef void (*snReadyStateCallback)(void* userData, snReadyState state, int statusCode);
+    
+    /** @} */
+    
+    /**
+     * @name API
+     */
+    /** @{ */
+    
+    /**
+     *
+     */
+    typedef struct snWebsocketSettings
+    {
+        /** 
+         * The desired maximum frame size in bytes. If 0, the default
+         * max size will be used.
+         */
+        int maxFrameSize;
+        /** */
+        snLogCallback logCallback;
+        /** A callback to pass received frames to. Ignored if NULL. */
+        snFrameCallback frameCallback;
+        /** If NULL, default socket I/O is used. */
+        snIOCallbacks* ioCallbacks;
+    } snWebsocketSettings;
+    
+    /**
+     * Initializes a web socket using socket I/O.
+     * @param stateCallback Ignored if NULL.
+     * @param messageCallback Ignored if NULL.
+     * @param callbackData A pointer passed to \c stateCallback and \c messageCallback.
+     * @return The created websocket or NULL on error.
+     */
+    snWebsocket* snWebsocket_create(snReadyStateCallback stateCallback,
+                                    snMessageCallback messageCallback,
+                                    void* callbackData);
+    
+    /**
+     * Initializes a web socket using custom I/O.
+     * @param stateCallback Ignored if NULL.
+     * @param messageCallback Ignored if NULL.
+     * @param callbackData A pointer passed to \c stateCallback and \c messageCallback.
+     * @param settings Additional websocket settings.
+     * @return The created websocket or NULL on error.
+     */
+    snWebsocket* snWebsocket_createWithSettings(snReadyStateCallback stateCallback,
+                                                snMessageCallback messageCallback,
+                                                void* callbackData,
+                                                snWebsocketSettings* settings);
+    
+    /**
+     * Closes and deletes a given websocket.
+     * @param ws The websocket to delete.
+     */
+    void snWebsocket_delete(snWebsocket* ws);
+    
+    /**
+     * Connects to a given host.
+     * @param ws The websocket.
+     * @param url The URL to connect to.
+     * @return An error code.
+     */
+    snError snWebsocket_connect(snWebsocket* ws, const char* url);
+    
+    /**
+     * Disconnect from the current host, if any.
+     * @param ws The websocket to disconnect.
+     */
+    void snWebsocket_disconnect(snWebsocket* ws);
+    
+    /**
+     * Check the state of a websocket.
+     * @param ws The websocket.
+     * @return The websocket state.
+     */
+    snReadyState snWebsocket_getState(snWebsocket* ws);
+        
+    /**
+     * Send a ping message.
+     * @param ws The websocket.
+     * @param payloadSize The size of the payload in bytes.
+     * @param payload The payload.
+     * @return An error code.
+     */
+    snError snWebsocket_sendPing(snWebsocket* ws, int payloadSize, const char* payload);
+    
+    /**
+     * Send a text message.
+     * @param ws The websocket.
+     * @param payload UTF-8 data to send.
+     * @return An error code.
+     */
+    snError snWebsocket_sendTextData(snWebsocket* ws, const char* payload);
+    
+    /**
+     * Send a binary message.
+     * @param ws The websocket.
+     * @param payloadSize The size of the payload in bytes.
+     * @param payload The bytes to send.
+     * @return An error code.
+     */
+    snError snWebsocket_sendBinaryData(snWebsocket* ws, int payloadSize, const char* payload);
+    
+    /**
+     * Send a frame with a given opcode and payload.
+     * @param ws The websocket.
+     * @param opcode The opcode of the frame to send.
+     * @param payloadSize The size of the payload in bytes.
+     * @param payload The payload data.
+     * @return An error code.
+     */
+    snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int payloadSize, const char* payload);
+    
+    /**
+     * Receives incoming data, if any, and notifies the caller of newly available frames
+     * and connection state changes.
+     * @param ws The websocket
+     */
+    void snWebsocket_poll(snWebsocket* ws);
+    
+    /** @} */
+    
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+
+#endif /*SN_WEBSOCKET_H*/
+
+
+

@@ -1,0 +1,15 @@
+//Instructions for Doxygen on how to generate 
+//API documentation.
+PROJECT_NAME      = "Snacka websocket client"
+OUTPUT_DIRECTORY  = doc/api
+GENERATE_MAN      = NO
+GENERATE_LATEX    = NO
+GENERATE_HTML     = YES
+GENERATE_HTMLHELP = NO
+GENERATE_RTF      = NO
+GENERATE_XML      = NO
+INPUT             = src/snacka .
+FILE_PATTERNS     = *.h *.c *.m readme.md
+USE_MDFILE_AS_MAINPAGE = readme.md
+EXCLUDE_PATTERNS  = ._*
+OPTIMIZE_OUTPUT_FOR_C = YES

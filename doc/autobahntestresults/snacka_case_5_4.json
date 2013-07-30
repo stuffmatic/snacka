@@ -1,0 +1,198 @@
+{
+   "agent": "snacka",
+   "behavior": "OK",
+   "behaviorClose": "OK",
+   "case": 48,
+   "closedByMe": true,
+   "createStats": true,
+   "createWirelog": true,
+   "description": "Send text Message fragmented into 2 fragments, octets are sent in frame-wise chops.",
+   "droppedByMe": true,
+   "duration": 3,
+   "expectation": "Message is processed and echo'ed back to us.",
+   "expected": {
+      "OK": [
+         [
+            "message",
+            "0x667261676d656e7431667261676d656e7432",
+            false
+         ]
+      ]
+   },
+   "expectedClose": {
+      "closeCode": [
+         1000
+      ],
+      "closedByMe": true,
+      "requireClean": true
+   },
+   "failedByMe": false,
+   "httpRequest": "GET /runCase?case=48&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
+   "httpResponse": "HTTP/1.1 101 Switching Protocols\r\nServer: AutobahnTestSuite/0.5.5-0.5.14\r\nUpgrade: WebSocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n\r\n",
+   "id": "5.4",
+   "isServer": true,
+   "localCloseCode": 1000,
+   "localCloseReason": null,
+   "received": [
+      [
+         "message",
+         "0x667261676d656e7431667261676d656e7432",
+         false
+      ]
+   ],
+   "remoteCloseCode": 1000,
+   "remoteCloseReason": null,
+   "reportTime": false,
+   "result": "Actual events match at least one expected.",
+   "resultClose": "Connection was properly closed",
+   "rxFrameStats": {
+      "1": 1,
+      "8": 1
+   },
+   "rxOctetStats": {
+      "8": 1,
+      "24": 1,
+      "181": 1
+   },
+   "started": "2013-07-30T09:58:16Z",
+   "txFrameStats": {
+      "0": 1,
+      "1": 1,
+      "8": 1
+   },
+   "txOctetStats": {
+      "4": 1,
+      "11": 2,
+      "169": 1
+   },
+   "wasClean": true,
+   "wasCloseHandshakeTimeout": false,
+   "wasNotCleanReason": null,
+   "wasOpenHandshakeTimeout": false,
+   "wasServerConnectionDropTimeout": false,
+   "wirelog": [
+      [
+         "RO",
+         [
+            181,
+            "474554202f72756e436173653f636173653d3438266167656e743d736e61636b6120485454502f312e310d0a486f73743a206c6f63616c686f73743a39303031 ..."
+         ]
+      ],
+      [
+         "TO",
+         [
+            169,
+            "485454502f312e312031303120537769746368696e672050726f746f636f6c730d0a5365727665723a204175746f6261686e5465737453756974652f302e352e ..."
+         ],
+         false
+      ],
+      [
+         "TF",
+         [
+            9,
+            "0x667261676d656e7431"
+         ],
+         1,
+         false,
+         0,
+         null,
+         null,
+         null,
+         true
+      ],
+      [
+         "TO",
+         [
+            11,
+            "0109667261676d656e7431"
+         ],
+         true
+      ],
+      [
+         "TF",
+         [
+            9,
+            "0x667261676d656e7432"
+         ],
+         0,
+         true,
+         0,
+         null,
+         null,
+         null,
+         true
+      ],
+      [
+         "TI",
+         1
+      ],
+      [
+         "TO",
+         [
+            11,
+            "8009667261676d656e7432"
+         ],
+         true
+      ],
+      [
+         "RO",
+         [
+            24,
+            "819244c6606d22b4010a29a30e1975a0120c23ab050330f4"
+         ]
+      ],
+      [
+         "RF",
+         [
+            18,
+            "0x667261676d656e7431667261676d656e7432"
+         ],
+         1,
+         true,
+         0,
+         true,
+         "44c6606d"
+      ],
+      [
+         "TF",
+         [
+            2,
+            "0x03e8"
+         ],
+         8,
+         true,
+         0,
+         null,
+         null,
+         null,
+         false
+      ],
+      [
+         "TO",
+         [
+            4,
+            "880203e8"
+         ],
+         false
+      ],
+      [
+         "RO",
+         [
+            8,
+            "88823be4b761380c"
+         ]
+      ],
+      [
+         "RF",
+         [
+            2,
+            "0x03e8"
+         ],
+         8,
+         true,
+         0,
+         true,
+         "3be4b761"
+      ]
+   ]
+}

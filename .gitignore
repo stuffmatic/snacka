@@ -1,0 +1,6 @@
+build
+._*
+*.class
+xcuserdata
+*.xcworkspace
+todo.txt
