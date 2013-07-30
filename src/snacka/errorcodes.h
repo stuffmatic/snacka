@@ -63,7 +63,9 @@ extern "C"
         /** At least one of the reserved header bits RSV1, RSV2, RSV3 is not zero. */
         SN_NONZERO_RESVERVED_BIT,
         /** Received a frame header with a payload size exceeding the maximum size. */
-        SN_EXCEEDED_MAX_PAYLOAD_SIZE
+        SN_EXCEEDED_MAX_PAYLOAD_SIZE,
+        /** Failed to connect to the underlying socket. */
+        SN_SOCKET_FAILED_TO_CONNECT
     } snError;
     
 #ifdef __cplusplus

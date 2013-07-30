@@ -29,6 +29,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <sys/time.h>
 
 #include <uriparser/Uri.h>
 
@@ -45,6 +46,7 @@
 
 #define SN_DEFAULT_WRITE_CHUNK_SIZE 1 << 16
 
+#define SN_CLOSING_HANDSHAKE_TIMEOUT 2.0 //in seconds
 
 /** */
 struct snWebsocket
@@ -83,6 +85,8 @@ struct snWebsocket
     int hasSentCloseFrame;
     /** */
     int handshakeResponseReadPosition;
+    /** Timer used to force disconnect if the closing handshake is too slow. */
+    float closingHandshakeTimer;
     /** */
     snReadyState websocketState;
     /** */
@@ -93,6 +97,8 @@ struct snWebsocket
     void* callbackData;
     /** */
     snLogCallback logCallback;
+    /** */
+    double prevPollTime;
 };
 
 static void log(snWebsocket* sn, const char* message, ...)
@@ -180,12 +186,7 @@ static void sendCloseFrame(snWebsocket* ws, snStatusCode code)
         return;
     }
     
-    /*snFrame f;
-    f.header.opcode = SN_OPCODE_CONNECTION_CLOSE;
-    f.header.isFinal = 1;
-    f.header.isMasked = 1;
-    f.header.maskingKey = generateMaskingKey();
-    f.header.payloadSize = 2;*/
+    ws->closingHandshakeTimer = 0.0f;
     
     char payload[2] = { (code >> 8) , (code >> 0) };
    // f.payload = payload;
@@ -486,7 +487,6 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
         memcpy(ws->query, uri.query.first, queryLength);
         ws->query[queryLength] = '\0';
         
-        
         if (ws->port < 0)
         {
             //no port given in the url. use default port 80
@@ -570,6 +570,34 @@ void snWebsocket_poll(snWebsocket* ws)
         return;
     }
     
+    //update timer
+    {
+        int firstPoll = ws->prevPollTime == 0.0f;
+        
+        struct timeval time;
+        gettimeofday(&time, NULL);
+        
+        const double newPollTime = time.tv_sec + time.tv_usec / 1000000.0;
+        const double dt = newPollTime - ws->prevPollTime;
+        
+        if (!firstPoll)
+        {
+            
+            if (ws->hasSentCloseFrame)
+            {
+                ws->closingHandshakeTimer += dt;
+                if (ws->closingHandshakeTimer >= SN_CLOSING_HANDSHAKE_TIMEOUT)
+                {
+                    disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY);
+                }
+            }
+        }
+        
+        ws->prevPollTime = newPollTime;
+    }
+    
+    
+    
     snFrameParser* fp = &ws->frameParser;
     const int numBytesLeftInBuffer = fp->maxFrameSize - fp->bufferPosition;
     int numBytesRead = 0;
@@ -619,7 +647,6 @@ void snWebsocket_poll(snWebsocket* ws)
                 
             }
         }
-        
     }
     else
     {

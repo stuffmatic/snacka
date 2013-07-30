@@ -49,7 +49,10 @@ snError snSocketConnectCallback(void* userData,
 {
     stfSocket* socket = (stfSocket*)userData;
     int result = stfSocket_connect(socket, host, port, 0, 0);
-    //TODO: error handling
+    if (result == 0)
+    {
+        return SN_SOCKET_FAILED_TO_CONNECT;
+    }
     return SN_NO_ERROR;
 }
 

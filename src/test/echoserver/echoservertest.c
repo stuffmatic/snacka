@@ -61,11 +61,17 @@ int main(int argc, const char* argv[])
     //will try to connect to echo.websocket.org.
     const int localHost = 0;
     
-    const char* echoServerURL = localHost ? "ws://localhost:9001" : "ws://echo.websocket.org";
+    const char* echoServerURL = localHost ? "ws://localhost:9000" : "ws://echo.websocket.org";
     
-    snWebsocket_connect(ws, echoServerURL);
+    snError connectionResult = snWebsocket_connect(ws, echoServerURL);
     
-    const int sleepDurationMs = 50;
+    if (connectionResult != SN_NO_ERROR)
+    {
+        printf("Failed to connect to %s\n", echoServerURL);
+        return 0;
+    }
+    
+    const int sleepDurationMs = 10;
     const int sendIntervalMs = 1000;
     const int numFramesToSend = 5;
     int sentFrameCount = 0;

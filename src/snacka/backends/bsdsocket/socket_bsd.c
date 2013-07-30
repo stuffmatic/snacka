@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2013, Per Gantelius
  * All rights reserved.
@@ -67,14 +68,13 @@ static void log(stfSocket* s, const char* fmt, ...)
 #endif
 }
 
-static void checkError(stfSocket* s, int error, int* ignores, int numInores)
+static int shouldStopOnError(stfSocket* s, int error, int* ignores, int numInores)
 {
-#ifdef DEBUG
     
     if (error == 0)
     {
         //all good
-        return;
+        return 0;
     }
     
     //see if this error code should be ignored
@@ -82,9 +82,13 @@ static void checkError(stfSocket* s, int error, int* ignores, int numInores)
     {
         if (ignores[i] == error)
         {
-            return;
+            return 0;
         }
     }
+
+    return 1;
+    
+#ifdef DEBUG
     
     switch (error)
     {
@@ -231,7 +235,10 @@ int stfSocket_connect(stfSocket* s,
     
     //TODO: this call is blocking...
     int error = getaddrinfo(host, service, &hints, &addrinfoResult);
-    assert(error == 0);
+    if (error != 0)
+    {
+        return 0;
+    }
     
     // loop through all the results and connect to the first we can
     for(struct addrinfo* p = addrinfoResult; p != NULL; p = p->ai_next)
@@ -252,15 +259,11 @@ int stfSocket_connect(stfSocket* s,
         //attempt async connect, regularly
         //invoking connectWaitCallback to see if we should
         //abort the connection attempt
-        const float timeout = 3.0f;
+        const float timeout = 5.0f;
         float t = 0.0f;
         float dt = 0.01f;
-        struct fd_set fdset;
-        FD_ZERO(&fdset);
-        FD_SET(s->fileDescriptor, &fdset);
-        assert(FD_ISSET(s->fileDescriptor, &fdset));
         
-        connect(s->fileDescriptor, p->ai_addr, p->ai_addrlen);
+        /*const int connectResult = */connect(s->fileDescriptor, p->ai_addr, p->ai_addrlen);
         
         while (t < timeout)
         {
@@ -274,6 +277,10 @@ int stfSocket_connect(stfSocket* s,
                 }
             }
             
+            struct fd_set fdset;
+            FD_ZERO(&fdset);
+            FD_SET(s->fileDescriptor, &fdset);
+            assert(FD_ISSET(s->fileDescriptor, &fdset));
             struct timeval timeoutStruct = { 0, 1000000 * dt };
             int selRes = select(s->fileDescriptor + 1, NULL, &fdset, NULL, &timeoutStruct);
             
@@ -293,7 +300,8 @@ int stfSocket_connect(stfSocket* s,
                 }
                 else
                 {
-                    log(s, "select() following non blocking connect() failed, errno %d\n", errno);
+                    //log(s, "select() following non blocking connect() failed, errno %d\n", errno);
+                    s->fileDescriptor = -1;
                     break;
                 }
             }
@@ -392,7 +400,10 @@ int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSen
         
         //check errors
         int ignores[2] = {EAGAIN, EWOULDBLOCK};
-        checkError(s, errno, ignores, 2);
+        if (shouldStopOnError(s, errno, ignores, 2))
+        {
+            return 0;
+        }
         
         if (ret >= 0)
         {
@@ -416,7 +427,10 @@ int stfSocket_receiveData(stfSocket* s, char* data, int maxNumBytes, int* numByt
                               0);
     
     int ignores[2] = {EAGAIN, EWOULDBLOCK};
-    checkError(s, errno, ignores, 2);
+    if (shouldStopOnError(s, errno, ignores, 2))
+    {
+        success = 0;
+    }
     
     *numBytesReceived = bytesRecvd < 0 ? 0 : bytesRecvd;
     
