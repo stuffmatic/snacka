@@ -27,6 +27,8 @@
  * either expressed or implied, of the copyright holders.
  */
 
+/*! \file */
+
 #ifndef SN_WEBSOCKET_HPP
 #define SN_WEBSOCKET_HPP
 
@@ -35,6 +37,8 @@
 
 #include "tinycthread.h"
 #include "websocket.h"
+#include "WebsocketListener.hpp"
+
 
 namespace sn
 {
@@ -42,59 +46,74 @@ namespace sn
     class WebsocketListener;
     
     /**
-     * 
+     * An asynchronous websocket handling I/O in a separate thread.
      */
     class Websocket
     {
     public:
         
         /**
-         *
+         * Constructor.
+         * @param listener A listener to pass events to.
          */
-        Websocket();
+        Websocket(WebsocketListener* listener = 0);
         
         /**
-         *
+         * Destructor.
          */
         ~Websocket();
         
         /**
-         * Call continually.
+         * Fetches incoming events from the I/O thread and
+         * passes them on to the listsener, if any. Call this
+         * method continually.
          */
         void poll();
         
         /**
-         *
+         * Connects to a given URL. 
+         * @param url The URL to connect to.
          */
         void connect(const std::string& url);
         
         /**
-         *
+         * Closes the current connection, if any.
          */
         void disconnect();
         
+        /** 
+         * Returns the current connection state.
+         * @return The connection state.
+         */
+        snReadyState getState() const;
+        
         /**
-         *
+         * Sends a text frame.
+         * @param payload The UTF-8 string to send.
          */
         void sendText(const std::string& payload);
         
         /**
-         *
+         * Sends a ping frame.
+         * @param payload Optional payload data.
          */
-        void sendPing(const std::string& payload);
+        void sendPing(const std::string& payload = "");
         
         /**
-         *
+         * Sends a pong frame.
+         * @param payload Optional payload data.
          */
-        void sendPong(const std::string& payload);
+        void sendPong(const std::string& payload = "");
         
         /**
-         *
+         * Returns the current host or an empty string
+         * if there is no connection.
          */
         const std::string& getURL() const;
         
         /**
-         *
+         * Sets the listener to pass events to.
+         * @param listener The listener.
          */
         void setListener(WebsocketListener* listener);
         
@@ -119,9 +138,26 @@ namespace sn
             int payloadSize;
         };
         
+        /**
+         *
+         */
+        class WebsocketEvent
+        {
+            public:
+            WebsocketEvent() :
+            statusCode(SN_STATUS_NORMAL_CLOSURE),
+            readyState(SN_STATE_CLOSED)
+            {
+            
+            }
+            
+            snStatusCode statusCode;
+            snReadyState readyState;
+        };
+        
         void resetState();
         
-        void sendNotification(::snReadyState state, int statusCode);
+        void sendNotification(snReadyState state, snStatusCode statusCode);
         
         void disconnectSocketThread();
         
@@ -150,65 +186,30 @@ namespace sn
         //void sendConnectionClose();
         
         void requestRunLoopStop();
+        
+        bool m_shouldStopRunloop;
     
         std::string m_url;
     
-        ::thrd_t m_socketRunLoop;
+        thrd_t m_socketRunLoop;
         
-        ::mtx_t m_flagMutex;
+        mtx_t m_flagMutex;
         
-        ::snWebsocket* m_websocket;
+        snReadyState m_readyState;
         
-        ::mtx_t m_toSocketQueueMutex;
+        snWebsocket* m_websocket;
+        
+        mtx_t m_toSocketQueueMutex;
         
         std::vector<WebsocketFrame> m_toSocketQueue;
         
-        ::mtx_t m_fromSocketQueueMutex;
+        mtx_t m_fromSocketQueueMutex;
         
         std::vector<WebsocketFrame> m_fromSocketQueue;
         
-        std::vector<snReadyState> m_notificationQueue;
+        std::vector<WebsocketEvent> m_notificationQueue;
         
         WebsocketListener* m_listener;
-    };
-    
-    /**
-     *
-     */
-    class WebsocketListener
-    {
-    public:
-    
-        /**
-         *
-         */
-        virtual void connectionStateChanged(::snReadyState state) = 0;
-        
-        /**
-         *
-         */
-        virtual void disconnected(snStatusCode statusCode) = 0;
-        
-        /**
-         *
-         */
-        virtual void textDataReceived(const std::string& payload, int numBytes) = 0;
-        
-        /**
-         *
-         */
-        virtual void binaryDataReceived(const std::string& payload, int numBytes) = 0;
-        
-        /**
-         *
-         */
-        virtual void pingReceived(const std::string& payload) = 0;
-        
-        /**
-         *
-         */
-        virtual void pongReceived(const std::string& payload) = 0;
-        
     };
     
 } //namespace sn

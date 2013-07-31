@@ -61,9 +61,13 @@ extern "C"
      */
     typedef enum snReadyState
     {
+        /** The connection is in progress and has not yet been established. */
         SN_STATE_CONNECTING = 0,
+        /** The WebSocket connection is established and communication is possible. */
         SN_STATE_OPEN = 1,
+        /** The connection is going through the closing handshake. */
         SN_STATE_CLOSING = 2,
+        /** The connection has been closed or could not be opened. */
         SN_STATE_CLOSED = 3
     } snReadyState;
     
@@ -267,8 +271,12 @@ extern "C"
     /**
      * Disconnect from the current host, if any.
      * @param ws The websocket to disconnect.
+     * @param disconnectImmediately If non-zero, the closing handshake
+     * is not performed and the connection is dropped immediately with status
+     * \c SN_STATUS_ENDPOINT_GOING_AWAY. Otherwise, the connection
+     * is dropped when the closing handshake is completed or takes too long.
      */
-    void snWebsocket_disconnect(snWebsocket* ws);
+    void snWebsocket_disconnect(snWebsocket* ws, int disconnectImmediately);
     
     /**
      * Check the state of a websocket.

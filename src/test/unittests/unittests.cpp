@@ -48,7 +48,7 @@ int main(int argc, const char * argv[])
     testFrameParser();
     
     //c++ websocket
-    testWebsocketCpp();
-    
+    testWebsocketCppEcho();
+    testWebsocketCppInvalidURL();
 }
 

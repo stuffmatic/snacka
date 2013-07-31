@@ -37,7 +37,9 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-    void testWebsocketCpp();
+    void testWebsocketCppEcho();
+    
+    void testWebsocketCppInvalidURL();
     
 #ifdef __cplusplus
 }

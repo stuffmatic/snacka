@@ -115,6 +115,8 @@ static void log(snWebsocket* sn, const char* message, ...)
     }
 }
 
+static void disconnectWithStatus(snWebsocket* ws, snStatusCode status);
+
 static int generateMaskingKey()
 {
     return rand();
@@ -159,6 +161,7 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
                                                        ws->cancelCallback);
     if (sendResult != SN_NO_ERROR)
     {
+        disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR);
         return sendResult;
     }
     
@@ -222,7 +225,7 @@ void invokeStateCallback(snWebsocket* ws, snReadyState state, int status)
 /**
  *
  */
-void disconnectWithStatus(snWebsocket* ws, snStatusCode status)
+static void disconnectWithStatus(snWebsocket* ws, snStatusCode status)
 {
     sendCloseFrame(ws, status);
     ws->ioCallbacks.disconnectCallback(ws->ioObject);
@@ -537,10 +540,17 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     return SN_NO_ERROR;
 }
 
-void snWebsocket_disconnect(snWebsocket* ws)
+void snWebsocket_disconnect(snWebsocket* ws, int disconnectImmediately)
 {
-    sendCloseFrame(ws, SN_STATUS_NORMAL_CLOSURE);
-    invokeStateCallback(ws, SN_STATE_CLOSING, 0);
+    if (disconnectImmediately)
+    {
+        disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY);
+    }
+    else
+    {
+        sendCloseFrame(ws, SN_STATUS_NORMAL_CLOSURE);
+        invokeStateCallback(ws, SN_STATE_CLOSING, 0);
+    }
 }
 
 snReadyState snWebsocket_getState(snWebsocket* ws)
@@ -623,6 +633,11 @@ void snWebsocket_poll(snWebsocket* ws)
                                              1024,
                                              &numBytesRead);
     
+    if (e != SN_NO_ERROR)
+    {
+        disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR);
+    }
+    
     if (numBytesRead == 0)
     {
         return;
@@ -671,5 +686,6 @@ void snWebsocket_poll(snWebsocket* ws)
                                                     numBytesRead);
         handlePaserResult(ws, result);
     }
+
 }
 

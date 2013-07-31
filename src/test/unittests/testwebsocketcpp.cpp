@@ -36,59 +36,79 @@
 class Listener : public sn::WebsocketListener
 {
 public:
-    sn::Websocket* websocket;
     
-    virtual void connectionStateChanged(::snReadyState state)
+    virtual void connectionStateChanged(sn::Websocket& websocket, snReadyState state)
     {
-        std::cout << "connectionStateChanged: " << state << std::endl;
+        //std::cout << "connectionStateChanged: " << state << std::endl;
         if (state == SN_STATE_OPEN)
         {
-            std::string payload = "yoyoyoy";
-            std::cout << "Sending " << payload << std::endl;
-            websocket->sendText(payload);
+            std::string payload = "Hello text!";
+            std::cout << "Opening handshake completed, sending text: " << payload << std::endl;
+            m_pingCount = 0;
+            websocket.sendText(payload);
         }
     }
     
-    virtual void disconnected(snStatusCode statusCode)
+    virtual void disconnected(sn::Websocket& websocket, snStatusCode statusCode)
     {
-        std::cout << "disconnected" << std::endl;
+        std::cout << "Disconnected with status " << statusCode << std::endl;
     }
     
-    virtual void textDataReceived(const std::string& payload, int numBytes)
+    virtual void textDataReceived(sn::Websocket& websocket, const std::string& payload, int numBytes)
     {
-        std::cout << "textDataReceived: " << payload << std::endl;
+        std::cout << "Received text data: " << payload << std::endl;
+        std::cout << "Sending ping: " << payload << std::endl;
+        websocket.sendPing("Hello ping!");
     }
     
-    virtual void binaryDataReceived(const std::string& payload, int numBytes)
+    virtual void binaryDataReceived(sn::Websocket& websocket, const std::string& payload, int numBytes)
     {
         std::cout << "binaryDataReceived" << std::endl;
     }
     
-    virtual void pingReceived(const std::string& payload)
+    virtual void pingReceived(sn::Websocket& websocket, const std::string& payload)
     {
         std::cout << "pingReceived" << std::endl;
     }
     
-    virtual void pongReceived(const std::string& payload)
+    virtual void pongReceived(sn::Websocket& websocket, const std::string& payload)
     {
-        std::cout << "pongReceived" << std::endl;
+        std::cout << "Received pong: " << payload << std::endl;
+        m_pingCount++;
+        if (m_pingCount < 10)
+        {
+            std::string pingPayload = "Hello ping!";
+            std::cout << "Sending ping: " << pingPayload << std::endl;
+            websocket.sendPing(pingPayload);
+        }
+        else
+        {
+            std::cout << "Sent " << m_pingCount << " pings, disconnecting." << std::endl;
+            websocket.disconnect();
+        }
     }
+    
+private:
+    int m_pingCount;
 };
 
-void testWebsocketCpp()
+void testWebsocketCppEcho()
 {
     Listener listener;
-    sn::Websocket websocket;
-    listener.websocket = &websocket;
-    websocket.setListener(&listener);
+    sn::Websocket websocket(&listener);
     
     websocket.connect("ws://echo.websocket.org");
     
     const int pollDurationMs = 10;
-    while (1)
+    while (websocket.getState() != SN_STATE_CLOSED)
     {
         websocket.poll();
         usleep(1000 * pollDurationMs);
     }
-    
+}
+
+void testWebsocketCppInvalidURL()
+{
+    sn::Websocket websocket;
+    websocket.connect("ws://echoo.websocket.abc");
 }

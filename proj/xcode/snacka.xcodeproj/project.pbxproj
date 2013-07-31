@@ -44,6 +44,7 @@
 		C1EF1C2217A909A900BD0C4D /* testwebsocketcpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2017A909A900BD0C4D /* testwebsocketcpp.cpp */; };
 		C1EF1C2517A937AF00BD0C4D /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2317A937AF00BD0C4D /* tinycthread.c */; };
 		C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C2417A937AF00BD0C4D /* tinycthread.h */; };
+		C1EF1C2817A945AF00BD0C4D /* WebsocketListener.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C2717A945AF00BD0C4D /* WebsocketListener.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +164,7 @@
 		C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testwebsocketcpp.h; sourceTree = "<group>"; };
 		C1EF1C2317A937AF00BD0C4D /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tinycthread.c; sourceTree = "<group>"; };
 		C1EF1C2417A937AF00BD0C4D /* tinycthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinycthread.h; sourceTree = "<group>"; };
+		C1EF1C2717A945AF00BD0C4D /* WebsocketListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WebsocketListener.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +378,7 @@
 			children = (
 				C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */,
 				C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */,
+				C1EF1C2717A945AF00BD0C4D /* WebsocketListener.hpp */,
 			);
 			path = cpp;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1EF1C2817A945AF00BD0C4D /* WebsocketListener.hpp in Headers */,
 				C1EF1C1A17A8FE4500BD0C4D /* Websocket.hpp in Headers */,
 				C1B77F5017A7C32500348CBE /* iocallbacks_socket.h in Headers */,
 				C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */,
