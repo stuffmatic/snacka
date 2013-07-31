@@ -39,7 +39,6 @@
 		C1B77F5117A7C32500348CBE /* socket.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B77F4D17A7C32500348CBE /* socket.h */; };
 		C1B77F5217A7C32500348CBE /* socket_bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4E17A7C32500348CBE /* socket_bsd.c */; };
 		C1BBDD34178DC46C001DFED3 /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
-		C1E702B817A9508600EB2C75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E702B717A9508600EB2C75 /* Foundation.framework */; };
 		C1E702DB17A950FC00EB2C75 /* frame.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ADB17A7047E00A629EF /* frame.c */; };
 		C1E702DC17A950FC00EB2C75 /* frameheader.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ADD17A7047E00A629EF /* frameheader.c */; };
 		C1E702DD17A950FC00EB2C75 /* frameparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ADF17A7047E00A629EF /* frameparser.c */; };
@@ -193,9 +192,6 @@
 		C1BBDD29178DC424001DFED3 /* echoservertest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = echoservertest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autobahntestsuite; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E702B517A9508600EB2C75 /* libsnacka_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1E702B717A9508600EB2C75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C1E702C517A9508600EB2C75 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C1E702C817A9508600EB2C75 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Websocket.cpp; sourceTree = "<group>"; };
 		C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Websocket.hpp; sourceTree = "<group>"; };
 		C1EF1C2017A909A900BD0C4D /* testwebsocketcpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testwebsocketcpp.cpp; sourceTree = "<group>"; };
@@ -241,7 +237,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1E702B817A9508600EB2C75 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				C1354ABC17A7047E00A629EF /* src */,
-				C1E702B617A9508600EB2C75 /* Frameworks */,
 				C1BBDCA0178DAB0F001DFED3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -419,16 +413,6 @@
 				C1E702B517A9508600EB2C75 /* libsnacka_ios.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C1E702B617A9508600EB2C75 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C1E702B717A9508600EB2C75 /* Foundation.framework */,
-				C1E702C517A9508600EB2C75 /* XCTest.framework */,
-				C1E702C817A9508600EB2C75 /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C1EF1C0E17A8FE4500BD0C4D /* cpp */ = {
@@ -1099,6 +1083,7 @@
 				C1E702D717A9508600EB2C75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
