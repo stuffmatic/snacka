@@ -35,8 +35,8 @@
 #include <string>
 #include <vector>
 
-#include "tinycthread.h"
-#include "websocket.h"
+#include "../../external/tinycthread/tinycthread.h"
+#include "../websocket.h"
 #include "WebsocketListener.hpp"
 
 

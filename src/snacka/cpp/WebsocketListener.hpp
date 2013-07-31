@@ -35,8 +35,7 @@
 #include <string>
 #include <vector>
 
-#include "tinycthread.h"
-#include "websocket.h"
+#include "../websocket.h"
 
 
 namespace sn
