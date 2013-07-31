@@ -29,16 +29,41 @@
 		C1354B1017A7049D00A629EF /* websocket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AEA17A7047E00A629EF /* websocket.c */; };
 		C1354B1117A704A600A629EF /* autobahntestsuite.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AEF17A7047E00A629EF /* autobahntestsuite.c */; };
 		C1354B1217A704AB00A629EF /* echoservertest.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF517A7047E00A629EF /* echoservertest.c */; };
-		C1354B2217A704D900A629EF /* libsnacka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka.a */; };
+		C1354B2217A704D900A629EF /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
 		C1354B2417A704FE00A629EF /* unittests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1354B2317A704FE00A629EF /* unittests.cpp */; };
 		C1354B2517A7059800A629EF /* testframe.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF717A7047E00A629EF /* testframe.c */; };
 		C1354B2617A7059800A629EF /* testframeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF917A7047E00A629EF /* testframeparser.c */; };
-		C1AB82CD179CFEA5000064D2 /* libsnacka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka.a */; };
+		C1AB82CD179CFEA5000064D2 /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
 		C1B77F4F17A7C32500348CBE /* iocallbacks_socket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */; };
 		C1B77F5017A7C32500348CBE /* iocallbacks_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B77F4C17A7C32500348CBE /* iocallbacks_socket.h */; };
 		C1B77F5117A7C32500348CBE /* socket.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B77F4D17A7C32500348CBE /* socket.h */; };
 		C1B77F5217A7C32500348CBE /* socket_bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4E17A7C32500348CBE /* socket_bsd.c */; };
-		C1BBDD34178DC46C001DFED3 /* libsnacka.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka.a */; };
+		C1BBDD34178DC46C001DFED3 /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
+		C1E702B817A9508600EB2C75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E702B717A9508600EB2C75 /* Foundation.framework */; };
+		C1E702DB17A950FC00EB2C75 /* frame.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ADB17A7047E00A629EF /* frame.c */; };
+		C1E702DC17A950FC00EB2C75 /* frameheader.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ADD17A7047E00A629EF /* frameheader.c */; };
+		C1E702DD17A950FC00EB2C75 /* frameparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ADF17A7047E00A629EF /* frameparser.c */; };
+		C1E702DE17A950FC00EB2C75 /* logging.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AE417A7047E00A629EF /* logging.c */; };
+		C1E702DF17A950FC00EB2C75 /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AE817A7047E00A629EF /* utf8.c */; };
+		C1E702E017A950FC00EB2C75 /* websocket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AEA17A7047E00A629EF /* websocket.c */; };
+		C1E702E117A9510100EB2C75 /* Websocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */; };
+		C1E702E217A9510700EB2C75 /* iocallbacks_socket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */; };
+		C1E702E317A9510700EB2C75 /* socket_bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4E17A7C32500348CBE /* socket_bsd.c */; };
+		C1E702E417A9510E00EB2C75 /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2317A937AF00BD0C4D /* tinycthread.c */; };
+		C1E702E517A9511A00EB2C75 /* UriCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ABF17A7047E00A629EF /* UriCommon.c */; };
+		C1E702E617A9511A00EB2C75 /* UriCompare.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC117A7047E00A629EF /* UriCompare.c */; };
+		C1E702E717A9511A00EB2C75 /* UriEscape.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC217A7047E00A629EF /* UriEscape.c */; };
+		C1E702E817A9511A00EB2C75 /* UriFile.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC317A7047E00A629EF /* UriFile.c */; };
+		C1E702E917A9511A00EB2C75 /* UriIp4.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC417A7047E00A629EF /* UriIp4.c */; };
+		C1E702EA17A9511A00EB2C75 /* UriIp4Base.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC517A7047E00A629EF /* UriIp4Base.c */; };
+		C1E702EB17A9511A00EB2C75 /* UriNormalize.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC717A7047E00A629EF /* UriNormalize.c */; };
+		C1E702EC17A9511A00EB2C75 /* UriNormalizeBase.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC817A7047E00A629EF /* UriNormalizeBase.c */; };
+		C1E702ED17A9511A00EB2C75 /* UriParse.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACA17A7047E00A629EF /* UriParse.c */; };
+		C1E702EE17A9511A00EB2C75 /* UriParseBase.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACB17A7047E00A629EF /* UriParseBase.c */; };
+		C1E702EF17A9511A00EB2C75 /* UriQuery.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACD17A7047E00A629EF /* UriQuery.c */; };
+		C1E702F017A9511A00EB2C75 /* UriRecompose.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACE17A7047E00A629EF /* UriRecompose.c */; };
+		C1E702F117A9511A00EB2C75 /* UriResolve.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACF17A7047E00A629EF /* UriResolve.c */; };
+		C1E702F217A9511A00EB2C75 /* UriShorten.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AD017A7047E00A629EF /* UriShorten.c */; };
 		C1EF1C1917A8FE4500BD0C4D /* Websocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */; };
 		C1EF1C1A17A8FE4500BD0C4D /* Websocket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */; };
 		C1EF1C2217A909A900BD0C4D /* testwebsocketcpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2017A909A900BD0C4D /* testwebsocketcpp.cpp */; };
@@ -99,6 +124,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		C1E702B317A9508600EB2C75 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -155,9 +189,13 @@
 		C1B77F4C17A7C32500348CBE /* iocallbacks_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iocallbacks_socket.h; sourceTree = "<group>"; };
 		C1B77F4D17A7C32500348CBE /* socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket.h; sourceTree = "<group>"; };
 		C1B77F4E17A7C32500348CBE /* socket_bsd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = socket_bsd.c; sourceTree = "<group>"; };
-		C1BBDC9F178DAB0F001DFED3 /* libsnacka.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_osx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BBDD29178DC424001DFED3 /* echoservertest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = echoservertest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autobahntestsuite; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1E702B517A9508600EB2C75 /* libsnacka_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1E702B717A9508600EB2C75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C1E702C517A9508600EB2C75 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C1E702C817A9508600EB2C75 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Websocket.cpp; sourceTree = "<group>"; };
 		C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Websocket.hpp; sourceTree = "<group>"; };
 		C1EF1C2017A909A900BD0C4D /* testwebsocketcpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testwebsocketcpp.cpp; sourceTree = "<group>"; };
@@ -172,7 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1354B2217A704D900A629EF /* libsnacka.a in Frameworks */,
+				C1354B2217A704D900A629EF /* libsnacka_osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1BBDD34178DC46C001DFED3 /* libsnacka.a in Frameworks */,
+				C1BBDD34178DC46C001DFED3 /* libsnacka_osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +233,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1AB82CD179CFEA5000064D2 /* libsnacka.a in Frameworks */,
+				C1AB82CD179CFEA5000064D2 /* libsnacka_osx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1E702B217A9508600EB2C75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1E702B817A9508600EB2C75 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				C1354ABC17A7047E00A629EF /* src */,
+				C1E702B617A9508600EB2C75 /* Frameworks */,
 				C1BBDCA0178DAB0F001DFED3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -365,12 +412,23 @@
 		C1BBDCA0178DAB0F001DFED3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1BBDC9F178DAB0F001DFED3 /* libsnacka.a */,
+				C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */,
 				C1BBDD29178DC424001DFED3 /* echoservertest */,
 				C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */,
 				C1354B1717A704C700A629EF /* unittests */,
+				C1E702B517A9508600EB2C75 /* libsnacka_ios.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C1E702B617A9508600EB2C75 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C1E702B717A9508600EB2C75 /* Foundation.framework */,
+				C1E702C517A9508600EB2C75 /* XCTest.framework */,
+				C1E702C817A9508600EB2C75 /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C1EF1C0E17A8FE4500BD0C4D /* cpp */ = {
@@ -428,9 +486,9 @@
 			productReference = C1354B1717A704C700A629EF /* unittests */;
 			productType = "com.apple.product-type.tool";
 		};
-		C1BBDC9E178DAB0F001DFED3 /* snacka */ = {
+		C1BBDC9E178DAB0F001DFED3 /* snacka_osx */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1BBDCA3178DAB0F001DFED3 /* Build configuration list for PBXNativeTarget "snacka" */;
+			buildConfigurationList = C1BBDCA3178DAB0F001DFED3 /* Build configuration list for PBXNativeTarget "snacka_osx" */;
 			buildPhases = (
 				C1BBDC9B178DAB0F001DFED3 /* Sources */,
 				C1BBDC9C178DAB0F001DFED3 /* Frameworks */,
@@ -440,9 +498,9 @@
 			);
 			dependencies = (
 			);
-			name = snacka;
+			name = snacka_osx;
 			productName = libsnacka;
-			productReference = C1BBDC9F178DAB0F001DFED3 /* libsnacka.a */;
+			productReference = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		C1BBDD28178DC424001DFED3 /* echoservertest */ = {
@@ -481,6 +539,23 @@
 			productReference = C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */;
 			productType = "com.apple.product-type.tool";
 		};
+		C1E702B417A9508600EB2C75 /* snacka_ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1E702D517A9508600EB2C75 /* Build configuration list for PBXNativeTarget "snacka_ios" */;
+			buildPhases = (
+				C1E702B117A9508600EB2C75 /* Sources */,
+				C1E702B217A9508600EB2C75 /* Frameworks */,
+				C1E702B317A9508600EB2C75 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = snacka_ios;
+			productName = snacka_ios;
+			productReference = C1E702B517A9508600EB2C75 /* libsnacka_ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -501,7 +576,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C1BBDC9E178DAB0F001DFED3 /* snacka */,
+				C1BBDC9E178DAB0F001DFED3 /* snacka_osx */,
+				C1E702B417A9508600EB2C75 /* snacka_ios */,
 				C1BBDD28178DC424001DFED3 /* echoservertest */,
 				C1BBDD39178DCF16001DFED3 /* autobahntestsuite */,
 				C1354B1617A704C700A629EF /* unittests */,
@@ -568,22 +644,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1E702B117A9508600EB2C75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1E702F217A9511A00EB2C75 /* UriShorten.c in Sources */,
+				C1E702E617A9511A00EB2C75 /* UriCompare.c in Sources */,
+				C1E702DF17A950FC00EB2C75 /* utf8.c in Sources */,
+				C1E702E017A950FC00EB2C75 /* websocket.c in Sources */,
+				C1E702E517A9511A00EB2C75 /* UriCommon.c in Sources */,
+				C1E702F017A9511A00EB2C75 /* UriRecompose.c in Sources */,
+				C1E702E817A9511A00EB2C75 /* UriFile.c in Sources */,
+				C1E702EC17A9511A00EB2C75 /* UriNormalizeBase.c in Sources */,
+				C1E702EA17A9511A00EB2C75 /* UriIp4Base.c in Sources */,
+				C1E702E717A9511A00EB2C75 /* UriEscape.c in Sources */,
+				C1E702DD17A950FC00EB2C75 /* frameparser.c in Sources */,
+				C1E702ED17A9511A00EB2C75 /* UriParse.c in Sources */,
+				C1E702E417A9510E00EB2C75 /* tinycthread.c in Sources */,
+				C1E702E317A9510700EB2C75 /* socket_bsd.c in Sources */,
+				C1E702E917A9511A00EB2C75 /* UriIp4.c in Sources */,
+				C1E702DE17A950FC00EB2C75 /* logging.c in Sources */,
+				C1E702DC17A950FC00EB2C75 /* frameheader.c in Sources */,
+				C1E702E217A9510700EB2C75 /* iocallbacks_socket.c in Sources */,
+				C1E702EF17A9511A00EB2C75 /* UriQuery.c in Sources */,
+				C1E702EB17A9511A00EB2C75 /* UriNormalize.c in Sources */,
+				C1E702F117A9511A00EB2C75 /* UriResolve.c in Sources */,
+				C1E702EE17A9511A00EB2C75 /* UriParseBase.c in Sources */,
+				C1E702E117A9510100EB2C75 /* Websocket.cpp in Sources */,
+				C1E702DB17A950FC00EB2C75 /* frame.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		C1354B2117A704D100A629EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C1BBDC9E178DAB0F001DFED3 /* snacka */;
+			target = C1BBDC9E178DAB0F001DFED3 /* snacka_osx */;
 			targetProxy = C1354B2017A704D100A629EF /* PBXContainerItemProxy */;
 		};
 		C1AB82CC179CFE9F000064D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C1BBDC9E178DAB0F001DFED3 /* snacka */;
+			target = C1BBDC9E178DAB0F001DFED3 /* snacka_osx */;
 			targetProxy = C1AB82CB179CFE9F000064D2 /* PBXContainerItemProxy */;
 		};
 		C1BBDD33178DC465001DFED3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C1BBDC9E178DAB0F001DFED3 /* snacka */;
+			target = C1BBDC9E178DAB0F001DFED3 /* snacka_osx */;
 			targetProxy = C1BBDD32178DC465001DFED3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -701,7 +808,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../src/include;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -731,7 +838,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../src/include;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -856,6 +963,85 @@
 			};
 			name = Release;
 		};
+		C1E702D617A9508600EB2C75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/snacka_ios.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../src/include;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C1E702D717A9508600EB2C75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/snacka_ios.dst;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../src/include;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -877,7 +1063,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1BBDCA3178DAB0F001DFED3 /* Build configuration list for PBXNativeTarget "snacka" */ = {
+		C1BBDCA3178DAB0F001DFED3 /* Build configuration list for PBXNativeTarget "snacka_osx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1BBDCA1178DAB0F001DFED3 /* Debug */,
@@ -903,6 +1089,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C1E702D517A9508600EB2C75 /* Build configuration list for PBXNativeTarget "snacka_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1E702D617A9508600EB2C75 /* Debug */,
+				C1E702D717A9508600EB2C75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
