@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted asrepresenting official policies,
+ * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of the copyright holders.
  */
 
@@ -196,7 +196,7 @@ extern "C"
      * @param statusCode 
      */
     typedef void (*snReadyStateCallback)(void* userData, snReadyState state, int statusCode);
-    
+        
     /** @} */
     
     /**
@@ -220,6 +220,8 @@ extern "C"
         snFrameCallback frameCallback;
         /** If NULL, default socket I/O is used. */
         snIOCallbacks* ioCallbacks;
+        /** Gets called to see if time consuming I/O operations should be cancelled. Ignored if NULL. */
+        snIOCancelCallback cancelCallback;
     } snWebsocketSettings;
     
     /**

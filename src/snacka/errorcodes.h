@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted asrepresenting official policies,
+ * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of the copyright holders.
  */
 
@@ -65,7 +65,9 @@ extern "C"
         /** Received a frame header with a payload size exceeding the maximum size. */
         SN_EXCEEDED_MAX_PAYLOAD_SIZE,
         /** Failed to connect to the underlying socket. */
-        SN_SOCKET_FAILED_TO_CONNECT
+        SN_SOCKET_FAILED_TO_CONNECT,
+        /** The operation was cancelled. */
+        SN_CANCELLED_OPERATION
     } snError;
     
 #ifdef __cplusplus

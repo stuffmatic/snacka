@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send 256K message followed by close then a ping",
    "droppedByMe": true,
-   "duration": 545,
+   "duration": 546,
    "expectation": "Case outcome depends on implimentation defined close behavior. Message and close frame are sent back to back. If the close frame is processed before the text message write is complete (as can happen in asyncronous processing models) the close frame is processed first and the text message may not be recieved or may only be partially recieved.",
    "expected": {
       "NON-STRICT": [],
@@ -61,7 +61,7 @@
       "182": 1,
       "65536": 4
    },
-   "started": "2013-07-30T13:45:51Z",
+   "started": "2013-07-30T15:32:54Z",
    "txFrameStats": {
       "1": 2,
       "8": 1,

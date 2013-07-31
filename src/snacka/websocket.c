@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted asrepresenting official policies,
+ * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of the copyright holders.
  */
 
@@ -90,6 +90,8 @@ struct snWebsocket
     /** */
     snReadyState websocketState;
     /** */
+    snIOCancelCallback cancelCallback;
+    /** */
     snReadyStateCallback stateCallback;
     /** */
     snFrameCallback frameCallback;
@@ -150,7 +152,11 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
     
     //send header
     int nBytesWritten = 0;
-    snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject, headerBytes, headerSize, &nBytesWritten);
+    snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject,
+                                                       headerBytes,
+                                                       headerSize,
+                                                       &nBytesWritten,
+                                                       ws->cancelCallback);
     if (sendResult != SN_NO_ERROR)
     {
         return sendResult;
@@ -167,7 +173,11 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
         //apply mask in place
         snFrameHeader_applyMask(&f.header, ws->writeChunkBuffer, chunkSize, numBytesSent);
         //send masked bytes
-        snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject, ws->writeChunkBuffer, chunkSize, &nBytesWritten);
+        snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject,
+                                                           ws->writeChunkBuffer,
+                                                           chunkSize,
+                                                           &nBytesWritten,
+                                                           ws->cancelCallback);
         if (sendResult != SN_NO_ERROR)
         {
             return sendResult;
@@ -371,6 +381,11 @@ snWebsocket* snWebsocket_createWithSettings(snReadyStateCallback stateCallback,
         {
             ws->frameCallback = settings->frameCallback;
         }
+        
+        if (settings->cancelCallback)
+        {
+            ws->cancelCallback = settings->cancelCallback;
+        }
     }
     
     if (ws->readBuffer == 0)
@@ -435,7 +450,8 @@ static void sendOpeningHandshake(snWebsocket* ws)
     ws->ioCallbacks.writeCallback(ws->ioObject,
                                   request,
                                   (int)strlen(request),
-                                  &numBytesWritten);
+                                  &numBytesWritten,
+                                  ws->cancelCallback);
 }
 
 static void processHandshakeResponseLine(const char* line, int numBytes)
@@ -499,7 +515,10 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     }
     
     snFrameParser_reset(&ws->frameParser);
-    snError e = ws->ioCallbacks.connectCallback(ws->ioObject, ws->host, ws->port);
+    snError e = ws->ioCallbacks.connectCallback(ws->ioObject,
+                                                ws->host,
+                                                ws->port,
+                                                ws->cancelCallback);
     
     if (e != SN_NO_ERROR)
     {
@@ -582,7 +601,6 @@ void snWebsocket_poll(snWebsocket* ws)
         
         if (!firstPoll)
         {
-            
             if (ws->hasSentCloseFrame)
             {
                 ws->closingHandshakeTimer += dt;
@@ -595,8 +613,6 @@ void snWebsocket_poll(snWebsocket* ws)
         
         ws->prevPollTime = newPollTime;
     }
-    
-    
     
     snFrameParser* fp = &ws->frameParser;
     const int numBytesLeftInBuffer = fp->maxFrameSize - fp->bufferPosition;

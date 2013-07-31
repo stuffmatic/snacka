@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text Message fragmented into 2 fragments, octets are sent in frame-wise chops.",
    "droppedByMe": true,
-   "duration": 3,
+   "duration": 2,
    "expectation": "Message is processed and echo'ed back to us.",
    "expected": {
       "OK": [
@@ -54,7 +54,7 @@
       "24": 1,
       "181": 1
    },
-   "started": "2013-07-30T13:45:45Z",
+   "started": "2013-07-30T15:32:48Z",
    "txFrameStats": {
       "0": 1,
       "1": 1,

@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted asrepresenting official policies,
+ * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of the copyright holders.
  */
 
@@ -213,7 +213,7 @@ void stfSocket_delete(stfSocket* socket)
 int stfSocket_connect(stfSocket* s,
                       const char* host,
                       int port,
-                      stfSocketConnectWaitCallback connectWaitCallback,
+                      stfSocketCancelCallback cancelCallback,
                       void* callbackData)
 {
     errno = 0;
@@ -257,7 +257,7 @@ int stfSocket_connect(stfSocket* s,
         fcntl(s->fileDescriptor, F_SETFL, flags | O_NONBLOCK);
         
         //attempt async connect, regularly
-        //invoking connectWaitCallback to see if we should
+        //invoking cancelCallback to see if we should
         //abort the connection attempt
         const float timeout = 5.0f;
         float t = 0.0f;
@@ -267,9 +267,9 @@ int stfSocket_connect(stfSocket* s,
         
         while (t < timeout)
         {
-            if (connectWaitCallback)
+            if (cancelCallback)
             {
-                if (connectWaitCallback(callbackData) == 0)
+                if (cancelCallback(callbackData) == 0)
                 {
                     //caller requested timeout
                     stfSocket_disconnect(s);
@@ -328,13 +328,13 @@ int stfSocket_connect(stfSocket* s,
     }
     
     //disable nagle's algrithm
-    //int flag = 1;
-    //int result = setsockopt(s->fileDescriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof flag);
-    //assert(result == 0);
+    int flag = 1;
+    int result = setsockopt(s->fileDescriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof flag);
+    assert(result == 0);
     
     //disable sigpipe
     int set = 1;
-    int result = setsockopt(s->fileDescriptor, SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof(int));
+    result = setsockopt(s->fileDescriptor, SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof(int));
     assert(result == 0);
     
     return 1;
@@ -353,7 +353,7 @@ void stfSocket_disconnect(stfSocket* socket)
 }
 
 int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSentBytes,
-                       stfSocketConnectWaitCallback connectWaitCallback, void* callbackData)
+                       stfSocketCancelCallback cancelCallback, void* callbackData)
 {
     int numBytesSentTot = 0;
     while (numBytesSentTot < numBytes)
@@ -383,9 +383,9 @@ int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSen
         }
         
         //check if we should abort
-        if (connectWaitCallback)
+        if (cancelCallback)
         {
-            if (connectWaitCallback(callbackData) == 0)
+            if (cancelCallback(callbackData) == 0)
             {
                 return 0;
             }

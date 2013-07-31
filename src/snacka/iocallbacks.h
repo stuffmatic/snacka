@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted asrepresenting official policies,
+ * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of the copyright holders.
  */
 
@@ -40,25 +40,31 @@ extern "C"
 {
 #endif /* __cplusplus */
     
+    /** Return zero to cancel. */
+    typedef int (*snIOCancelCallback)(void* data);
+    
     /**
      * Creates or initializes a custom IO object.
      */
-    typedef snError (*snWebsocketIOInitCallback)(void** ioObject);
+    typedef snError (*snIOInitCallback)(void** ioObject);
     
     /**
      * Releases a custom IO object.
      */
-    typedef snError (*snWebsocketIODeinitCallback)(void* ioObject);
+    typedef snError (*snIODeinitCallback)(void* ioObject);
     
     /**
      * Connects to a custom IO object.
      */
-    typedef snError (*snWebsocketIOConnectCallback)(void* ioObject, const char* host, int port);
+    typedef snError (*snIOConnectCallback)(void* ioObject,
+                                           const char* host,
+                                           int port,
+                                           snIOCancelCallback cancelCallback);
     
     /**
      * Disconnects from a custom IO object.
      */
-    typedef snError (*snWebsocketIODisconnectCallback)(void* ioObject);
+    typedef snError (*snIODisconnectCallback)(void* ioObject);
     
     /**
      * Reads data, if any, from a custom I/O object.
@@ -68,14 +74,16 @@ extern "C"
      * @param numBytesRead The number of bytes actually read.
      * @return An error code.
      */
-    typedef snError (*snWebsocketIOReadCallback)(void* ioObject, char* buffer, int bufferSize, int* numBytesRead);
+    typedef snError (*snIOReadCallback)(void* ioObject, char* buffer, int bufferSize, int* numBytesRead);
     
     /**
      * Attempts to write data to a custom IO object
-     * @param ioObject The I/O object to write to.
-     * @param buffer The buffer to write.
      */
-    typedef snError (*snWebsocketIOWriteCallback)(void* ioObject, const char* buffer, int bufferSize, int* numBytesWritten);
+    typedef snError (*snIOWriteCallback)(void* ioObject,
+                                         const char* buffer,
+                                         int bufferSize,
+                                         int* numBytesWritten,
+                                         snIOCancelCallback cancelCallback);
     
     /**
      * A set of callbacks representing operations on a custom IO object, e.g a socket.
@@ -83,21 +91,21 @@ extern "C"
     typedef struct snIOCallbacks
     {
         /** */
-        snWebsocketIOInitCallback initCallback;
+        snIOInitCallback initCallback;
         /** */
-        snWebsocketIODeinitCallback deinitCallback;
+        snIODeinitCallback deinitCallback;
         /** */
-        snWebsocketIOConnectCallback connectCallback;
+        snIOConnectCallback connectCallback;
         /** */
-        snWebsocketIODisconnectCallback disconnectCallback;
+        snIODisconnectCallback disconnectCallback;
         /** */
-        snWebsocketIOReadCallback readCallback;
+        snIOReadCallback readCallback;
         /** */
-        snWebsocketIOWriteCallback writeCallback;
+        snIOWriteCallback writeCallback;
         
     } snIOCallbacks;
     
-
+    
     
 #ifdef __cplusplus
 }

@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted asrepresenting official policies,
+ * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of the copyright holders.
  */
 
@@ -46,7 +46,7 @@ extern "C"
      * @param callbackData Custom user data.
      * @return 1 to keep waiting, 0 to abort. 
      */
-    typedef int (*stfSocketConnectWaitCallback)(void* callbackData);
+    typedef int (*stfSocketCancelCallback)(void* callbackData);
     
     /** */
     stfSocket* stfSocket_new(void);
@@ -59,12 +59,12 @@ extern "C"
      * @param s The socket to connect.
      * @param host The host to connect to.
      * @param port The port to connect to.
-     * @param connectWaitCallback Called continually while attempting to connect, allowing
+     * @param cancelCallback Called continually while attempting to connect, allowing
      * the caller to abort a connection attempt. Can be NULL.
-     * @param callbackData User data passed to \c connectWaitCallback.
+     * @param callbackData User data passed to \c cancelCallback.
      */
     int stfSocket_connect(stfSocket* s, const char* host, int port,
-                          stfSocketConnectWaitCallback connectWaitCallback, void* callbackData);
+                          stfSocketCancelCallback cancelCallback, void* callbackData);
     
     /** */
     void stfSocket_disconnect(stfSocket* socket);
@@ -74,7 +74,7 @@ extern "C"
     
     /** */
     int stfSocket_sendData(stfSocket* socket, const char* data, int numBytes, int* numSentBytes,
-                           stfSocketConnectWaitCallback connectWaitCallback, void* callbackData);
+                           stfSocketCancelCallback cancelCallback, void* callbackData);
 
     /** */    
     int stfSocket_receiveData(stfSocket* s, char* data, int maxNumBytes, int* numBytesReceived);
