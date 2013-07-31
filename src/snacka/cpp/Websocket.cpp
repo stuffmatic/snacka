@@ -47,19 +47,19 @@ namespace sn
 {
     void messageCallback(void* data, snOpcode opcode, const char* bytes, int numBytes)
     {
-        Websocket* ws = (Websocket*)data;
+        WebSocket* ws = (WebSocket*)data;
         ws->enqueueIncomingFrame(opcode, bytes, numBytes);
     }
     
     void stateCallback(void* data, snReadyState state, int statusCode)
     {
-        Websocket* ws = (Websocket*)data;
+        WebSocket* ws = (WebSocket*)data;
         ws->sendNotification(state, (snStatusCode)statusCode); //TODO: don't cast here
     }
     
     int ioCancelCallback(void* data)
     {
-        Websocket* ws = (Websocket*)data;
+        WebSocket* ws = (WebSocket*)data;
         int ret = ws->shouldStopRunLoop() ? 0 : 1;
         
         return ret;
@@ -73,7 +73,7 @@ namespace sn
         
         const int pollIntervalMs = 10;
         
-        Websocket* ws = (Websocket*)data;
+        WebSocket* ws = (WebSocket*)data;
         
         snWebsocket* cws = ws->m_websocket;
         
@@ -108,7 +108,7 @@ namespace sn
 } //namspace sn
 
 
-Websocket::Websocket(WebsocketListener* listener) :
+WebSocket::WebSocket(WebSocketListener* listener) :
 m_url(),
 m_listener(listener)
 {
@@ -128,7 +128,7 @@ m_listener(listener)
     resetState();
 }
 
-Websocket::~Websocket()
+WebSocket::~WebSocket()
 {
     mtx_destroy(&m_flagMutex);
     mtx_destroy(&m_toSocketQueueMutex);
@@ -137,10 +137,10 @@ Websocket::~Websocket()
     snWebsocket_delete(m_websocket);
 }
 
-void Websocket::poll()
+void WebSocket::poll()
 {
-    std::vector<WebsocketFrame> frames;
-    std::vector<WebsocketEvent> notifications;
+    std::vector<WebSocketFrame> frames;
+    std::vector<WebSocketEvent> notifications;
     
     mtx_lock(&m_fromSocketQueueMutex);
     frames = m_fromSocketQueue;
@@ -151,7 +151,7 @@ void Websocket::poll()
     
     for (int i = 0; i < frames.size(); i++)
     {
-        WebsocketFrame& framei = frames[i];
+        WebSocketFrame& framei = frames[i];
         
         if (m_listener == NULL)
         {
@@ -190,7 +190,7 @@ void Websocket::poll()
     
     for (int i = 0; i < notifications.size(); i++)
     {
-        const WebsocketEvent& e = notifications[i];
+        const WebSocketEvent& e = notifications[i];
         
         m_readyState = e.readyState;
         
@@ -212,17 +212,17 @@ void Websocket::poll()
     }
 }
 
-bool Websocket::shouldStopRunLoop()
+bool WebSocket::shouldStopRunLoop()
 {
     return m_shouldStopRunloop;
 }
 
-void Websocket::requestRunLoopStop()
+void WebSocket::requestRunLoopStop()
 {
     m_shouldStopRunloop = true;
 }
 
-void Websocket::connect(const std::string& url)
+void WebSocket::connect(const std::string& url)
 {
     disconnect();
     
@@ -234,7 +234,7 @@ void Websocket::connect(const std::string& url)
     thrd_create(&m_socketRunLoop, websocketRunLoopEntryPoint, this);
 }
 
-void Websocket::disconnect()
+void WebSocket::disconnect()
 {
     if (m_socketRunLoop != NULL)
     {
@@ -247,19 +247,19 @@ void Websocket::disconnect()
     }
 }
 
-snReadyState Websocket::getState() const
+snReadyState WebSocket::getState() const
 {
     return m_readyState;
 }
 
-void Websocket::sendText(const std::string& payload)
+void WebSocket::sendText(const std::string& payload)
 {
     enqueueOutgoingFrame(SN_OPCODE_TEXT, payload.c_str(), payload.length());
 }
 
-void Websocket::enqueueOutgoingFrame(snOpcode opcode, const char* bytes, int numBytes)
+void WebSocket::enqueueOutgoingFrame(snOpcode opcode, const char* bytes, int numBytes)
 {
-    WebsocketFrame frame;
+    WebSocketFrame frame;
     frame.opcode = opcode;
     frame.payloadSize = numBytes;
     frame.payload = std::string(bytes);
@@ -269,9 +269,9 @@ void Websocket::enqueueOutgoingFrame(snOpcode opcode, const char* bytes, int num
     mtx_unlock(&m_toSocketQueueMutex);
 }
 
-void Websocket::enqueueIncomingFrame(snOpcode opcode, const char* bytes, int numBytes)
+void WebSocket::enqueueIncomingFrame(snOpcode opcode, const char* bytes, int numBytes)
 {
-    WebsocketFrame frame;
+    WebSocketFrame frame;
     frame.opcode = opcode;
     frame.payloadSize = numBytes;
     frame.payload = std::string(bytes);
@@ -281,23 +281,23 @@ void Websocket::enqueueIncomingFrame(snOpcode opcode, const char* bytes, int num
     mtx_unlock(&m_fromSocketQueueMutex);
 }
 
-void Websocket::sendPing(const std::string& payload)
+void WebSocket::sendPing(const std::string& payload)
 {
     enqueueOutgoingFrame(SN_OPCODE_PING, payload.c_str(), payload.length());
 }
 
-void Websocket::sendPong(const std::string& payload)
+void WebSocket::sendPong(const std::string& payload)
 {
     enqueueOutgoingFrame(SN_OPCODE_PONG, payload.c_str(), payload.length());
 }
 
-void Websocket::sendEnqueuedFrames()
+void WebSocket::sendEnqueuedFrames()
 {
     mtx_lock(&m_toSocketQueueMutex);
     
     for (int i = 0; i < m_toSocketQueue.size(); i++)
     {
-        WebsocketFrame& framei = m_toSocketQueue[i];
+        WebSocketFrame& framei = m_toSocketQueue[i];
         snWebsocket_sendFrame(m_websocket,
                               framei.opcode,
                               framei.payloadSize,
@@ -309,17 +309,17 @@ void Websocket::sendEnqueuedFrames()
     mtx_unlock(&m_toSocketQueueMutex);
 }
 
-void Websocket::setListener(WebsocketListener* listener)
+void WebSocket::setListener(WebSocketListener* listener)
 {
     m_listener = listener;
 }
 
-const std::string& Websocket::getURL() const
+const std::string& WebSocket::getURL() const
 {
     return m_url;
 }
 
-void Websocket::resetState()
+void WebSocket::resetState()
 {
     m_readyState = SN_STATE_CLOSED;
     m_shouldStopRunloop = false;
@@ -328,9 +328,9 @@ void Websocket::resetState()
     m_toSocketQueue.clear();
 }
 
-void Websocket::sendNotification(snReadyState state, snStatusCode statusCode)
+void WebSocket::sendNotification(snReadyState state, snStatusCode statusCode)
 {
-    WebsocketEvent e;
+    WebSocketEvent e;
     e.readyState = state;
     e.statusCode = statusCode;
     mtx_lock(&m_fromSocketQueueMutex);

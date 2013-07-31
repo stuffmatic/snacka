@@ -33,11 +33,11 @@
 #include "testwebsocketcpp.h"
 #include "Websocket.hpp"
 
-class Listener : public sn::WebsocketListener
+class Listener : public sn::WebSocketListener
 {
 public:
     
-    virtual void connectionStateChanged(sn::Websocket& websocket, snReadyState state)
+    virtual void connectionStateChanged(sn::WebSocket& websocket, snReadyState state)
     {
         //std::cout << "connectionStateChanged: " << state << std::endl;
         if (state == SN_STATE_OPEN)
@@ -49,29 +49,29 @@ public:
         }
     }
     
-    virtual void disconnected(sn::Websocket& websocket, snStatusCode statusCode)
+    virtual void disconnected(sn::WebSocket& websocket, snStatusCode statusCode)
     {
         std::cout << "Disconnected with status " << statusCode << std::endl;
     }
     
-    virtual void textDataReceived(sn::Websocket& websocket, const std::string& payload, int numBytes)
+    virtual void textDataReceived(sn::WebSocket& websocket, const std::string& payload, int numBytes)
     {
         std::cout << "Received text data: " << payload << std::endl;
         std::cout << "Sending ping: " << payload << std::endl;
         websocket.sendPing("Hello ping!");
     }
     
-    virtual void binaryDataReceived(sn::Websocket& websocket, const std::string& payload, int numBytes)
+    virtual void binaryDataReceived(sn::WebSocket& websocket, const std::string& payload, int numBytes)
     {
         std::cout << "binaryDataReceived" << std::endl;
     }
     
-    virtual void pingReceived(sn::Websocket& websocket, const std::string& payload)
+    virtual void pingReceived(sn::WebSocket& websocket, const std::string& payload)
     {
         std::cout << "pingReceived" << std::endl;
     }
     
-    virtual void pongReceived(sn::Websocket& websocket, const std::string& payload)
+    virtual void pongReceived(sn::WebSocket& websocket, const std::string& payload)
     {
         std::cout << "Received pong: " << payload << std::endl;
         m_pingCount++;
@@ -95,7 +95,7 @@ private:
 void testWebsocketCppEcho()
 {
     Listener listener;
-    sn::Websocket websocket(&listener);
+    sn::WebSocket websocket(&listener);
     
     websocket.connect("ws://echo.websocket.org");
     
@@ -109,6 +109,6 @@ void testWebsocketCppEcho()
 
 void testWebsocketCppInvalidURL()
 {
-    sn::Websocket websocket;
+    sn::WebSocket websocket;
     websocket.connect("ws://echoo.websocket.abc");
 }

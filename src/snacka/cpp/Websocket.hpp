@@ -43,12 +43,10 @@
 namespace sn
 {
     
-    class WebsocketListener;
-    
     /**
      * An asynchronous websocket handling I/O in a separate thread.
      */
-    class Websocket
+    class WebSocket
     {
     public:
         
@@ -56,12 +54,12 @@ namespace sn
          * Constructor.
          * @param listener A listener to pass events to.
          */
-        Websocket(WebsocketListener* listener = 0);
+        WebSocket(WebSocketListener* listener = 0);
         
         /**
          * Destructor.
          */
-        ~Websocket();
+        ~WebSocket();
         
         /**
          * Fetches incoming events from the I/O thread and
@@ -115,17 +113,17 @@ namespace sn
          * Sets the listener to pass events to.
          * @param listener The listener.
          */
-        void setListener(WebsocketListener* listener);
+        void setListener(WebSocketListener* listener);
         
     private:
         
         /**
          *
          */
-        class WebsocketFrame
+        class WebSocketFrame
         {
         public:
-            WebsocketFrame() :
+            WebSocketFrame() :
             opcode(),
             payload(),
             payloadSize(0)
@@ -141,10 +139,10 @@ namespace sn
         /**
          *
          */
-        class WebsocketEvent
+        class WebSocketEvent
         {
             public:
-            WebsocketEvent() :
+            WebSocketEvent() :
             statusCode(SN_STATUS_NORMAL_CLOSURE),
             readyState(SN_STATE_CLOSED)
             {
@@ -201,15 +199,15 @@ namespace sn
         
         mtx_t m_toSocketQueueMutex;
         
-        std::vector<WebsocketFrame> m_toSocketQueue;
+        std::vector<WebSocketFrame> m_toSocketQueue;
         
         mtx_t m_fromSocketQueueMutex;
         
-        std::vector<WebsocketFrame> m_fromSocketQueue;
+        std::vector<WebSocketFrame> m_fromSocketQueue;
         
-        std::vector<WebsocketEvent> m_notificationQueue;
+        std::vector<WebSocketEvent> m_notificationQueue;
         
-        WebsocketListener* m_listener;
+        WebSocketListener* m_listener;
     };
     
 } //namespace sn

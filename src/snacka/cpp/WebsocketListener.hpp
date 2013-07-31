@@ -42,12 +42,12 @@
 namespace sn
 {
     
-    class Websocket;
+    class WebSocket;
     
     /**
      * Receives data and state change notifications from a Websocket instance.
      */
-    class WebsocketListener
+    class WebSocketListener
     {
     public:
         
@@ -56,14 +56,14 @@ namespace sn
          * @param websocket The websocket associated with the listener.
          * @param state The new connection state.
          */
-        virtual void connectionStateChanged(Websocket& websocket, snReadyState state) = 0;
+        virtual void connectionStateChanged(WebSocket& websocket, snReadyState state) = 0;
         
         /**
          * Called when the websocket connection has been closed.
          * @param websocket The websocket associated with the listener.
          * @param statusCode A status code.
          */
-        virtual void disconnected(Websocket& websocket, snStatusCode statusCode) = 0;
+        virtual void disconnected(WebSocket& websocket, snStatusCode statusCode) = 0;
         
         /**
          * Called when a text message has been received.
@@ -71,7 +71,7 @@ namespace sn
          * @param payload The UTF-8 string payload.
          * @param numBytes The payload size in bytes, excluding the terminating null character.
          */
-        virtual void textDataReceived(Websocket& websocket, const std::string& payload, int numBytes) = 0;
+        virtual void textDataReceived(WebSocket& websocket, const std::string& payload, int numBytes) = 0;
         
         /**
          * Called when a binary message has been received.
@@ -79,21 +79,21 @@ namespace sn
          * @param payload The binary payload.
          * @param numBytes The payload size in bytes.
          */
-        virtual void binaryDataReceived(Websocket& websocket, const std::string& payload, int numBytes) = 0;
+        virtual void binaryDataReceived(WebSocket& websocket, const std::string& payload, int numBytes) = 0;
         
         /**
          * Called when a ping frame has been received.
          * @param websocket The websocket associated with the listener.
          * @param payload The ping payload.
          */
-        virtual void pingReceived(Websocket& websocket, const std::string& payload) = 0;
+        virtual void pingReceived(WebSocket& websocket, const std::string& payload) = 0;
         
         /**
          * Called when a pong frame has been received.
          * @param websocket The websocket associated with the listener.
          * @param payload The pong payload.
          */
-        virtual void pongReceived(Websocket& websocket, const std::string& payload) = 0;
+        virtual void pongReceived(WebSocket& websocket, const std::string& payload) = 0;
         
     };
     
