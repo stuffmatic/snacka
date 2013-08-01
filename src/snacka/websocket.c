@@ -119,7 +119,7 @@ static void log(snWebsocket* sn, const char* message, ...)
     }
 }
 
-static void disconnectWithStatus(snWebsocket* ws, snStatusCode status);
+static void disconnectWithStatus(snWebsocket* ws, snStatusCode status, snError error);
 
 static int generateMaskingKey()
 {
@@ -131,6 +131,11 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
     if (ws->hasSentCloseFrame)
     {
         return SN_NO_ERROR;
+    }
+    
+    if (ws->websocketState != SN_STATE_OPEN)
+    {
+        return SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN;
     }
     
     snFrame f;
@@ -165,7 +170,7 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
                                                        ws->cancelCallback);
     if (sendResult != SN_NO_ERROR)
     {
-        disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR);
+        disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR, sendResult);
         return sendResult;
     }
     
@@ -187,6 +192,7 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
                                                            ws->cancelCallback);
         if (sendResult != SN_NO_ERROR)
         {
+            disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR, sendResult);
             return sendResult;
         }
         //move to the next chunk
@@ -206,7 +212,6 @@ static void sendCloseFrame(snWebsocket* ws, snStatusCode code)
     ws->closingHandshakeTimer = 0.0f;
     
     char payload[2] = { (code >> 8) , (code >> 0) };
-   // f.payload = payload;
     
     snWebsocket_sendFrame(ws, SN_OPCODE_CONNECTION_CLOSE, 2, payload);
     
@@ -233,23 +238,31 @@ void invokeStateCallback(snWebsocket* ws, snReadyState state)
     {
         ws->websocketState = state;
     }
-    
-    
 }
 
 /**
  *
  */
-static void disconnectWithStatus(snWebsocket* ws, snStatusCode status)
+static void disconnectWithStatus(snWebsocket* ws, snStatusCode status, snError error)
 {
-    sendCloseFrame(ws, status);
+    if (error == SN_NO_ERROR)
+    {
+        sendCloseFrame(ws, status);
+    }
+    
     ws->ioCallbacks.disconnectCallback(ws->ioObject);
     
     if (ws->closeCallback)
     {
         ws->closeCallback(ws->callbackData, status);
     }
+    
     invokeStateCallback(ws, SN_STATE_CLOSED);
+    
+    if (error != SN_NO_ERROR && ws->errorCallback)
+    {
+        ws->errorCallback(ws->callbackData, error);
+    }
 }
 
 static int isValidCloseCode(int code)
@@ -329,7 +342,7 @@ void invokeFrameCallback(void* data, const snFrame* frame)
         }
         
         sendCloseFrame(ws, closeCode);
-        disconnectWithStatus(ws, closeCode);
+        disconnectWithStatus(ws, closeCode, SN_NO_ERROR);
     }
     else if (frame->header.opcode == SN_OPCODE_PING)
     {
@@ -391,6 +404,7 @@ snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
     ws->callbackData = callbackData;
     ws->openCallback = openCallback;
     ws->closeCallback = closeCallback;
+    ws->errorCallback = errorCallback;
     
     ws->maxFrameSize = SN_DEFAULT_MAX_FRAME_SIZE;
     
@@ -574,7 +588,7 @@ void snWebsocket_disconnect(snWebsocket* ws, int disconnectImmediately)
 {
     if (disconnectImmediately)
     {
-        disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY);
+        disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY, SN_NO_ERROR);
     }
     else
     {
@@ -624,7 +638,7 @@ static void handlePaserResult(snWebsocket* ws, snError error)
         ws->errorCallback(ws->callbackData, error);
     }
     
-    disconnectWithStatus(ws, status);
+    disconnectWithStatus(ws, status, error);
 }
 
 void snWebsocket_poll(snWebsocket* ws)
@@ -651,7 +665,7 @@ void snWebsocket_poll(snWebsocket* ws)
                 ws->closingHandshakeTimer += dt;
                 if (ws->closingHandshakeTimer >= SN_CLOSING_HANDSHAKE_TIMEOUT)
                 {
-                    disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY);
+                    disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY, SN_NO_ERROR);
                 }
             }
         }
@@ -670,7 +684,7 @@ void snWebsocket_poll(snWebsocket* ws)
     
     if (e != SN_NO_ERROR)
     {
-        disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR);
+        disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR, e);
     }
     
     if (numBytesRead == 0)

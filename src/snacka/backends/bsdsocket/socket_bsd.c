@@ -86,8 +86,6 @@ static int shouldStopOnError(stfSocket* s, int error, int* ignores, int numInore
         }
     }
 
-    return 1;
-    
 #ifdef DEBUG
     
     switch (error)
@@ -177,13 +175,20 @@ static int shouldStopOnError(stfSocket* s, int error, int* ignores, int numInore
             log(s, "errno == ENOPROTOOPT: Protocol not available.\n");
             break;
         }
+        case ETIMEDOUT:
+        {
+            log(s, "errno == ETIMEDOUT\n");
+            break;
+        }
         default:
         {
-            log(s, "errno == %d.\n", errno);
+            log(s, "errno == %d.\n", error);
         }
     }
     
 #endif //DEBUG
+    
+    return 1;
 }
 
 stfSocket* stfSocket_new()
@@ -358,6 +363,7 @@ int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSen
     int numBytesSentTot = 0;
     while (numBytesSentTot < numBytes)
     {
+        errno = 0;
         //wait for the socket to become availalbe for writing
         fd_set rfds;
         FD_ZERO(&rfds);

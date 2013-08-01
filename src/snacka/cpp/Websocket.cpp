@@ -87,7 +87,7 @@ namespace sn
     
     int websocketRunLoopEntryPoint(void* data)
     {
-        printf("websocketRunLoopEntryPoint: entering\n");
+        //printf("websocketRunLoopEntryPoint: entering\n");
         threadCount++;
         assert(threadCount == 1);
         

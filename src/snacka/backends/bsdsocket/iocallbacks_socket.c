@@ -70,12 +70,12 @@ snError snSocketReadCallback(void* userData,
 {
     stfSocket* socket = (stfSocket*)userData;
     
-    stfSocket_receiveData(socket,
-                          buffer,
-                          bufferSize,
-                          numBytesRead);
+    const int success = stfSocket_receiveData(socket,
+                                              buffer,
+                                              bufferSize,
+                                              numBytesRead);
     
-    return SN_NO_ERROR;
+    return success ? SN_NO_ERROR : SN_SOCKET_IO_ERROR;
 }
 
 snError snSocketWriteCallback(void* userData,
@@ -85,7 +85,10 @@ snError snSocketWriteCallback(void* userData,
 {
     stfSocket* socket = (stfSocket*)userData;
     
-    stfSocket_sendData(socket, buffer, bufferSize, numBytesWritten, 0, 0);
+    const int success = stfSocket_sendData(socket,
+                                           buffer,
+                                           bufferSize,
+                                           numBytesWritten, 0, 0);
     
-    return SN_NO_ERROR;
+    return success ? SN_NO_ERROR : SN_SOCKET_IO_ERROR;
 }

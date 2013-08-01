@@ -66,8 +66,12 @@ extern "C"
         SN_EXCEEDED_MAX_PAYLOAD_SIZE,
         /** Failed to connect to the underlying socket. */
         SN_SOCKET_FAILED_TO_CONNECT,
+        /** Failed send data to or receive data from the underlying socket. */
+        SN_SOCKET_IO_ERROR,
         /** The operation was cancelled. */
-        SN_CANCELLED_OPERATION
+        SN_CANCELLED_OPERATION,
+        /** The websocket connection is required to be open but wasn't.*/
+        SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN
     } snError;
     
 #ifdef __cplusplus

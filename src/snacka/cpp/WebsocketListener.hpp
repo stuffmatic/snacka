@@ -66,10 +66,10 @@ namespace sn
         /**
          * Called for each received message.
          * @param websocket The websocket associated with the listener.
-         * @param opcode The message type. One of \c SN_OPCODE_TEXT, \c SN_OPCODE_BINARY, \c SN_OPCODE_PING or
-         * \c SN_OPCODE_PONG.
-         * @param payload The message payload. If \c opcode equals \c SN_OPCODE_TEXT, this is a null terminated
-         * UTF-8 string.
+         * @param opcode The message type. One of \c SN_OPCODE_TEXT, \c SN_OPCODE_BINARY, 
+         * \c SN_OPCODE_PING or \c SN_OPCODE_PONG.
+         * @param payload The message payload. If \c opcode equals \c SN_OPCODE_TEXT, 
+         * this is a null terminated UTF-8 string.
          * @param payloadSize The payload size in bytes. If \c opcode equals \c SN_OPCODE_TEXT, 
          * this is the size excluding the terminating null character.
          */
