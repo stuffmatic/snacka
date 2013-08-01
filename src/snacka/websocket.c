@@ -218,12 +218,23 @@ static void sendCloseFrame(snWebsocket* ws, snStatusCode code)
  */
 void invokeStateCallback(snWebsocket* ws, snReadyState state)
 {
-    ws->websocketState = state;
-    
     if (state == SN_STATE_OPEN && ws->openCallback)
     {
+        ws->websocketState = state;
         ws->openCallback(ws->callbackData);
     }
+    else if (state == SN_STATE_CLOSED && ws->websocketState == SN_STATE_CONNECTING && ws->closeCallback)
+    {
+        ws->websocketState = state;
+        //an error occurred before completing the opening handshake
+        ws->closeCallback(ws->callbackData, SN_STATUS_UNEXPECTED_ERROR);
+    }
+    else
+    {
+        ws->websocketState = state;
+    }
+    
+    
 }
 
 /**
@@ -488,6 +499,8 @@ static void validateHandshakeResponse(const char* response, int numBytes)
 
 snError snWebsocket_connect(snWebsocket* ws, const char* url)
 {
+    invokeStateCallback(ws, SN_STATE_CONNECTING);
+    
     //parse the url
     UriParserStateA state;
     UriUriA uri;
@@ -544,15 +557,13 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     
     if (e != SN_NO_ERROR)
     {
+        invokeStateCallback(ws, SN_STATE_CLOSED);
         return e;
     }
     
-    ws->websocketState = SN_STATE_CLOSED;
     ws->hasCompletedOpeningHandshake = 0;
     ws->handshakeResponseReadPosition = 0;
     ws->hasSentCloseFrame = 0;
-    
-    invokeStateCallback(ws, SN_STATE_CONNECTING);
     
     sendOpeningHandshake(ws);
     

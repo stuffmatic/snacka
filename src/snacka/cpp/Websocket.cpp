@@ -105,7 +105,6 @@ namespace sn
             e.type = WebSocket::WebSocketEvent::EVENT_ERROR;
             e.errorCode = connectionResult;
             ws->sendEvent(e);
-            return 0;
         }
         else
         {
@@ -123,8 +122,7 @@ namespace sn
         }
     
         threadCount--;
-        assert(threadCount == 0);
-        
+        //assert(threadCount == 0);
         
         return 0;
     }
@@ -212,28 +210,42 @@ void WebSocket::poll()
         }
     }
     
-    for (int i = 0; i < events.size(); i++)
+    //first send notification that are not errors,
+    //so that the websocket state is up to date
+    //when receiving error notifactions.
+    for (int pass = 0; pass < 2; pass++)
     {
-        const WebSocketEvent& e = events[i];
+        const bool errorPass = pass == 1;
         
-        if (m_listener == NULL)
+        for (int i = 0; i < events.size(); i++)
         {
-            continue;
-        }
-        
-        if (e.type == WebSocketEvent::EVENT_OPEN)
-        {
-            m_listener->onOpen(*this);
-            m_readyState = SN_STATE_OPEN;
-        }
-        else if (e.type == WebSocketEvent::EVENT_CLOSE)
-        {
-            m_listener->onClose(*this, e.statusCode);
-            m_readyState = SN_STATE_CLOSED;
-        }
-        else if (e.type == WebSocketEvent::EVENT_ERROR)
-        {
-            m_listener->onError(*this, e.errorCode);
+            const WebSocketEvent& e = events[i];
+            
+            if (m_listener == NULL)
+            {
+                continue;
+            }
+            
+            if (!errorPass)
+            {
+                if (e.type == WebSocketEvent::EVENT_OPEN)
+                {
+                    m_readyState = SN_STATE_OPEN;
+                    m_listener->onOpen(*this);
+                }
+                else if (e.type == WebSocketEvent::EVENT_CLOSE)
+                {
+                    m_readyState = SN_STATE_CLOSED;
+                    m_listener->onClose(*this, e.statusCode);
+                }
+            }
+            else
+            {
+                if (e.type == WebSocketEvent::EVENT_ERROR)
+                {
+                    m_listener->onError(*this, e.errorCode);
+                }
+            }
         }
     }
 }
