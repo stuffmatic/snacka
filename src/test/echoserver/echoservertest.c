@@ -54,7 +54,7 @@ static void messageCallback(void* userData, snOpcode opcode, const char* data, i
 int main(int argc, const char* argv[])
 {
     //create a websocket with default settings
-    snWebsocket* ws = snWebsocket_create(NULL, messageCallback, NULL);
+    snWebsocket* ws = snWebsocket_create(NULL, messageCallback, NULL, NULL, NULL);
     
     //if zero, this client will connect to a server
     //started by running in echoserver.py, otherwise the client
@@ -105,7 +105,8 @@ int main(int argc, const char* argv[])
             
             if (sentFrameCount == numFramesToSend)
             {
-                snWebsocket_disconnect(ws);
+                //start performing closing handshake
+                snWebsocket_disconnect(ws, 0);
             } 
         }
         

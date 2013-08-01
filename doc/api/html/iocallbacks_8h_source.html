@@ -112,7 +112,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * The views and conclusions contained in the software and documentation are those</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * of the authors and should not be interpreted asrepresenting official policies,</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * of the authors and should not be interpreted as representing official policies,</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * either expressed or implied, of the copyright holders.</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
@@ -127,43 +127,64 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span>    </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="iocallbacks_8h.html#ae791e32a9a9211b7d7fece27015206e1">   46</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#ae791e32a9a9211b7d7fece27015206e1">snWebsocketIOInitCallback</a>)(<span class="keywordtype">void</span>** ioObject);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="iocallbacks_8h.html#a348a2d72367d56775175f0ef8f51091d">   51</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#a348a2d72367d56775175f0ef8f51091d">snWebsocketIODeinitCallback</a>)(<span class="keywordtype">void</span>* ioObject);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="iocallbacks_8h.html#a1fa45e18c8b7e0c23c7cafbc26b4def7">   56</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#a1fa45e18c8b7e0c23c7cafbc26b4def7">snWebsocketIOConnectCallback</a>)(<span class="keywordtype">void</span>* ioObject, <span class="keyword">const</span> <span class="keywordtype">char</span>* host, <span class="keywordtype">int</span> port);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="iocallbacks_8h.html#adfcb73b97e9b97a4fdd70690161d6b8f">   61</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#adfcb73b97e9b97a4fdd70690161d6b8f">snWebsocketIODisconnectCallback</a>)(<span class="keywordtype">void</span>* ioObject);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="code" href="iocallbacks_8h.html#abf87216883ebcf4013f09244da034d95">   71</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#abf87216883ebcf4013f09244da034d95">snWebsocketIOReadCallback</a>)(<span class="keywordtype">void</span>* ioObject, <span class="keywordtype">char</span>* buffer, <span class="keywordtype">int</span> bufferSize, <span class="keywordtype">int</span>* numBytesRead);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="iocallbacks_8h.html#ac4b1d504bf4c390b981f243414390fd2">   78</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#ac4b1d504bf4c390b981f243414390fd2">snWebsocketIOWriteCallback</a>)(<span class="keywordtype">void</span>* ioObject, <span class="keyword">const</span> <span class="keywordtype">char</span>* buffer, <span class="keywordtype">int</span> bufferSize, <span class="keywordtype">int</span>* numBytesWritten);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="code" href="structsn_i_o_callbacks.html">   83</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsn_i_o_callbacks.html">snIOCallbacks</a></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <a class="code" href="iocallbacks_8h.html#ae791e32a9a9211b7d7fece27015206e1">snWebsocketIOInitCallback</a> initCallback;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <a class="code" href="iocallbacks_8h.html#a348a2d72367d56775175f0ef8f51091d">snWebsocketIODeinitCallback</a> deinitCallback;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="iocallbacks_8h.html#a1fa45e18c8b7e0c23c7cafbc26b4def7">snWebsocketIOConnectCallback</a> connectCallback;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <a class="code" href="iocallbacks_8h.html#adfcb73b97e9b97a4fdd70690161d6b8f">snWebsocketIODisconnectCallback</a> disconnectCallback;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="iocallbacks_8h.html#abf87216883ebcf4013f09244da034d95">snWebsocketIOReadCallback</a> readCallback;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="iocallbacks_8h.html#ac4b1d504bf4c390b981f243414390fd2">snWebsocketIOWriteCallback</a> writeCallback;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    } <a class="code" href="iocallbacks_8h.html#a594b482ea21ad5547acb619aa57c54e8">snIOCallbacks</a>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*SN_IOCALLBACKS_H*/</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">   44</a></span>&#160;    <span class="keyword">typedef</span> int (*<a class="code" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a>)(<span class="keywordtype">void</span>* data);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="iocallbacks_8h.html#a2c7b470d7e55730ec7cf4eaf494e82b3">   49</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#a2c7b470d7e55730ec7cf4eaf494e82b3">snIOInitCallback</a>)(<span class="keywordtype">void</span>** ioObject);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="iocallbacks_8h.html#a62b9ba6199a907737b72ec6c7f9dc128">   54</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#a62b9ba6199a907737b72ec6c7f9dc128">snIODeinitCallback</a>)(<span class="keywordtype">void</span>* ioObject);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="iocallbacks_8h.html#abb3c4e8f008c77bf02290d9ebe8420e0">   59</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#abb3c4e8f008c77bf02290d9ebe8420e0">snIOConnectCallback</a>)(<span class="keywordtype">void</span>* ioObject,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                           <span class="keyword">const</span> <span class="keywordtype">char</span>* host,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                           <span class="keywordtype">int</span> port,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                           <a class="code" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a> cancelCallback);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="iocallbacks_8h.html#aa07af930c5e205e5a38a490a8bd8b4bd">   67</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#aa07af930c5e205e5a38a490a8bd8b4bd">snIODisconnectCallback</a>)(<span class="keywordtype">void</span>* ioObject);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="iocallbacks_8h.html#a8a4db366f376675fe45f4c9170104f33">   77</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#a8a4db366f376675fe45f4c9170104f33">snIOReadCallback</a>)(<span class="keywordtype">void</span>* ioObject, <span class="keywordtype">char</span>* buffer, <span class="keywordtype">int</span> bufferSize, <span class="keywordtype">int</span>* numBytesRead);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="iocallbacks_8h.html#a4635516c1e7e38a43fc61b846e723a31">   82</a></span>&#160;    <span class="keyword">typedef</span> <a class="code" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> (*<a class="code" href="iocallbacks_8h.html#a4635516c1e7e38a43fc61b846e723a31">snIOWriteCallback</a>)(<span class="keywordtype">void</span>* ioObject,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                         <span class="keyword">const</span> <span class="keywordtype">char</span>* buffer,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                         <span class="keywordtype">int</span> bufferSize,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                         <span class="keywordtype">int</span>* numBytesWritten,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                         <a class="code" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a> cancelCallback);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="structsn_i_o_callbacks.html">   91</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsn_i_o_callbacks.html">snIOCallbacks</a></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="iocallbacks_8h.html#a2c7b470d7e55730ec7cf4eaf494e82b3">snIOInitCallback</a> initCallback;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="iocallbacks_8h.html#a62b9ba6199a907737b72ec6c7f9dc128">snIODeinitCallback</a> deinitCallback;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="iocallbacks_8h.html#abb3c4e8f008c77bf02290d9ebe8420e0">snIOConnectCallback</a> connectCallback;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="iocallbacks_8h.html#aa07af930c5e205e5a38a490a8bd8b4bd">snIODisconnectCallback</a> disconnectCallback;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="iocallbacks_8h.html#a8a4db366f376675fe45f4c9170104f33">snIOReadCallback</a> readCallback;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="iocallbacks_8h.html#a4635516c1e7e38a43fc61b846e723a31">snIOWriteCallback</a> writeCallback;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    } <a class="code" href="iocallbacks_8h.html#a594b482ea21ad5547acb619aa57c54e8">snIOCallbacks</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*SN_IOCALLBACKS_H*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="ttc" id="errorcodes_8h_html"><div class="ttname"><a href="errorcodes_8h.html">errorcodes.h</a></div></div>
+<div class="ttc" id="structsn_i_o_callbacks_html"><div class="ttname"><a href="structsn_i_o_callbacks.html">snIOCallbacks</a></div><div class="ttdef"><b>Definition:</b> iocallbacks.h:91</div></div>
+<div class="ttc" id="iocallbacks_8h_html_abb3c4e8f008c77bf02290d9ebe8420e0"><div class="ttname"><a href="iocallbacks_8h.html#abb3c4e8f008c77bf02290d9ebe8420e0">snIOConnectCallback</a></div><div class="ttdeci">snError(* snIOConnectCallback)(void *ioObject, const char *host, int port, snIOCancelCallback cancelCallback)</div><div class="ttdef"><b>Definition:</b> iocallbacks.h:59</div></div>
+<div class="ttc" id="iocallbacks_8h_html_a0421810bce9e5b30c454ce56ca439de6"><div class="ttname"><a href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a></div><div class="ttdeci">int(* snIOCancelCallback)(void *data)</div><div class="ttdef"><b>Definition:</b> iocallbacks.h:44</div></div>
+<div class="ttc" id="iocallbacks_8h_html_a8a4db366f376675fe45f4c9170104f33"><div class="ttname"><a href="iocallbacks_8h.html#a8a4db366f376675fe45f4c9170104f33">snIOReadCallback</a></div><div class="ttdeci">snError(* snIOReadCallback)(void *ioObject, char *buffer, int bufferSize, int *numBytesRead)</div><div class="ttdef"><b>Definition:</b> iocallbacks.h:77</div></div>
+<div class="ttc" id="errorcodes_8h_html_a355e09416ce79ad0dc2052002f215f60"><div class="ttname"><a href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a></div><div class="ttdeci">snError</div><div class="ttdef"><b>Definition:</b> errorcodes.h:43</div></div>
+<div class="ttc" id="iocallbacks_8h_html_a2c7b470d7e55730ec7cf4eaf494e82b3"><div class="ttname"><a href="iocallbacks_8h.html#a2c7b470d7e55730ec7cf4eaf494e82b3">snIOInitCallback</a></div><div class="ttdeci">snError(* snIOInitCallback)(void **ioObject)</div><div class="ttdef"><b>Definition:</b> iocallbacks.h:49</div></div>
+<div class="ttc" id="iocallbacks_8h_html_a4635516c1e7e38a43fc61b846e723a31"><div class="ttname"><a href="iocallbacks_8h.html#a4635516c1e7e38a43fc61b846e723a31">snIOWriteCallback</a></div><div class="ttdeci">snError(* snIOWriteCallback)(void *ioObject, const char *buffer, int bufferSize, int *numBytesWritten, snIOCancelCallback cancelCallback)</div><div class="ttdef"><b>Definition:</b> iocallbacks.h:82</div></div>
+<div class="ttc" id="iocallbacks_8h_html_a594b482ea21ad5547acb619aa57c54e8"><div class="ttname"><a href="iocallbacks_8h.html#a594b482ea21ad5547acb619aa57c54e8">snIOCallbacks</a></div><div class="ttdeci">struct snIOCallbacks snIOCallbacks</div></div>
+<div class="ttc" id="iocallbacks_8h_html_a62b9ba6199a907737b72ec6c7f9dc128"><div class="ttname"><a href="iocallbacks_8h.html#a62b9ba6199a907737b72ec6c7f9dc128">snIODeinitCallback</a></div><div class="ttdeci">snError(* snIODeinitCallback)(void *ioObject)</div><div class="ttdef"><b>Definition:</b> iocallbacks.h:54</div></div>
+<div class="ttc" id="iocallbacks_8h_html_aa07af930c5e205e5a38a490a8bd8b4bd"><div class="ttname"><a href="iocallbacks_8h.html#aa07af930c5e205e5a38a490a8bd8b4bd">snIODisconnectCallback</a></div><div class="ttdeci">snError(* snIODisconnectCallback)(void *ioObject)</div><div class="ttdef"><b>Definition:</b> iocallbacks.h:67</div></div>
+<div class="ttc" id="websocket_8h_html"><div class="ttname"><a href="websocket_8h.html">websocket.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

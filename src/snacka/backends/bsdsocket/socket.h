@@ -59,6 +59,7 @@ extern "C"
      * @param s The socket to connect.
      * @param host The host to connect to.
      * @param port The port to connect to.
+     * @param timeout Fail the connection attempt after this many seconds. Ignored if <= 0.0.
      * @param cancelCallback Called continually while attempting to connect, allowing
      * the caller to abort a connection attempt. Can be NULL.
      * @param callbackData User data passed to \c cancelCallback.

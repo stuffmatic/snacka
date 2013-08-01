@@ -104,24 +104,25 @@ Data Fields</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A struct representation of a websocket frame header. </p>
-<div class="fragment"><div class="line">0                   1                   2                   3</div>
-<div class="line">0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1</div>
-<div class="line">+-+-+-+-+-------+-+-------------+-------------------------------+</div>
-<div class="line">|F|R|R|R| <a class="code" href="structsn_frame_header.html#a5013136ca848d2349ec01ddce89d4546">opcode</a>|M| Payload len |    Extended payload length    |</div>
-<div class="line">|I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |</div>
-<div class="line">|N|V|V|V|       |S|             |   (<span class="keywordflow">if</span> payload len==126/127)   |</div>
-<div class="line">| |1|2|3|       |K|             |                               |</div>
-<div class="line">+-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +</div>
-<div class="line">|     Extended payload length continued, <span class="keywordflow">if</span> payload len == 127  |</div>
-<div class="line">+ - - - - - - - - - - - - - - - +-------------------------------+</div>
-<div class="line">|                               |Masking-key, <span class="keywordflow">if</span> MASK set to 1  |</div>
-<div class="line">+-------------------------------+-------------------------------+</div>
-<div class="line">| Masking-key (continued)       |          Payload Data         |</div>
-<div class="line">+-------------------------------- - - - - - - - - - - - - - - - +</div>
-<div class="line">:                     Payload Data continued ...                :</div>
-<div class="line">+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +</div>
-<div class="line">|                     Payload Data continued ...                |</div>
-<div class="line">+---------------------------------------------------------------+</div>
+<div class="fragment"><div class="line">* 0                   1                   2                   3</div>
+<div class="line">* 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1</div>
+<div class="line">* +-+-+-+-+-------+-+-------------+-------------------------------+</div>
+<div class="line">* |F|R|R|R| <a class="code" href="structsn_frame_header.html#a5013136ca848d2349ec01ddce89d4546">opcode</a>|M| Payload len |    Extended payload length    |</div>
+<div class="line">* |I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |</div>
+<div class="line">* |N|V|V|V|       |S|             |   (<span class="keywordflow">if</span> payload len==126/127)   |</div>
+<div class="line">* | |1|2|3|       |K|             |                               |</div>
+<div class="line">* +-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +</div>
+<div class="line">* |     Extended payload length continued, <span class="keywordflow">if</span> payload len == 127  |</div>
+<div class="line">* + - - - - - - - - - - - - - - - +-------------------------------+</div>
+<div class="line">* |                               |Masking-key, <span class="keywordflow">if</span> MASK set to 1  |</div>
+<div class="line">* +-------------------------------+-------------------------------+</div>
+<div class="line">* | Masking-key (continued)       |          Payload Data         |</div>
+<div class="line">* +-------------------------------- - - - - - - - - - - - - - - - +</div>
+<div class="line">* :                     Payload Data continued ...                :</div>
+<div class="line">* + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +</div>
+<div class="line">* |                     Payload Data continued ...                |</div>
+<div class="line">* +---------------------------------------------------------------+</div>
+<div class="line">* </div>
 </div><!-- fragment --> <dl class="section see"><dt>See Also</dt><dd><a href="https://tools.ietf.org/html/rfc6455#section-5.2">https://tools.ietf.org/html/rfc6455#section-5.2</a> </dd></dl>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a960dfc4d8c6a5a35bd3c9acd273eeac1"></a>
@@ -195,7 +196,7 @@ Data Fields</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

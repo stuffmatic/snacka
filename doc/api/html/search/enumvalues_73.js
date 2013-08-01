@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['sn_5fcancelled_5foperation',['SN_CANCELLED_OPERATION',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a12a32c63d5679bc04e34b531f4cfb03e',1,'errorcodes.h']]],
   ['sn_5fcontrol_5fframe_5fpayload_5ftoo_5flarge',['SN_CONTROL_FRAME_PAYLOAD_TOO_LARGE',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a3a7f4fc14a63563f589d181f82a5545a',1,'errorcodes.h']]],
   ['sn_5fexceeded_5fmax_5fpayload_5fsize',['SN_EXCEEDED_MAX_PAYLOAD_SIZE',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60adc019a9b7dbffadf2fc7147d43f1145f',1,'errorcodes.h']]],
   ['sn_5fexpected_5fcontinuation_5fframe',['SN_EXPECTED_CONTINUATION_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a630bf9212409ce94386cdfb1bc2d7793',1,'errorcodes.h']]],
@@ -10,6 +11,11 @@ var searchData=
   ['sn_5fno_5ferror',['SN_NO_ERROR',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4',1,'errorcodes.h']]],
   ['sn_5fnon_5ffinal_5fcontrol_5fframe',['SN_NON_FINAL_CONTROL_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ad97208308325f856cc6827457b122684',1,'errorcodes.h']]],
   ['sn_5fnonzero_5fresverved_5fbit',['SN_NONZERO_RESVERVED_BIT',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ab934cf469147e679faaee8cac9834649',1,'errorcodes.h']]],
+  ['sn_5fsocket_5ffailed_5fto_5fconnect',['SN_SOCKET_FAILED_TO_CONNECT',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60abb2fc572101798c954b005e2936c24d4',1,'errorcodes.h']]],
+  ['sn_5fstate_5fclosed',['SN_STATE_CLOSED',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aa6c1cbe668ffaf9388436cdfb3ba7708',1,'websocket.h']]],
+  ['sn_5fstate_5fclosing',['SN_STATE_CLOSING',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aa4ebff626784b2ef6bfb6fca8b631d0e',1,'websocket.h']]],
+  ['sn_5fstate_5fconnecting',['SN_STATE_CONNECTING',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161a444fe2d3e6f770fc3ca23e26737f98e5',1,'websocket.h']]],
+  ['sn_5fstate_5fopen',['SN_STATE_OPEN',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aaf6b606c5b470c01c2db07faa713ab91',1,'websocket.h']]],
   ['sn_5fstatus_5fendpoint_5fgoing_5faway',['SN_STATUS_ENDPOINT_GOING_AWAY',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca4575418ca776fbd3eb58251d6300ea1e',1,'websocket.h']]],
   ['sn_5fstatus_5finconsistent_5fdata',['SN_STATUS_INCONSISTENT_DATA',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca1ffc460ce6e760bee00feead6bf6701c',1,'websocket.h']]],
   ['sn_5fstatus_5finvalid_5fdata',['SN_STATUS_INVALID_DATA',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca70c606773af8aef704746e3c78a2a411',1,'websocket.h']]],

@@ -80,10 +80,17 @@ namespace sn
         void disconnect();
         
         /** 
-         * Returns the current connection state.
+         * Returns the connection state.
          * @return The connection state.
          */
         snReadyState getState() const;
+        
+        /** 
+         * Checks if the websocket is open, i.e has completed the 
+         * opening handshake.
+         * @return True if the connection is open, false otherwise.
+         */
+        bool isOpen() const;
         
         /**
          * Sends a text frame.
@@ -96,12 +103,6 @@ namespace sn
          * @param payload Optional payload data.
          */
         void sendPing(const std::string& payload = "");
-        
-        /**
-         * Sends a pong frame.
-         * @param payload Optional payload data.
-         */
-        void sendPong(const std::string& payload = "");
         
         /**
          * Returns the current host or an empty string
@@ -118,7 +119,8 @@ namespace sn
     private:
         
         /**
-         *
+         * Used to pass frames from the I/O thread
+         * to the main thread.
          */
         class WebSocketFrame
         {
@@ -137,25 +139,39 @@ namespace sn
         };
         
         /**
-         *
+         * Used to pass events from the I/O thread
+         * to the main thread.
          */
         class WebSocketEvent
         {
             public:
+            
+            enum EventType
+            {
+                EVENT_INVALID = -1,
+                EVENT_OPEN = 0,
+                EVENT_CLOSE,
+                EVENT_ERROR
+            };
+            
             WebSocketEvent() :
+            type(EVENT_INVALID),
             statusCode(SN_STATUS_NORMAL_CLOSURE),
-            readyState(SN_STATE_CLOSED)
+            readyState(SN_STATE_CLOSED),
+            errorCode(SN_NO_ERROR)
             {
             
             }
             
+            EventType type;
+            snError errorCode;
             snStatusCode statusCode;
             snReadyState readyState;
         };
         
         void resetState();
         
-        void sendNotification(snReadyState state, snStatusCode statusCode);
+        void sendEvent(const WebSocketEvent& event);
         
         void disconnectSocketThread();
         
@@ -173,7 +189,11 @@ namespace sn
     
         friend void messageCallback(void* data, snOpcode opcode, const char* bytes, int numBytes);
     
-        friend void stateCallback(void* data, snReadyState state, int statusCode);
+        friend void openCallback(void* data);
+    
+        friend void closeCallback(void* data, snStatusCode status);
+    
+        friend void errorCallback(void* data, snError error);
     
         bool shouldStopRunLoop();
         
@@ -194,7 +214,7 @@ namespace sn
         mtx_t m_flagMutex;
         
         snReadyState m_readyState;
-        
+    
         snWebsocket* m_websocket;
         
         mtx_t m_toSocketQueueMutex;
@@ -205,7 +225,7 @@ namespace sn
         
         std::vector<WebSocketFrame> m_fromSocketQueue;
         
-        std::vector<WebSocketEvent> m_notificationQueue;
+        std::vector<WebSocketEvent> m_eventQueue;
         
         WebSocketListener* m_listener;
     };

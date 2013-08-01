@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['sendping',['sendPing',['../classsn_1_1_web_socket.html#a78b5e5ddbb8cd2fc445281764117378b',1,'sn::WebSocket']]],
+  ['sendtext',['sendText',['../classsn_1_1_web_socket.html#a92e9083ee1897659870d4de2753cc9e0',1,'sn::WebSocket']]],
+  ['setlistener',['setListener',['../classsn_1_1_web_socket.html#a8903a01d8170ae0f3eefd70e40f05ba4',1,'sn::WebSocket']]],
   ['sndefaultlogcallback',['snDefaultLogCallback',['../logging_8h.html#a783026d0152c8aacfca202ca4a5cf744',1,'logging.c']]],
   ['snframe_5flog',['snFrame_log',['../frame_8h.html#a7a30e9520869c2a9dee8d607a27d8fce',1,'frame.c']]],
   ['snframeheader_5fapplymask',['snFrameHeader_applyMask',['../frameheader_8h.html#af27c8781dab3ed461371f3c799e1f580',1,'frameheader.c']]],
@@ -16,10 +19,10 @@ var searchData=
   ['snutf8validatestring',['snUTF8ValidateString',['../utf8_8h.html#af7ae12071338964d1df535198d94f735',1,'utf8.c']]],
   ['snutf8validatestringincremental',['snUTF8ValidateStringIncremental',['../utf8_8h.html#a6ac45b590de54a038268960d75888deb',1,'utf8.c']]],
   ['snwebsocket_5fconnect',['snWebsocket_connect',['../websocket_8h.html#a85396d5eb9ffcf04e4847d40ce013000',1,'websocket.c']]],
-  ['snwebsocket_5fcreate',['snWebsocket_create',['../websocket_8h.html#a74e7146d26fe3f19e9bc1147425a0433',1,'websocket.c']]],
-  ['snwebsocket_5fcreatewithsettings',['snWebsocket_createWithSettings',['../websocket_8h.html#a1f3bb285502ff8c8e89d308b072a29c3',1,'websocket.c']]],
+  ['snwebsocket_5fcreate',['snWebsocket_create',['../websocket_8h.html#aee7850776b4c83b1b27d151f27c3c7ec',1,'websocket.c']]],
+  ['snwebsocket_5fcreatewithsettings',['snWebsocket_createWithSettings',['../websocket_8h.html#ac5bde6aac39416c62ac333d59994aa40',1,'websocket.c']]],
   ['snwebsocket_5fdelete',['snWebsocket_delete',['../websocket_8h.html#a915ffc33f89fbe58f1221bd30a10b281',1,'websocket.c']]],
-  ['snwebsocket_5fdisconnect',['snWebsocket_disconnect',['../websocket_8h.html#a1d79907cdeeaf2b753fd40617186fb77',1,'websocket.c']]],
+  ['snwebsocket_5fdisconnect',['snWebsocket_disconnect',['../websocket_8h.html#a7e91f80c3b81426e838c07049ca1cb75',1,'websocket.c']]],
   ['snwebsocket_5fgetstate',['snWebsocket_getState',['../websocket_8h.html#ac4d80006c85b88b7f0e237b94e69cb25',1,'websocket.c']]],
   ['snwebsocket_5fpoll',['snWebsocket_poll',['../websocket_8h.html#ae18152ec87d52f372b68d10c4897c9cc',1,'websocket.c']]],
   ['snwebsocket_5fsendbinarydata',['snWebsocket_sendBinaryData',['../websocket_8h.html#a53e7a2ec1ecef5fc70c60b26ca7750cb',1,'websocket.c']]],

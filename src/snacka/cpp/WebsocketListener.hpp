@@ -44,56 +44,46 @@ namespace sn
     class WebSocket;
     
     /**
-     * Receives data and state change notifications from a Websocket instance.
+     * Receives data and state change events from a Websocket instance.
      */
     class WebSocketListener
     {
     public:
         
         /**
-         * Called when the websocket connection state changes. 
+         * Called when the opening handshake has been completed.
          * @param websocket The websocket associated with the listener.
-         * @param state The new connection state.
          */
-        virtual void connectionStateChanged(WebSocket& websocket, snReadyState state) = 0;
+        virtual void onOpen(WebSocket& websocket) = 0;
         
         /**
          * Called when the websocket connection has been closed.
          * @param websocket The websocket associated with the listener.
          * @param statusCode A status code.
          */
-        virtual void disconnected(WebSocket& websocket, snStatusCode statusCode) = 0;
+        virtual void onClose(WebSocket& websocket, snStatusCode statusCode) = 0;
         
         /**
-         * Called when a text message has been received.
+         * Called for each received message.
          * @param websocket The websocket associated with the listener.
-         * @param payload The UTF-8 string payload.
-         * @param numBytes The payload size in bytes, excluding the terminating null character.
+         * @param opcode The message type. One of \c SN_OPCODE_TEXT, \c SN_OPCODE_BINARY, \c SN_OPCODE_PING or
+         * \c SN_OPCODE_PONG.
+         * @param payload The message payload. If \c opcode equals \c SN_OPCODE_TEXT, this is a null terminated
+         * UTF-8 string.
+         * @param payloadSize The payload size in bytes. If \c opcode equals \c SN_OPCODE_TEXT, 
+         * this is the size excluding the terminating null character.
          */
-        virtual void textDataReceived(WebSocket& websocket, const std::string& payload, int numBytes) = 0;
+        virtual void onMessage(WebSocket& websocket,
+                               snOpcode opcode,
+                               const std::string& payload,
+                               int payloadSize) = 0;
         
         /**
-         * Called when a binary message has been received.
+         * Called when an error occurred.
          * @param websocket The websocket associated with the listener.
-         * @param payload The binary payload.
-         * @param numBytes The payload size in bytes.
+         * @param error An error code.
          */
-        virtual void binaryDataReceived(WebSocket& websocket, const std::string& payload, int numBytes) = 0;
-        
-        /**
-         * Called when a ping frame has been received.
-         * @param websocket The websocket associated with the listener.
-         * @param payload The ping payload.
-         */
-        virtual void pingReceived(WebSocket& websocket, const std::string& payload) = 0;
-        
-        /**
-         * Called when a pong frame has been received.
-         * @param websocket The websocket associated with the listener.
-         * @param payload The pong payload.
-         */
-        virtual void pongReceived(WebSocket& websocket, const std::string& payload) = 0;
-        
+        virtual void onError(WebSocket& websocket, snError error) = 0;
     };
     
 } //namespace sn

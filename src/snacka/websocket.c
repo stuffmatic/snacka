@@ -92,9 +92,13 @@ struct snWebsocket
     /** */
     snIOCancelCallback cancelCallback;
     /** */
-    snReadyStateCallback stateCallback;
+    snOpenCallback openCallback;
     /** */
     snFrameCallback frameCallback;
+    /** */
+    snCloseCallback closeCallback;
+    /** */
+    snErrorCallback errorCallback;
     /** */
     void* callbackData;
     /** */
@@ -212,13 +216,13 @@ static void sendCloseFrame(snWebsocket* ws, snStatusCode code)
 /**
  * Intercepts state changes before passing them on to the user defined callback.
  */
-void invokeStateCallback(snWebsocket* ws, snReadyState state, int status)
+void invokeStateCallback(snWebsocket* ws, snReadyState state)
 {
     ws->websocketState = state;
     
-    if (ws->stateCallback)
+    if (state == SN_STATE_OPEN && ws->openCallback)
     {
-        ws->stateCallback(ws->callbackData, state, status);
+        ws->openCallback(ws->callbackData);
     }
 }
 
@@ -229,7 +233,12 @@ static void disconnectWithStatus(snWebsocket* ws, snStatusCode status)
 {
     sendCloseFrame(ws, status);
     ws->ioCallbacks.disconnectCallback(ws->ioObject);
-    invokeStateCallback(ws, SN_STATE_CLOSED, status);
+    
+    if (ws->closeCallback)
+    {
+        ws->closeCallback(ws->callbackData, status);
+    }
+    invokeStateCallback(ws, SN_STATE_CLOSED);
 }
 
 static int isValidCloseCode(int code)
@@ -327,8 +336,10 @@ static void setDefaultIOCallbacks(snIOCallbacks* ioc)
     ioc->writeCallback = snSocketWriteCallback;
 }
 
-snWebsocket* snWebsocket_create(snReadyStateCallback stateCallback,
+snWebsocket* snWebsocket_create(snOpenCallback openCallback,
                                 snMessageCallback messageCallback,
+                                snCloseCallback closeCallback,
+                                snErrorCallback errorCallback,
                                 void* callbackData)
 {
     snIOCallbacks ioc;
@@ -342,11 +353,18 @@ snWebsocket* snWebsocket_create(snReadyStateCallback stateCallback,
     s.logCallback = NULL;
     s.maxFrameSize = 0;
     
-    return snWebsocket_createWithSettings(stateCallback, messageCallback, callbackData, &s);
+    return snWebsocket_createWithSettings(openCallback,
+                                          messageCallback,
+                                          closeCallback,
+                                          errorCallback,
+                                          callbackData,
+                                          &s);
 }
 
-snWebsocket* snWebsocket_createWithSettings(snReadyStateCallback stateCallback,
+snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
                                             snMessageCallback messageCallback,
+                                            snCloseCallback closeCallback,
+                                            snErrorCallback errorCallback,
                                             void* callbackData,
                                             snWebsocketSettings* settings)
 {
@@ -360,7 +378,8 @@ snWebsocket* snWebsocket_createWithSettings(snReadyStateCallback stateCallback,
     ws->ioCallbacks.initCallback(&ws->ioObject);
     
     ws->callbackData = callbackData;
-    ws->stateCallback = stateCallback;
+    ws->openCallback = openCallback;
+    ws->closeCallback = closeCallback;
     
     ws->maxFrameSize = SN_DEFAULT_MAX_FRAME_SIZE;
     
@@ -533,7 +552,7 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     ws->handshakeResponseReadPosition = 0;
     ws->hasSentCloseFrame = 0;
     
-    invokeStateCallback(ws, SN_STATE_CONNECTING, 0);
+    invokeStateCallback(ws, SN_STATE_CONNECTING);
     
     sendOpeningHandshake(ws);
     
@@ -549,7 +568,7 @@ void snWebsocket_disconnect(snWebsocket* ws, int disconnectImmediately)
     else
     {
         sendCloseFrame(ws, SN_STATUS_NORMAL_CLOSURE);
-        invokeStateCallback(ws, SN_STATE_CLOSING, 0);
+        invokeStateCallback(ws, SN_STATE_CLOSING);
     }
 }
 
@@ -587,6 +606,11 @@ static void handlePaserResult(snWebsocket* ws, snError error)
     if (error == SN_INVALID_UTF8)
     {
         status = SN_STATUS_INCONSISTENT_DATA;
+    }
+    
+    if (ws->errorCallback)
+    {
+        ws->errorCallback(ws->callbackData, error);
     }
     
     disconnectWithStatus(ws, status);
@@ -667,7 +691,7 @@ void snWebsocket_poll(snWebsocket* ws)
             {
                 //this could be a handshake response. TODO: perform further checks
                 ws->hasCompletedOpeningHandshake = 1;
-                invokeStateCallback(ws, SN_STATE_OPEN, 0);
+                invokeStateCallback(ws, SN_STATE_OPEN);
                 
                 //TODO: duplicate call to snFrameParser_processBytes in else block below
                 const int numBytesLeft = numBytesRead - i - 1;

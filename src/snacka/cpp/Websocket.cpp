@@ -45,16 +45,36 @@ static int threadCount = 0;
 
 namespace sn
 {
+    void openCallback(void* data)
+    {
+        WebSocket* ws = (WebSocket*)data;
+        WebSocket::WebSocketEvent e;
+        e.type = WebSocket::WebSocketEvent::EVENT_OPEN;
+        ws->sendEvent(e);
+    }
+    
     void messageCallback(void* data, snOpcode opcode, const char* bytes, int numBytes)
     {
         WebSocket* ws = (WebSocket*)data;
         ws->enqueueIncomingFrame(opcode, bytes, numBytes);
     }
     
-    void stateCallback(void* data, snReadyState state, int statusCode)
+    void closeCallback(void* data, snStatusCode closeCode)
     {
         WebSocket* ws = (WebSocket*)data;
-        ws->sendNotification(state, (snStatusCode)statusCode); //TODO: don't cast here
+        WebSocket::WebSocketEvent e;
+        e.type = WebSocket::WebSocketEvent::EVENT_CLOSE;
+        e.statusCode = closeCode;
+        ws->sendEvent(e);
+    }
+    
+    void errorCallback(void* data, snError error)
+    {
+        WebSocket* ws = (WebSocket*)data;
+        WebSocket::WebSocketEvent e;
+        e.type = WebSocket::WebSocketEvent::EVENT_ERROR;
+        e.errorCode = error;
+        ws->sendEvent(e);
     }
     
     int ioCancelCallback(void* data)
@@ -67,7 +87,7 @@ namespace sn
     
     int websocketRunLoopEntryPoint(void* data)
     {
-        //printf("websocketRunLoopEntryPoint: entering\n");
+        printf("websocketRunLoopEntryPoint: entering\n");
         threadCount++;
         assert(threadCount == 1);
         
@@ -81,6 +101,10 @@ namespace sn
         
         if (connectionResult != SN_NO_ERROR)
         {
+            WebSocket::WebSocketEvent e;
+            e.type = WebSocket::WebSocketEvent::EVENT_ERROR;
+            e.errorCode = connectionResult;
+            ws->sendEvent(e);
             return 0;
         }
         else
@@ -110,7 +134,17 @@ namespace sn
 
 WebSocket::WebSocket(WebSocketListener* listener) :
 m_url(),
-m_listener(listener)
+m_listener(listener),
+m_socketRunLoop(0),
+m_shouldStopRunloop(false),
+m_flagMutex(),
+m_readyState(SN_STATE_CLOSED),
+m_websocket(0),
+m_toSocketQueueMutex(),
+m_toSocketQueue(),
+m_fromSocketQueueMutex(),
+m_fromSocketQueue(),
+m_eventQueue()
 {
     mtx_init(&m_flagMutex, mtx_plain);
     mtx_init(&m_toSocketQueueMutex, mtx_plain);
@@ -120,8 +154,10 @@ m_listener(listener)
     memset(&settings, 0, sizeof(snWebsocketSettings));
     settings.cancelCallback = ioCancelCallback;
     
-    m_websocket = snWebsocket_createWithSettings(stateCallback,
+    m_websocket = snWebsocket_createWithSettings(openCallback,
                                                  messageCallback,
+                                                 closeCallback,
+                                                 errorCallback,
                                                  this,
                                                  &settings);
     
@@ -140,13 +176,13 @@ WebSocket::~WebSocket()
 void WebSocket::poll()
 {
     std::vector<WebSocketFrame> frames;
-    std::vector<WebSocketEvent> notifications;
+    std::vector<WebSocketEvent> events;
     
     mtx_lock(&m_fromSocketQueueMutex);
     frames = m_fromSocketQueue;
     m_fromSocketQueue.clear();
-    notifications = m_notificationQueue;
-    m_notificationQueue.clear();
+    events = m_eventQueue;
+    m_eventQueue.clear();
     mtx_unlock(&m_fromSocketQueueMutex);
     
     for (int i = 0; i < frames.size(); i++)
@@ -161,23 +197,11 @@ void WebSocket::poll()
         switch (framei.opcode)
         {
             case SN_OPCODE_TEXT:
-            {
-                m_listener->textDataReceived(*this, framei.payload, framei.payloadSize);
-                break;
-            }
             case SN_OPCODE_BINARY:
-            {
-                m_listener->binaryDataReceived(*this, framei.payload, framei.payloadSize);
-                break;
-            }
             case SN_OPCODE_PING:
-            {
-                m_listener->pingReceived(*this, framei.payload);
-                break;
-            }
             case SN_OPCODE_PONG:
             {
-                m_listener->pongReceived(*this, framei.payload);
+                m_listener->onMessage(*this, framei.opcode, framei.payload, framei.payloadSize);
                 break;
             }
             default:
@@ -188,27 +212,29 @@ void WebSocket::poll()
         }
     }
     
-    for (int i = 0; i < notifications.size(); i++)
+    for (int i = 0; i < events.size(); i++)
     {
-        const WebSocketEvent& e = notifications[i];
-        
-        m_readyState = e.readyState;
+        const WebSocketEvent& e = events[i];
         
         if (m_listener == NULL)
         {
             continue;
         }
-
-        if (e.readyState == SN_STATE_CLOSED)
-        {
-            m_listener->disconnected(*this, e.statusCode); //TODO: pass status code
-
-        }
-        else
-        {
-            m_listener->connectionStateChanged(*this, e.readyState);
-        }
         
+        if (e.type == WebSocketEvent::EVENT_OPEN)
+        {
+            m_listener->onOpen(*this);
+            m_readyState = SN_STATE_OPEN;
+        }
+        else if (e.type == WebSocketEvent::EVENT_CLOSE)
+        {
+            m_listener->onClose(*this, e.statusCode);
+            m_readyState = SN_STATE_CLOSED;
+        }
+        else if (e.type == WebSocketEvent::EVENT_ERROR)
+        {
+            m_listener->onError(*this, e.errorCode);
+        }
     }
 }
 
@@ -229,6 +255,7 @@ void WebSocket::connect(const std::string& url)
     resetState();
     
     m_readyState = SN_STATE_CONNECTING;
+    
     m_url = url;
     
     thrd_create(&m_socketRunLoop, websocketRunLoopEntryPoint, this);
@@ -242,7 +269,7 @@ void WebSocket::disconnect()
         thrd_join(m_socketRunLoop, NULL);
         m_socketRunLoop = 0;
         
-        //flush any pending frames and notifications
+        //flush any pending frames and events
         poll();
     }
 }
@@ -250,6 +277,11 @@ void WebSocket::disconnect()
 snReadyState WebSocket::getState() const
 {
     return m_readyState;
+}
+
+bool WebSocket::isOpen() const
+{
+    return m_readyState == SN_STATE_OPEN;
 }
 
 void WebSocket::sendText(const std::string& payload)
@@ -284,11 +316,6 @@ void WebSocket::enqueueIncomingFrame(snOpcode opcode, const char* bytes, int num
 void WebSocket::sendPing(const std::string& payload)
 {
     enqueueOutgoingFrame(SN_OPCODE_PING, payload.c_str(), payload.length());
-}
-
-void WebSocket::sendPong(const std::string& payload)
-{
-    enqueueOutgoingFrame(SN_OPCODE_PONG, payload.c_str(), payload.length());
 }
 
 void WebSocket::sendEnqueuedFrames()
@@ -328,13 +355,11 @@ void WebSocket::resetState()
     m_toSocketQueue.clear();
 }
 
-void WebSocket::sendNotification(snReadyState state, snStatusCode statusCode)
+void WebSocket::sendEvent(const WebSocketEvent& event)
 {
-    WebSocketEvent e;
-    e.readyState = state;
-    e.statusCode = statusCode;
+
     mtx_lock(&m_fromSocketQueueMutex);
-    m_notificationQueue.push_back(e);
+    m_eventQueue.push_back(event);
     mtx_unlock(&m_fromSocketQueueMutex);
 }
 

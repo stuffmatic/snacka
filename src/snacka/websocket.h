@@ -175,14 +175,15 @@ extern "C"
     
     /**
      * Called when a new incoming frame is available,
-     * including non-final continuation frames.
+     * including non-final continuation frames. Useful
+     * for debugging.
      * @param userData Custom user data.
      * @param frame The received frame.
      */
     typedef void (*snFrameCallback)(void* userData, const snFrame* frame);
     
     /**
-     * Called when a new incoming ping/pong or text/binary message is available.
+     * Called when an incoming message is available.
      * @param userData Custom user data.
      * @param opcode The message type. One of \c SN_OPCODE_PING, \c SN_OPCODE_PONG,
      * \c SN_OPCODE_TEXT and \c SN_OPCODE_BINARY.
@@ -194,12 +195,25 @@ extern "C"
     typedef void (*snMessageCallback)(void* userData, snOpcode opcode, const char* bytes, int numBytes);
     
     /**
-     * Notifies the application of connection state changes.
+     * Notifies the application when the opening handshake has been completed.
      * @param userData
-     * @param state
-     * @param statusCode 
      */
-    typedef void (*snReadyStateCallback)(void* userData, snReadyState state, int statusCode);
+    typedef void (*snOpenCallback)(void* userData);
+    
+    /**
+     * Notifies the application when the connection has been closed.
+     * @param userData
+     * @param status
+     */
+    typedef void (*snCloseCallback)(void* userData, snStatusCode status);
+    
+    /**
+     * Notifies the application when an error occurs.
+     * @param userData
+     * @param error
+     */
+    typedef void (*snErrorCallback)(void* userData, snError error);
+    
         
     /** @} */
     
@@ -230,27 +244,35 @@ extern "C"
     
     /**
      * Creates a new web socket.
-     * @param stateCallback A function to call when the connection state changes. Ignored if NULL.
+     * @param openCallback A function to call when the opening handshake has been completed. Ignored if NULL.
      * @param messageCallback A function to call when receiving pings, pongs or 
      * full text or binary messages. Ignored if NULL.
-     * @param callbackData A pointer passed to \c stateCallback and \c messageCallback.
+     * @param closeCallback A function to call when the websocket connection is closed. Ignored if NULL.
+     * @param errorCallback A function to call when an error occurs. Ignored if NULL.
+     * @param callbackData A pointer passed to \c openCallback, \c messageCallback, \c closeCallback and \c errorCallback.
      * @return The created websocket or NULL on error.
      */
-    snWebsocket* snWebsocket_create(snReadyStateCallback stateCallback,
+    snWebsocket* snWebsocket_create(snOpenCallback openCallback,
                                     snMessageCallback messageCallback,
+                                    snCloseCallback closeCallback,
+                                    snErrorCallback errorCallback,
                                     void* callbackData);
     
     /**
      * Initializes a web socket using custom settings.
-     * @param stateCallback A function to call when the connection state changes. Ignored if NULL.
+     * @param openCallback A function to call when the opening handshake has been completed. Ignored if NULL.
      * @param messageCallback A function to call when receiving pings, pongs or
      * full text or binary messages. Ignored if NULL.
-     * @param callbackData A pointer passed to \c stateCallback and \c messageCallback.
+     * @param closeCallback A function to call when the websocket connection is closed. Ignored if NULL.
+     * @param errorCallback A function to call when an error occurs. Ignored if NULL.
+     * @param callbackData A pointer passed to \c openCallback, \c messageCallback, \c closeCallback and \c errorCallback.
      * @param settings Custom websocket settings.
      * @return The created websocket or NULL on error.
      */
-    snWebsocket* snWebsocket_createWithSettings(snReadyStateCallback stateCallback,
+    snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
                                                 snMessageCallback messageCallback,
+                                                snCloseCallback closeCallback,
+                                                snErrorCallback errorCallback,
                                                 void* callbackData,
                                                 snWebsocketSettings* settings);
     

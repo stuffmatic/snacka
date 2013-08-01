@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text message with payload of length 65536 auto-fragmented with <b>autoFragmentSize = 1300</b>.",
    "droppedByMe": true,
-   "duration": 143,
+   "duration": 138,
    "expectation": "Receive echo'ed text message (with payload as sent and transmitted frame counts as expected). Clean close with normal code.",
    "expected": {
       "OK": [
@@ -55,7 +55,7 @@
       "182": 1,
       "65536": 1
    },
-   "started": "2013-07-30T15:37:54Z",
+   "started": "2013-08-01T10:05:44Z",
    "txFrameStats": {
       "0": 50,
       "1": 1,

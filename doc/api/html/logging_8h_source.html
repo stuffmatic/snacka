@@ -112,7 +112,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * The views and conclusions contained in the software and documentation are those</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * of the authors and should not be interpreted asrepresenting official policies,</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * of the authors and should not be interpreted as representing official policies,</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * either expressed or implied, of the copyright holders.</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
@@ -124,11 +124,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span>    </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="logging_8h.html#a81e60c85127063a72d4313242c14771e">   45</a></span>&#160;    <span class="keyword">typedef</span> void (*<a class="code" href="logging_8h.html#a81e60c85127063a72d4313242c14771e">snLogCallback</a>)(<span class="keyword">const</span> <span class="keywordtype">char</span>* message, ...);</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="logging_8h.html#a81e60c85127063a72d4313242c14771e">   45</a></span>&#160;    <span class="keyword">typedef</span> void (*<a class="code" href="logging_8h.html#a81e60c85127063a72d4313242c14771e">snLogCallback</a>)(<span class="keyword">const</span> <span class="keywordtype">char</span>* message, ...);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> snDefaultLogCallback(<span class="keyword">const</span> <span class="keywordtype">char</span>* format, ...);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="logging_8h.html#a783026d0152c8aacfca202ca4a5cf744">snDefaultLogCallback</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* format, ...);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> snSilentLogCallback(<span class="keyword">const</span> <span class="keywordtype">char</span>* format, ...);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="logging_8h.html#aadc9f173f21812dc50e8785aac46443c">snSilentLogCallback</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* format, ...);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor"></span>}</div>
@@ -136,10 +136,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*SN_LOGGING_H*/</span><span class="preprocessor"></span></div>
+<div class="ttc" id="logging_8h_html_aadc9f173f21812dc50e8785aac46443c"><div class="ttname"><a href="logging_8h.html#aadc9f173f21812dc50e8785aac46443c">snSilentLogCallback</a></div><div class="ttdeci">void snSilentLogCallback(const char *format,...)</div><div class="ttdef"><b>Definition:</b> logging.c:43</div></div>
+<div class="ttc" id="logging_8h_html_a783026d0152c8aacfca202ca4a5cf744"><div class="ttname"><a href="logging_8h.html#a783026d0152c8aacfca202ca4a5cf744">snDefaultLogCallback</a></div><div class="ttdeci">void snDefaultLogCallback(const char *format,...)</div><div class="ttdef"><b>Definition:</b> logging.c:35</div></div>
+<div class="ttc" id="logging_8h_html_a81e60c85127063a72d4313242c14771e"><div class="ttname"><a href="logging_8h.html#a81e60c85127063a72d4313242c14771e">snLogCallback</a></div><div class="ttdeci">void(* snLogCallback)(const char *message,...)</div><div class="ttdef"><b>Definition:</b> logging.h:45</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

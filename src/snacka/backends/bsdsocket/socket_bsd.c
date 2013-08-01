@@ -259,7 +259,7 @@ int stfSocket_connect(stfSocket* s,
         //attempt async connect, regularly
         //invoking cancelCallback to see if we should
         //abort the connection attempt
-        const float timeout = 5.0f;
+        const float timeout = 3.0f;
         float t = 0.0f;
         float dt = 0.01f;
         

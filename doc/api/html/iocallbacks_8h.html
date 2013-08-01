@@ -102,18 +102,20 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ae791e32a9a9211b7d7fece27015206e1"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#ae791e32a9a9211b7d7fece27015206e1">snWebsocketIOInitCallback</a> )(void **ioObject)</td></tr>
-<tr class="separator:ae791e32a9a9211b7d7fece27015206e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a348a2d72367d56775175f0ef8f51091d"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a348a2d72367d56775175f0ef8f51091d">snWebsocketIODeinitCallback</a> )(void *ioObject)</td></tr>
-<tr class="separator:a348a2d72367d56775175f0ef8f51091d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fa45e18c8b7e0c23c7cafbc26b4def7"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a1fa45e18c8b7e0c23c7cafbc26b4def7">snWebsocketIOConnectCallback</a> )(void *ioObject, const char *host, int port)</td></tr>
-<tr class="separator:a1fa45e18c8b7e0c23c7cafbc26b4def7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfcb73b97e9b97a4fdd70690161d6b8f"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#adfcb73b97e9b97a4fdd70690161d6b8f">snWebsocketIODisconnectCallback</a> )(void *ioObject)</td></tr>
-<tr class="separator:adfcb73b97e9b97a4fdd70690161d6b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf87216883ebcf4013f09244da034d95"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#abf87216883ebcf4013f09244da034d95">snWebsocketIOReadCallback</a> )(void *ioObject, char *buffer, int bufferSize, int *numBytesRead)</td></tr>
-<tr class="separator:abf87216883ebcf4013f09244da034d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4b1d504bf4c390b981f243414390fd2"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#ac4b1d504bf4c390b981f243414390fd2">snWebsocketIOWriteCallback</a> )(void *ioObject, const char *buffer, int bufferSize, int *numBytesWritten)</td></tr>
-<tr class="separator:ac4b1d504bf4c390b981f243414390fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0421810bce9e5b30c454ce56ca439de6"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a> )(void *data)</td></tr>
+<tr class="separator:a0421810bce9e5b30c454ce56ca439de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c7b470d7e55730ec7cf4eaf494e82b3"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a2c7b470d7e55730ec7cf4eaf494e82b3">snIOInitCallback</a> )(void **ioObject)</td></tr>
+<tr class="separator:a2c7b470d7e55730ec7cf4eaf494e82b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b9ba6199a907737b72ec6c7f9dc128"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a62b9ba6199a907737b72ec6c7f9dc128">snIODeinitCallback</a> )(void *ioObject)</td></tr>
+<tr class="separator:a62b9ba6199a907737b72ec6c7f9dc128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb3c4e8f008c77bf02290d9ebe8420e0"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#abb3c4e8f008c77bf02290d9ebe8420e0">snIOConnectCallback</a> )(void *ioObject, const char *host, int port, <a class="el" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a> cancelCallback)</td></tr>
+<tr class="separator:abb3c4e8f008c77bf02290d9ebe8420e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa07af930c5e205e5a38a490a8bd8b4bd"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#aa07af930c5e205e5a38a490a8bd8b4bd">snIODisconnectCallback</a> )(void *ioObject)</td></tr>
+<tr class="separator:aa07af930c5e205e5a38a490a8bd8b4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a4db366f376675fe45f4c9170104f33"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a8a4db366f376675fe45f4c9170104f33">snIOReadCallback</a> )(void *ioObject, char *buffer, int bufferSize, int *numBytesRead)</td></tr>
+<tr class="separator:a8a4db366f376675fe45f4c9170104f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4635516c1e7e38a43fc61b846e723a31"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a4635516c1e7e38a43fc61b846e723a31">snIOWriteCallback</a> )(void *ioObject, const char *buffer, int bufferSize, int *numBytesWritten, <a class="el" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a> cancelCallback)</td></tr>
+<tr class="separator:a4635516c1e7e38a43fc61b846e723a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a594b482ea21ad5547acb619aa57c54e8"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structsn_i_o_callbacks.html">snIOCallbacks</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="iocallbacks_8h.html#a594b482ea21ad5547acb619aa57c54e8">snIOCallbacks</a></td></tr>
 <tr class="separator:a594b482ea21ad5547acb619aa57c54e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -131,12 +133,25 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1fa45e18c8b7e0c23c7cafbc26b4def7"></a>
+<a class="anchor" id="a0421810bce9e5b30c454ce56ca439de6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snWebsocketIOConnectCallback)(void *ioObject, const char *host, int port)</td>
+          <td class="memname">typedef int(* snIOCancelCallback)(void *data)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return zero to cancel. </p>
+
+</div>
+</div>
+<a class="anchor" id="abb3c4e8f008c77bf02290d9ebe8420e0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snIOConnectCallback)(void *ioObject, const char *host, int port, <a class="el" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a> cancelCallback)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -144,12 +159,12 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a348a2d72367d56775175f0ef8f51091d"></a>
+<a class="anchor" id="a62b9ba6199a907737b72ec6c7f9dc128"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snWebsocketIODeinitCallback)(void *ioObject)</td>
+          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snIODeinitCallback)(void *ioObject)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -157,12 +172,12 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adfcb73b97e9b97a4fdd70690161d6b8f"></a>
+<a class="anchor" id="aa07af930c5e205e5a38a490a8bd8b4bd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snWebsocketIODisconnectCallback)(void *ioObject)</td>
+          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snIODisconnectCallback)(void *ioObject)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -170,12 +185,12 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae791e32a9a9211b7d7fece27015206e1"></a>
+<a class="anchor" id="a2c7b470d7e55730ec7cf4eaf494e82b3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snWebsocketIOInitCallback)(void **ioObject)</td>
+          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snIOInitCallback)(void **ioObject)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -183,12 +198,12 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abf87216883ebcf4013f09244da034d95"></a>
+<a class="anchor" id="a8a4db366f376675fe45f4c9170104f33"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snWebsocketIOReadCallback)(void *ioObject, char *buffer, int bufferSize, int *numBytesRead)</td>
+          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snIOReadCallback)(void *ioObject, char *buffer, int bufferSize, int *numBytesRead)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -206,30 +221,23 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac4b1d504bf4c390b981f243414390fd2"></a>
+<a class="anchor" id="a4635516c1e7e38a43fc61b846e723a31"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snWebsocketIOWriteCallback)(void *ioObject, const char *buffer, int bufferSize, int *numBytesWritten)</td>
+          <td class="memname">typedef <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>(* snIOWriteCallback)(void *ioObject, const char *buffer, int bufferSize, int *numBytesWritten, <a class="el" href="iocallbacks_8h.html#a0421810bce9e5b30c454ce56ca439de6">snIOCancelCallback</a> cancelCallback)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Attempts to write data to a custom IO object </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ioObject</td><td>The I/O object to write to. </td></tr>
-    <tr><td class="paramname">buffer</td><td>The buffer to write. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

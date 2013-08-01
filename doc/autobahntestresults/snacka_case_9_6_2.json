@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send binary message message with payload of length 1 * 2**20 (1M). Sent out data in chops of 128 octets.",
    "droppedByMe": true,
-   "duration": 1560,
+   "duration": 1541,
    "expectation": "Receive echo'ed text message (with payload as sent).",
    "expected": {},
    "expectedClose": {
@@ -41,7 +41,7 @@
       "182": 1,
       "65536": 16
    },
-   "started": "2013-07-30T15:37:13Z",
+   "started": "2013-08-01T10:05:04Z",
    "txFrameStats": {
       "2": 1,
       "8": 1

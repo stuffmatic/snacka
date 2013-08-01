@@ -91,7 +91,12 @@ int main(int argc, const char* argv[])
     memset(&s, 0, sizeof(snWebsocketSettings));
     s.maxFrameSize = 1 << 25;
     
-    snWebsocket* ws = snWebsocket_createWithSettings(NULL, messageCallback, &test, &s);
+    snWebsocket* ws = snWebsocket_createWithSettings(NULL, //skip open callback
+                                                     messageCallback,
+                                                     NULL, //skip close callback
+                                                     NULL, //skip error callback
+                                                     &test,
+                                                     &s);
     test.websocket = ws;
     
     const int pollDurationMs = 1;

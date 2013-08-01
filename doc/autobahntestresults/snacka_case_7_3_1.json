@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send a close frame with payload length 0 (no close code, no close reason)",
    "droppedByMe": true,
-   "duration": 121,
+   "duration": 63,
    "expectation": "Clean close with normal code.",
    "expected": {
       "OK": []
@@ -40,7 +40,7 @@
       "8": 1,
       "182": 1
    },
-   "started": "2013-07-30T15:32:55Z",
+   "started": "2013-08-01T10:00:46Z",
    "txFrameStats": {
       "8": 1
    },

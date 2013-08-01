@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Same as Case 5.19, but send all frames with SYNC = True.\n   Note, this does not change the octets sent in any way, only how the stream\n   is chopped up on the wire.",
    "droppedByMe": true,
-   "duration": 1003,
+   "duration": 1004,
    "expectation": "Same as Case 5.19. Implementations must be agnostic to how\n   octet stream is chopped up on wire (must be TCP clean).",
    "expected": {
       "OK": [
@@ -68,11 +68,11 @@
    },
    "rxOctetStats": {
       "8": 1,
-      "15": 1,
-      "66": 1,
+      "15": 2,
+      "51": 1,
       "181": 1
    },
-   "started": "2013-07-30T15:32:49Z",
+   "started": "2013-08-01T10:00:40Z",
    "txFrameStats": {
       "0": 4,
       "1": 1,
@@ -294,8 +294,8 @@
       [
          "RO",
          [
-            66,
-            "8a8928a522b258ca4cd545c002800981ad7188e8f617fa89911ced868240ee9a9716e58d9805ba8e8410ef85931ffcdb9003e98f9b14e69cc217fa89911ced86 ..."
+            15,
+            "8a8928a522b258ca4cd545c0028009"
          ]
       ],
       [
@@ -309,6 +309,13 @@
          0,
          true,
          "28a522b2"
+      ],
+      [
+         "RO",
+         [
+            51,
+            "81ad7188e8f617fa89911ced868240ee9a9716e58d9805ba8e8410ef85931ffcdb9003e98f9b14e69cc217fa89911ced868244"
+         ]
       ],
       [
          "RF",

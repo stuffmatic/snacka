@@ -112,15 +112,19 @@ typedef struct <a class="el" href="structsn_websocket.html">snWebsocket</a>&#160
 <tr class="separator:a29d08f4de2fef79094ca5c14ffc7fb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae88607b775bfd8582e0594bba3960342"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> )(void *userData, <a class="el" href="frameheader_8h.html#a8fe7a395e282395bee3b30f1dd0f03f7">snOpcode</a> opcode, const char *bytes, int numBytes)</td></tr>
 <tr class="separator:ae88607b775bfd8582e0594bba3960342"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3141677cb6695b276e354a7e2f451ec1"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a3141677cb6695b276e354a7e2f451ec1">snReadyStateCallback</a> )(void *userData, <a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a> state, int statusCode)</td></tr>
-<tr class="separator:a3141677cb6695b276e354a7e2f451ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e9b7a526cfcde6ab66cb7e7d93aff72"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a5e9b7a526cfcde6ab66cb7e7d93aff72">snOpenCallback</a> )(void *userData)</td></tr>
+<tr class="separator:a5e9b7a526cfcde6ab66cb7e7d93aff72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac61228ceb4055bc579872fc82bb668cf"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#ac61228ceb4055bc579872fc82bb668cf">snCloseCallback</a> )(void *userData, <a class="el" href="websocket_8h.html#a464ca8da6d97070dc8a791aab016049c">snStatusCode</a> status)</td></tr>
+<tr class="separator:ac61228ceb4055bc579872fc82bb668cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedd44f554b478e9bd85fc453b323b425"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#aedd44f554b478e9bd85fc453b323b425">snErrorCallback</a> )(void *userData, <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> error)</td></tr>
+<tr class="separator:aedd44f554b478e9bd85fc453b323b425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Constants</h2></td></tr>
-<tr class="memitem:a0fbbfa8ea09e95fbb0661313ba1d7161"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a> { <b>SN_STATE_CONNECTING</b> = 0, 
-<b>SN_STATE_OPEN</b> = 1, 
-<b>SN_STATE_CLOSING</b> = 2, 
-<b>SN_STATE_CLOSED</b> = 3
+<tr class="memitem:a0fbbfa8ea09e95fbb0661313ba1d7161"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a> { <a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161a444fe2d3e6f770fc3ca23e26737f98e5">SN_STATE_CONNECTING</a> = 0, 
+<a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aaf6b606c5b470c01c2db07faa713ab91">SN_STATE_OPEN</a> = 1, 
+<a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aa4ebff626784b2ef6bfb6fca8b631d0e">SN_STATE_CLOSING</a> = 2, 
+<a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aa6c1cbe668ffaf9388436cdfb3ba7708">SN_STATE_CLOSED</a> = 3
  }</td></tr>
 <tr class="separator:a0fbbfa8ea09e95fbb0661313ba1d7161"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a464ca8da6d97070dc8a791aab016049c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a464ca8da6d97070dc8a791aab016049c">snStatusCode</a> { <br/>
@@ -152,16 +156,16 @@ Constants</h2></td></tr>
 API</h2></td></tr>
 <tr class="memitem:a3e88e034b6a30310989aba5cd2b04269"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a3e88e034b6a30310989aba5cd2b04269">snWebsocketSettings</a></td></tr>
 <tr class="separator:a3e88e034b6a30310989aba5cd2b04269"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74e7146d26fe3f19e9bc1147425a0433"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a74e7146d26fe3f19e9bc1147425a0433">snWebsocket_create</a> (<a class="el" href="websocket_8h.html#a3141677cb6695b276e354a7e2f451ec1">snReadyStateCallback</a> stateCallback, <a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback, void *callbackData)</td></tr>
-<tr class="separator:a74e7146d26fe3f19e9bc1147425a0433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f3bb285502ff8c8e89d308b072a29c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a1f3bb285502ff8c8e89d308b072a29c3">snWebsocket_createWithSettings</a> (<a class="el" href="websocket_8h.html#a3141677cb6695b276e354a7e2f451ec1">snReadyStateCallback</a> stateCallback, <a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback, void *callbackData, <a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a> *settings)</td></tr>
-<tr class="separator:a1f3bb285502ff8c8e89d308b072a29c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7850776b4c83b1b27d151f27c3c7ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#aee7850776b4c83b1b27d151f27c3c7ec">snWebsocket_create</a> (<a class="el" href="websocket_8h.html#a5e9b7a526cfcde6ab66cb7e7d93aff72">snOpenCallback</a> openCallback, <a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback, <a class="el" href="websocket_8h.html#ac61228ceb4055bc579872fc82bb668cf">snCloseCallback</a> closeCallback, <a class="el" href="websocket_8h.html#aedd44f554b478e9bd85fc453b323b425">snErrorCallback</a> errorCallback, void *callbackData)</td></tr>
+<tr class="separator:aee7850776b4c83b1b27d151f27c3c7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5bde6aac39416c62ac333d59994aa40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#ac5bde6aac39416c62ac333d59994aa40">snWebsocket_createWithSettings</a> (<a class="el" href="websocket_8h.html#a5e9b7a526cfcde6ab66cb7e7d93aff72">snOpenCallback</a> openCallback, <a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a> messageCallback, <a class="el" href="websocket_8h.html#ac61228ceb4055bc579872fc82bb668cf">snCloseCallback</a> closeCallback, <a class="el" href="websocket_8h.html#aedd44f554b478e9bd85fc453b323b425">snErrorCallback</a> errorCallback, void *callbackData, <a class="el" href="structsn_websocket_settings.html">snWebsocketSettings</a> *settings)</td></tr>
+<tr class="separator:ac5bde6aac39416c62ac333d59994aa40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a915ffc33f89fbe58f1221bd30a10b281"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a915ffc33f89fbe58f1221bd30a10b281">snWebsocket_delete</a> (<a class="el" href="structsn_websocket.html">snWebsocket</a> *ws)</td></tr>
 <tr class="separator:a915ffc33f89fbe58f1221bd30a10b281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85396d5eb9ffcf04e4847d40ce013000"><td class="memItemLeft" align="right" valign="top"><a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a85396d5eb9ffcf04e4847d40ce013000">snWebsocket_connect</a> (<a class="el" href="structsn_websocket.html">snWebsocket</a> *ws, const char *url)</td></tr>
 <tr class="separator:a85396d5eb9ffcf04e4847d40ce013000"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d79907cdeeaf2b753fd40617186fb77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a1d79907cdeeaf2b753fd40617186fb77">snWebsocket_disconnect</a> (<a class="el" href="structsn_websocket.html">snWebsocket</a> *ws)</td></tr>
-<tr class="separator:a1d79907cdeeaf2b753fd40617186fb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e91f80c3b81426e838c07049ca1cb75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a7e91f80c3b81426e838c07049ca1cb75">snWebsocket_disconnect</a> (<a class="el" href="structsn_websocket.html">snWebsocket</a> *ws, int disconnectImmediately)</td></tr>
+<tr class="separator:a7e91f80c3b81426e838c07049ca1cb75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4d80006c85b88b7f0e237b94e69cb25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#ac4d80006c85b88b7f0e237b94e69cb25">snWebsocket_getState</a> (<a class="el" href="structsn_websocket.html">snWebsocket</a> *ws)</td></tr>
 <tr class="separator:ac4d80006c85b88b7f0e237b94e69cb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cd41790adf2432c5d455be92dceb698"><td class="memItemLeft" align="right" valign="top"><a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="websocket_8h.html#a8cd41790adf2432c5d455be92dceb698">snWebsocket_sendPing</a> (<a class="el" href="structsn_websocket.html">snWebsocket</a> *ws, int payloadSize, const char *payload)</td></tr>
@@ -178,6 +182,46 @@ API</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a href="http://www.w3.org/TR/2011/WD-websockets-20110419/">http://www.w3.org/TR/2011/WD-websockets-20110419/</a> <a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a> </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="ac61228ceb4055bc579872fc82bb668cf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* snCloseCallback)(void *userData, <a class="el" href="websocket_8h.html#a464ca8da6d97070dc8a791aab016049c">snStatusCode</a> status)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Notifies the application when the connection has been closed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userData</td><td></td></tr>
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aedd44f554b478e9bd85fc453b323b425"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* snErrorCallback)(void *userData, <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a> error)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Notifies the application when an error occurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userData</td><td></td></tr>
+    <tr><td class="paramname">error</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a29d08f4de2fef79094ca5c14ffc7fb90"></a>
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +231,7 @@ API</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Called when a new incoming frame is available, including non-final continuation frames. </p>
+<p>Called when a new incoming frame is available, including non-final continuation frames. Useful for debugging. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userData</td><td>Custom user data. </td></tr>
@@ -207,13 +251,32 @@ API</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Called when a new incoming ping/pong or text/binary message is available. </p>
+<p>Called when an incoming message is available. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">userData</td><td>Custom user data. </td></tr>
     <tr><td class="paramname">opcode</td><td>The message type. One of <code>SN_OPCODE_PING</code>, <code>SN_OPCODE_PONG</code>, <code>SN_OPCODE_TEXT</code> and <code>SN_OPCODE_BINARY</code>. </td></tr>
     <tr><td class="paramname">bytes</td><td>The message data. </td></tr>
     <tr><td class="paramname">numBytes</td><td>The number of message bytes. If <code>opcode</code> is <code>SN_OPCODE_TEXT</code>, <code>bytes</code> is null terminated and <code>numBytes</code> is the message size excluding the last null byte. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5e9b7a526cfcde6ab66cb7e7d93aff72"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* snOpenCallback)(void *userData)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Notifies the application when the opening handshake has been completed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userData</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -231,27 +294,6 @@ API</h2></td></tr>
 </div><div class="memdoc">
 <p>Websocket ready states. </p>
 <dl class="section see"><dt>See Also</dt><dd><a href="http://www.w3.org/TR/2011/WD-websockets-20110419/#the-websocket-interface">http://www.w3.org/TR/2011/WD-websockets-20110419/#the-websocket-interface</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a3141677cb6695b276e354a7e2f451ec1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef void(* snReadyStateCallback)(void *userData, <a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a> state, int statusCode)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Notifies the application of connection state changes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">userData</td><td></td></tr>
-    <tr><td class="paramname">state</td><td></td></tr>
-    <tr><td class="paramname">statusCode</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -294,6 +336,20 @@ API</h2></td></tr>
 </div><div class="memdoc">
 <p>Websocket ready states. </p>
 <dl class="section see"><dt>See Also</dt><dd><a href="http://www.w3.org/TR/2011/WD-websockets-20110419/#the-websocket-interface">http://www.w3.org/TR/2011/WD-websockets-20110419/#the-websocket-interface</a> </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a0fbbfa8ea09e95fbb0661313ba1d7161a444fe2d3e6f770fc3ca23e26737f98e5"></a>SN_STATE_CONNECTING</em>&nbsp;</td><td class="fielddoc">
+<p>The connection is in progress and has not yet been established. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a0fbbfa8ea09e95fbb0661313ba1d7161aaf6b606c5b470c01c2db07faa713ab91"></a>SN_STATE_OPEN</em>&nbsp;</td><td class="fielddoc">
+<p>The WebSocket connection is established and communication is possible. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a0fbbfa8ea09e95fbb0661313ba1d7161aa4ebff626784b2ef6bfb6fca8b631d0e"></a>SN_STATE_CLOSING</em>&nbsp;</td><td class="fielddoc">
+<p>The connection is going through the closing handshake. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a0fbbfa8ea09e95fbb0661313ba1d7161aa6c1cbe668ffaf9388436cdfb3ba7708"></a>SN_STATE_CLOSED</em>&nbsp;</td><td class="fielddoc">
+<p>The connection has been closed or could not be opened. </p>
+</td></tr>
+</table>
 
 </div>
 </div>
@@ -388,21 +444,33 @@ API</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a74e7146d26fe3f19e9bc1147425a0433"></a>
+<a class="anchor" id="aee7850776b4c83b1b27d151f27c3c7ec"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structsn_websocket.html">snWebsocket</a>* snWebsocket_create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="websocket_8h.html#a3141677cb6695b276e354a7e2f451ec1">snReadyStateCallback</a>&#160;</td>
-          <td class="paramname"><em>stateCallback</em>, </td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#a5e9b7a526cfcde6ab66cb7e7d93aff72">snOpenCallback</a>&#160;</td>
+          <td class="paramname"><em>openCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a>&#160;</td>
           <td class="paramname"><em>messageCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#ac61228ceb4055bc579872fc82bb668cf">snCloseCallback</a>&#160;</td>
+          <td class="paramname"><em>closeCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#aedd44f554b478e9bd85fc453b323b425">snErrorCallback</a>&#160;</td>
+          <td class="paramname"><em>errorCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -420,9 +488,11 @@ API</h2></td></tr>
 <p>Creates a new web socket. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stateCallback</td><td>A function to call when the connection state changes. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">openCallback</td><td>A function to call when the opening handshake has been completed. Ignored if NULL. </td></tr>
     <tr><td class="paramname">messageCallback</td><td>A function to call when receiving pings, pongs or full text or binary messages. Ignored if NULL. </td></tr>
-    <tr><td class="paramname">callbackData</td><td>A pointer passed to <code>stateCallback</code> and <code>messageCallback</code>. </td></tr>
+    <tr><td class="paramname">closeCallback</td><td>A function to call when the websocket connection is closed. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">errorCallback</td><td>A function to call when an error occurs. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">callbackData</td><td>A pointer passed to <code>openCallback</code>, <code>messageCallback</code>, <code>closeCallback</code> and <code>errorCallback</code>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -430,21 +500,33 @@ API</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1f3bb285502ff8c8e89d308b072a29c3"></a>
+<a class="anchor" id="ac5bde6aac39416c62ac333d59994aa40"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structsn_websocket.html">snWebsocket</a>* snWebsocket_createWithSettings </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="websocket_8h.html#a3141677cb6695b276e354a7e2f451ec1">snReadyStateCallback</a>&#160;</td>
-          <td class="paramname"><em>stateCallback</em>, </td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#a5e9b7a526cfcde6ab66cb7e7d93aff72">snOpenCallback</a>&#160;</td>
+          <td class="paramname"><em>openCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="websocket_8h.html#ae88607b775bfd8582e0594bba3960342">snMessageCallback</a>&#160;</td>
           <td class="paramname"><em>messageCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#ac61228ceb4055bc579872fc82bb668cf">snCloseCallback</a>&#160;</td>
+          <td class="paramname"><em>closeCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="websocket_8h.html#aedd44f554b478e9bd85fc453b323b425">snErrorCallback</a>&#160;</td>
+          <td class="paramname"><em>errorCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -468,9 +550,11 @@ API</h2></td></tr>
 <p>Initializes a web socket using custom settings. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stateCallback</td><td>A function to call when the connection state changes. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">openCallback</td><td>A function to call when the opening handshake has been completed. Ignored if NULL. </td></tr>
     <tr><td class="paramname">messageCallback</td><td>A function to call when receiving pings, pongs or full text or binary messages. Ignored if NULL. </td></tr>
-    <tr><td class="paramname">callbackData</td><td>A pointer passed to <code>stateCallback</code> and <code>messageCallback</code>. </td></tr>
+    <tr><td class="paramname">closeCallback</td><td>A function to call when the websocket connection is closed. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">errorCallback</td><td>A function to call when an error occurs. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">callbackData</td><td>A pointer passed to <code>openCallback</code>, <code>messageCallback</code>, <code>closeCallback</code> and <code>errorCallback</code>. </td></tr>
     <tr><td class="paramname">settings</td><td>Custom websocket settings. </td></tr>
   </table>
   </dd>
@@ -487,7 +571,7 @@ API</h2></td></tr>
           <td class="memname">void snWebsocket_delete </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td>
-          <td class="paramname"><em>ws</em>)</td><td></td>
+          <td class="paramname"><em>ws</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -502,7 +586,7 @@ API</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1d79907cdeeaf2b753fd40617186fb77"></a>
+<a class="anchor" id="a7e91f80c3b81426e838c07049ca1cb75"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -510,8 +594,18 @@ API</h2></td></tr>
           <td class="memname">void snWebsocket_disconnect </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td>
-          <td class="paramname"><em>ws</em>)</td><td></td>
+          <td class="paramname"><em>ws</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>disconnectImmediately</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -519,6 +613,7 @@ API</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ws</td><td>The websocket to disconnect. </td></tr>
+    <tr><td class="paramname">disconnectImmediately</td><td>If non-zero, the closing handshake is not performed and the connection is dropped immediately with status <code>SN_STATUS_ENDPOINT_GOING_AWAY</code>. Otherwise, the connection is dropped when the closing handshake is completed or takes too long. </td></tr>
   </table>
   </dd>
 </dl>
@@ -533,7 +628,7 @@ API</h2></td></tr>
           <td class="memname"><a class="el" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a> snWebsocket_getState </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td>
-          <td class="paramname"><em>ws</em>)</td><td></td>
+          <td class="paramname"><em>ws</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -557,7 +652,7 @@ API</h2></td></tr>
           <td class="memname">void snWebsocket_poll </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structsn_websocket.html">snWebsocket</a> *&#160;</td>
-          <td class="paramname"><em>ws</em>)</td><td></td>
+          <td class="paramname"><em>ws</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -743,7 +838,7 @@ API</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 30 2013 16:10:49 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
