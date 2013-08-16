@@ -317,9 +317,10 @@ extern "C"
     snError snWebsocket_sendPing(snWebsocket* ws, int payloadSize, const char* payload);
     
     /**
-     * Send a text message.
+     * Send a text message. The size of the payload is determined by the position of 
+     * the first null byte.
      * @param ws The websocket.
-     * @param payload UTF-8 data to send.
+     * @param payload Null terminated UTF-8 data to send.
      * @return An error code.
      */
     snError snWebsocket_sendTextData(snWebsocket* ws, const char* payload);

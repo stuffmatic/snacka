@@ -29,6 +29,8 @@
 
 #include <stdio.h>
 
+#include "sput.h"
+
 #include "testframe.h"
 #include "testframeparser.h"
 #include "testwebsocketcpp.h"
@@ -38,18 +40,22 @@
  */
 int main(int argc, const char * argv[])
 {
+    sput_start_testing();
     
-    //websocket frame
-    testFrameHeaderSerialization();
-    testFrameHeaderValidation();
-    testMasking();
+    sput_enter_suite("snFrameHeader tests");
+    sput_run_test(testFrameHeaderSerialization);
+    sput_run_test(testFrameHeaderValidation);
+    sput_run_test(testMasking);
     
-    //websocket frame parser
-    testFrameParser();
+    sput_enter_suite("snFrameParser tests");
+    sput_run_test(testFrameParser);
     
-    //c++ websocket
-    testWebsocketCppEcho();
-    testWebsocketCppInvalidURL();
+    sput_enter_suite("c++ wrapper tests");
+    sput_run_test(testWebsocketCppEcho);
+    sput_run_test(testWebsocketCppInvalidURLTimeout);
+    sput_run_test(testWebsocketCppInvalidURLCancel);
+    
+    sput_finish_testing();
     
 }
 

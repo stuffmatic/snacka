@@ -201,8 +201,6 @@ namespace sn
         
         static const int SLEEP_DURATION_MS = 10;
         
-        //void sendConnectionClose();
-        
         void requestRunLoopStop();
         
         bool m_shouldStopRunloop;

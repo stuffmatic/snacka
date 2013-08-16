@@ -30,20 +30,70 @@
 #ifndef SN_TEST_WEBSOCKET_PARSER_H
 #define SN_TEST_WEBSOCKET_PARSER_H
 
-/*! \file */
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
 
-#ifdef __cplusplus
-extern "C"
+#include "sput.h"
+
+#include "websocket.h"
+#include "frameparser.h"
+#include "testframeparser.h"
+
+static snFrame parsedFrame;
+
+static void frameCallback(void* userData, const snFrame* frame)
 {
-#endif /* __cplusplus */
-    
-    void testFrameParser();
-    
-#ifdef __cplusplus
+    memcpy(&parsedFrame, frame, sizeof(snFrame));
 }
-#endif /* __cplusplus */
 
-#endif /*SN_TEST_WEBSOCKET_PARSER_H*/
+static void testFrameParser()
+{
+    const int bufferSize = 1 << 10;
+    char buffer[bufferSize];
+    snFrameParser p;
+    snFrameParser_init(&p, frameCallback, NULL, NULL, NULL, buffer, bufferSize);
+    
+    const int numCases = 5;
+    int maskFlags[numCases] = {0, 1, 1, 1, 1};
+    int maskingKeys[numCases] = {0, 1, 4000, 12399, 9999};
+    int finalFlags[numCases] = {0, 1, 1, 1, 0};
 
+    snOpcode opcodes[numCases] =
+    {
+        SN_OPCODE_TEXT,
+        SN_OPCODE_BINARY,
+        SN_OPCODE_TEXT,
+        SN_OPCODE_TEXT,
+        SN_OPCODE_TEXT
+    };
+    
+    for (int i = 0; i < numCases; i++)
+    {
+        memset(&parsedFrame, 0, sizeof(snFrame));
+        
+        snFrameParser_reset(&p);
+        
+        snFrameHeader h;
+        h.maskingKey = maskingKeys[i];
+        h.isMasked = maskFlags[i];
+        h.isFinal = finalFlags[i];
+        h.opcode = opcodes[i];
+        h.payloadSize = 0;
+        
+        char headerBytes[SN_MAX_HEADER_SIZE];
+        int size = 0;
+        snFrameHeader_toBytes(&h, headerBytes, &size);
+        
+        for (int j = 0; j < size; j++)
+        {
+            snFrameParser_processBytes(&p, &headerBytes[j], 1);
+        }        
 
+        sput_fail_unless(snFrameHeader_equals(&parsedFrame.header, &h), "The parsed frame header should equal the input frame header");
+    }
+    
+    snFrameParser_deinit(&p);
+}
 
+#endif //SN_TEST_WEBSOCKET_PARSER_H

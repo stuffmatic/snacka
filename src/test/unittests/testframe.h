@@ -30,24 +30,82 @@
 #ifndef SN_TEST_WEBSOCKET_FRAME_H
 #define SN_TEST_WEBSOCKET_FRAME_H
 
-/*! \file */
+#include <assert.h>
+#include <string.h>
 
-#ifdef __cplusplus
-extern "C"
+#include "sput.h"
+#include "websocket.h"
+#include "testframe.h"
+
+
+static void testFrameHeaderSerialization()
 {
-#endif /* __cplusplus */
     
-    void testFrameHeaderSerialization();
+    const int numCases = 5;
+    int maskFlags[numCases] = {1, 0, 1, 1, 1};
+    int maskingKeys[numCases] = {21, 0, 4000, 12399, 9999};
+    int finalFlags[numCases] = {0, 1, 1, 1, 0};
+    unsigned long long payloadSizes[numCases] = {(1 << 16) - 1, 1 << 2, (1 << 16) + 1, 126, 127};
+    snOpcode opcodes[numCases] =
+    {
+        SN_OPCODE_TEXT,
+        SN_OPCODE_BINARY,
+        SN_OPCODE_TEXT,
+        SN_OPCODE_TEXT,
+        SN_OPCODE_TEXT
+    };
     
-    void testFrameHeaderValidation();
-    
-    void testMasking();
-    
-#ifdef __cplusplus
+    for (int i = 0; i < numCases; i++)
+    {
+        snFrameHeader hOrig;
+        memset(&hOrig, 0, sizeof(snFrameHeader));
+        
+        snFrameHeader hRef;
+        memset(&hRef, 0, sizeof(snFrameHeader));
+        
+        hOrig.isFinal = finalFlags[i];
+        hOrig.isMasked = maskFlags[i];
+        hOrig.maskingKey = maskingKeys[i];
+        hOrig.opcode = opcodes[i];
+        hOrig.payloadSize = payloadSizes[i];
+        
+        char headerBytesOrig[SN_MAX_HEADER_SIZE];
+        char headerBytesRef[SN_MAX_HEADER_SIZE];
+        int headerSizeOrig, headerSizeRef;
+        
+        snError result = snFrameHeader_toBytes(&hOrig, headerBytesOrig, &headerSizeOrig);
+        if (result != SN_NO_ERROR)
+        {
+            sput_fail_if(1, "snFrameHeader_toBytes failed");
+        }
+        result = snFrameHeader_fromBytes(&hRef, headerBytesOrig, &headerSizeRef);
+        if (result != SN_NO_ERROR)
+        {
+            sput_fail_if(1, "snFrameHeader_fromBytes failed");
+        }
+        
+        sput_fail_unless(headerSizeRef == headerSizeOrig, "Serialized header size must match reference bytes.");
+        
+        if (!snFrameHeader_equals(&hOrig, &hRef))
+        {
+            sput_fail_if(1, "Deserialized header does not equal reference header");
+        }
+        //printf("Orig header (byte size %d): ", headerSizeOrig);
+        //snFrameHeader_log(&hOrig);
+        //printf("Ref header (byte size %d): ", headerSizeRef);
+        //snFrameHeader_log(&hRef);
+        //printf("\n");
+    }
 }
-#endif /* __cplusplus */
 
-#endif /*SN_TEST_WEBSOCKET_FRAME_H*/
+static void testFrameHeaderValidation()
+{
+    //TODO
+}
 
+static void testMasking()
+{
+    //TODO
+}
 
-
+#endif //SN_TEST_WEBSOCKET_FRAME_H

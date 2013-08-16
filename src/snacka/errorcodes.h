@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2013, Per Gantelius
  * All rights reserved.
@@ -66,7 +67,7 @@ extern "C"
         SN_EXCEEDED_MAX_PAYLOAD_SIZE,
         /** Failed to connect to the underlying socket. */
         SN_SOCKET_FAILED_TO_CONNECT,
-        /** Failed send data to or receive data from the underlying socket. */
+        /** Failed to send data to or receive data from the underlying socket. */
         SN_SOCKET_IO_ERROR,
         /** The operation was cancelled. */
         SN_CANCELLED_OPERATION,

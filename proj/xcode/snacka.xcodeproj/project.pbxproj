@@ -31,8 +31,11 @@
 		C1354B1217A704AB00A629EF /* echoservertest.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF517A7047E00A629EF /* echoservertest.c */; };
 		C1354B2217A704D900A629EF /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
 		C1354B2417A704FE00A629EF /* unittests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1354B2317A704FE00A629EF /* unittests.cpp */; };
-		C1354B2517A7059800A629EF /* testframe.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF717A7047E00A629EF /* testframe.c */; };
-		C1354B2617A7059800A629EF /* testframeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF917A7047E00A629EF /* testframeparser.c */; };
+		C1354B2517A7059800A629EF /* testframe.h in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF717A7047E00A629EF /* testframe.h */; };
+		C1354B2617A7059800A629EF /* testframeparser.h in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF917A7047E00A629EF /* testframeparser.h */; };
+		C15C5C3417B3CCED00B55FBA /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C15C5C3217B3CCED00B55FBA /* http_parser.c */; };
+		C15C5C3517B3CCED00B55FBA /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C15C5C3217B3CCED00B55FBA /* http_parser.c */; };
+		C15C5C3617B3CCED00B55FBA /* http_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = C15C5C3317B3CCED00B55FBA /* http_parser.h */; };
 		C1AB82CD179CFEA5000064D2 /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
 		C1B77F4F17A7C32500348CBE /* iocallbacks_socket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */; };
 		C1B77F5017A7C32500348CBE /* iocallbacks_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B77F4C17A7C32500348CBE /* iocallbacks_socket.h */; };
@@ -65,7 +68,6 @@
 		C1E702F217A9511A00EB2C75 /* UriShorten.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AD017A7047E00A629EF /* UriShorten.c */; };
 		C1EF1C1917A8FE4500BD0C4D /* Websocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */; };
 		C1EF1C1A17A8FE4500BD0C4D /* Websocket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */; };
-		C1EF1C2217A909A900BD0C4D /* testwebsocketcpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2017A909A900BD0C4D /* testwebsocketcpp.cpp */; };
 		C1EF1C2517A937AF00BD0C4D /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2317A937AF00BD0C4D /* tinycthread.c */; };
 		C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C2417A937AF00BD0C4D /* tinycthread.h */; };
 		C1EF1C2817A945AF00BD0C4D /* WebsocketListener.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C2717A945AF00BD0C4D /* WebsocketListener.hpp */; };
@@ -178,12 +180,13 @@
 		C1354AF117A7047E00A629EF /* runautobahntestsuite.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runautobahntestsuite.sh; sourceTree = "<group>"; };
 		C1354AF317A7047E00A629EF /* echoserver.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = echoserver.py; sourceTree = "<group>"; };
 		C1354AF517A7047E00A629EF /* echoservertest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = echoservertest.c; sourceTree = "<group>"; };
-		C1354AF717A7047E00A629EF /* testframe.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = testframe.c; sourceTree = "<group>"; };
-		C1354AF817A7047E00A629EF /* testframe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testframe.h; sourceTree = "<group>"; };
-		C1354AF917A7047E00A629EF /* testframeparser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = testframeparser.c; sourceTree = "<group>"; };
-		C1354AFA17A7047E00A629EF /* testframeparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testframeparser.h; sourceTree = "<group>"; };
+		C1354AF717A7047E00A629EF /* testframe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testframe.h; sourceTree = "<group>"; };
+		C1354AF917A7047E00A629EF /* testframeparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testframeparser.h; sourceTree = "<group>"; };
 		C1354B1717A704C700A629EF /* unittests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittests; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1354B2317A704FE00A629EF /* unittests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unittests.cpp; sourceTree = "<group>"; };
+		C15C5C3217B3CCED00B55FBA /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
+		C15C5C3317B3CCED00B55FBA /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
+		C1B3CBEE17BE13D0000F9D7C /* sput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sput.h; sourceTree = "<group>"; };
 		C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iocallbacks_socket.c; sourceTree = "<group>"; };
 		C1B77F4C17A7C32500348CBE /* iocallbacks_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iocallbacks_socket.h; sourceTree = "<group>"; };
 		C1B77F4D17A7C32500348CBE /* socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket.h; sourceTree = "<group>"; };
@@ -194,7 +197,6 @@
 		C1E702B517A9508600EB2C75 /* libsnacka_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Websocket.cpp; sourceTree = "<group>"; };
 		C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Websocket.hpp; sourceTree = "<group>"; };
-		C1EF1C2017A909A900BD0C4D /* testwebsocketcpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testwebsocketcpp.cpp; sourceTree = "<group>"; };
 		C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testwebsocketcpp.h; sourceTree = "<group>"; };
 		C1EF1C2317A937AF00BD0C4D /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tinycthread.c; sourceTree = "<group>"; };
 		C1EF1C2417A937AF00BD0C4D /* tinycthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinycthread.h; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		C1354ABD17A7047E00A629EF /* external */ = {
 			isa = PBXGroup;
 			children = (
+				C15C5C3117B3CCED00B55FBA /* http_parser */,
 				C1EF1C1B17A8FFF100BD0C4D /* tinycthread */,
 				C1354ABE17A7047E00A629EF /* uriparser */,
 			);
@@ -365,15 +368,22 @@
 		C1354AF617A7047E00A629EF /* unittests */ = {
 			isa = PBXGroup;
 			children = (
-				C1354AF717A7047E00A629EF /* testframe.c */,
-				C1354AF817A7047E00A629EF /* testframe.h */,
-				C1354AF917A7047E00A629EF /* testframeparser.c */,
-				C1354AFA17A7047E00A629EF /* testframeparser.h */,
-				C1EF1C2017A909A900BD0C4D /* testwebsocketcpp.cpp */,
+				C1B3CBEE17BE13D0000F9D7C /* sput.h */,
+				C1354AF717A7047E00A629EF /* testframe.h */,
+				C1354AF917A7047E00A629EF /* testframeparser.h */,
 				C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */,
 				C1354B2317A704FE00A629EF /* unittests.cpp */,
 			);
 			path = unittests;
+			sourceTree = "<group>";
+		};
+		C15C5C3117B3CCED00B55FBA /* http_parser */ = {
+			isa = PBXGroup;
+			children = (
+				C15C5C3217B3CCED00B55FBA /* http_parser.c */,
+				C15C5C3317B3CCED00B55FBA /* http_parser.h */,
+			);
+			path = http_parser;
 			sourceTree = "<group>";
 		};
 		C1B77F4917A7C32500348CBE /* backends */ = {
@@ -446,6 +456,7 @@
 				C1B77F5017A7C32500348CBE /* iocallbacks_socket.h in Headers */,
 				C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */,
 				C1B77F5117A7C32500348CBE /* socket.h in Headers */,
+				C15C5C3617B3CCED00B55FBA /* http_parser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,9 +586,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1354B2417A704FE00A629EF /* unittests.cpp in Sources */,
-				C1354B2517A7059800A629EF /* testframe.c in Sources */,
-				C1354B2617A7059800A629EF /* testframeparser.c in Sources */,
-				C1EF1C2217A909A900BD0C4D /* testwebsocketcpp.cpp in Sources */,
+				C1354B2517A7059800A629EF /* testframe.h in Sources */,
+				C1354B2617A7059800A629EF /* testframeparser.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +619,7 @@
 				C1EF1C2517A937AF00BD0C4D /* tinycthread.c in Sources */,
 				C1354B0217A7048E00A629EF /* UriNormalizeBase.c in Sources */,
 				C1B77F4F17A7C32500348CBE /* iocallbacks_socket.c in Sources */,
+				C15C5C3417B3CCED00B55FBA /* http_parser.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +667,7 @@
 				C1E702EE17A9511A00EB2C75 /* UriParseBase.c in Sources */,
 				C1E702E117A9510100EB2C75 /* Websocket.cpp in Sources */,
 				C1E702DB17A950FC00EB2C75 /* frame.c in Sources */,
+				C15C5C3517B3CCED00B55FBA /* http_parser.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,8 +696,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -722,8 +735,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -836,6 +850,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -869,6 +884,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -895,6 +911,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -928,6 +945,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
