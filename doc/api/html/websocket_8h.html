@@ -823,11 +823,11 @@ API</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Send a text message. </p>
+<p>Send a text message. The size of the payload is determined by the position of the first null byte. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ws</td><td>The websocket. </td></tr>
-    <tr><td class="paramname">payload</td><td>UTF-8 data to send. </td></tr>
+    <tr><td class="paramname">payload</td><td>Null terminated UTF-8 data to send. </td></tr>
   </table>
   </dd>
 </dl>
@@ -838,7 +838,7 @@ API</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 20:41:35 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

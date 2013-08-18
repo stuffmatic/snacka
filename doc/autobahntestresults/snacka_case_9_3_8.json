@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send fragmented text message message with message payload of length 4 * 2**20 (4M). Sent out in fragments of 1M.",
    "droppedByMe": true,
-   "duration": 8457,
+   "duration": 8690,
    "expectation": "Receive echo'ed text message (with payload as sent).",
    "expected": {},
    "expectedClose": {
@@ -41,7 +41,7 @@
       "182": 1,
       "65536": 64
    },
-   "started": "2013-08-01T10:03:36Z",
+   "started": "2013-08-18T18:38:19Z",
    "txFrameStats": {
       "0": 4,
       "1": 1,
@@ -104,7 +104,7 @@
          "RO",
          [
             8,
-            "88823a8447f0396c"
+            "8882124f4e9d11a7"
          ]
       ],
       [
@@ -117,7 +117,7 @@
          true,
          0,
          true,
-         "3a8447f0"
+         "124f4e9d"
       ]
    ]
 }

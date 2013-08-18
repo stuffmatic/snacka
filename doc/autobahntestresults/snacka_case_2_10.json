@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send 10 Pings with payload.",
    "droppedByMe": true,
-   "duration": 5,
+   "duration": 6,
    "expectation": "Pongs for our Pings with all the payloads. Note: This is not required by the Spec .. but we check for this behaviour anyway. Clean close with normal code.",
    "expected": {
       "OK": [
@@ -121,11 +121,11 @@
    },
    "rxOctetStats": {
       "8": 1,
-      "54": 1,
-      "96": 1,
+      "36": 1,
+      "114": 1,
       "181": 1
    },
-   "started": "2013-08-01T10:00:39Z",
+   "started": "2013-08-18T18:35:20Z",
    "txFrameStats": {
       "8": 1,
       "9": 10
@@ -383,8 +383,8 @@
       [
          "RO",
          [
-            96,
-            "8a8922e829025289506e4d894d2f128a8937dc543547bd2d5958bd3018068a89621c8039127df9550d7de414508a893d2650814d4729ed524734ac0e8a891e6f ..."
+            36,
+            "8a89713e154b015f6c271e5f7166418a8922e829025289506e4d894d2f138a8937dc5435"
          ]
       ],
       [
@@ -397,7 +397,7 @@
          true,
          0,
          true,
-         "22e82902"
+         "713e154b"
       ],
       [
          "RF",
@@ -409,7 +409,14 @@
          true,
          0,
          true,
-         "37dc5435"
+         "22e82902"
+      ],
+      [
+         "RO",
+         [
+            114,
+            "47bd2d5958bd3018058a89621c8039127df9550d7de414518a893d2650814d4729ed524734ac098a891e6f64846e0e1de8710e00a92b8a89233025b853515cd4 ..."
+         ]
       ],
       [
          "RF",
@@ -421,7 +428,7 @@
          true,
          0,
          true,
-         "621c8039"
+         "37dc5435"
       ],
       [
          "RF",
@@ -433,7 +440,7 @@
          true,
          0,
          true,
-         "3d265081"
+         "621c8039"
       ],
       [
          "RF",
@@ -445,7 +452,7 @@
          true,
          0,
          true,
-         "1e6f6484"
+         "3d265081"
       ],
       [
          "RF",
@@ -457,14 +464,7 @@
          true,
          0,
          true,
-         "233025b8"
-      ],
-      [
-         "RO",
-         [
-            54,
-            "5d9d1c78429d01391b8a8915501ba2653162ce7a317f8f228a893e46339c4e274af0512757b1068a8972e666b402871fd81d8702994b"
-         ]
+         "1e6f6484"
       ],
       [
          "RF",
@@ -476,7 +476,7 @@
          true,
          0,
          true,
-         "2dfc6514"
+         "233025b8"
       ],
       [
          "RF",
@@ -488,7 +488,7 @@
          true,
          0,
          true,
-         "15501ba2"
+         "2dfc6514"
       ],
       [
          "RF",
@@ -500,7 +500,7 @@
          true,
          0,
          true,
-         "3e46339c"
+         "15501ba2"
       ],
       [
          "RF",
@@ -512,7 +512,7 @@
          true,
          0,
          true,
-         "72e666b4"
+         "3e46339c"
       ],
       [
          "TF",
@@ -540,7 +540,7 @@
          "RO",
          [
             8,
-            "88827460ee5a7788"
+            "888272e666b4710e"
          ]
       ],
       [
@@ -553,7 +553,7 @@
          true,
          0,
          true,
-         "7460ee5a"
+         "72e666b4"
       ]
    ]
 }

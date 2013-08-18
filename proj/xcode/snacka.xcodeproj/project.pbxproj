@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10FF19E17C1398C00ACD247 /* openinghandshakeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */; };
+		C10FF19F17C1398C00ACD247 /* openinghandshakeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */; };
+		C10FF1A017C1398C00ACD247 /* openinghandshakeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = C10FF19D17C1398C00ACD247 /* openinghandshakeparser.h */; };
+		C10FF1A317C14A1600ACD247 /* mutablestring.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF1A117C14A1600ACD247 /* mutablestring.c */; };
+		C10FF1A417C14A1600ACD247 /* mutablestring.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF1A117C14A1600ACD247 /* mutablestring.c */; };
+		C10FF1A517C14A1600ACD247 /* mutablestring.h in Headers */ = {isa = PBXBuildFile; fileRef = C10FF1A217C14A1600ACD247 /* mutablestring.h */; };
 		C1354AFB17A7048E00A629EF /* UriCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ABF17A7047E00A629EF /* UriCommon.c */; };
 		C1354AFC17A7048E00A629EF /* UriCompare.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC117A7047E00A629EF /* UriCompare.c */; };
 		C1354AFD17A7048E00A629EF /* UriEscape.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC217A7047E00A629EF /* UriEscape.c */; };
@@ -137,6 +143,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = openinghandshakeparser.c; sourceTree = "<group>"; };
+		C10FF19D17C1398C00ACD247 /* openinghandshakeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openinghandshakeparser.h; sourceTree = "<group>"; };
+		C10FF1A117C14A1600ACD247 /* mutablestring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mutablestring.c; sourceTree = "<group>"; };
+		C10FF1A217C14A1600ACD247 /* mutablestring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mutablestring.h; sourceTree = "<group>"; };
 		C1354ABF17A7047E00A629EF /* UriCommon.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = UriCommon.c; sourceTree = "<group>"; };
 		C1354AC017A7047E00A629EF /* UriCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UriCommon.h; sourceTree = "<group>"; };
 		C1354AC117A7047E00A629EF /* UriCompare.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = UriCompare.c; sourceTree = "<group>"; };
@@ -328,6 +338,10 @@
 				C1354AE117A7047E00A629EF /* iocallbacks.h */,
 				C1354AE417A7047E00A629EF /* logging.c */,
 				C1354AE517A7047E00A629EF /* logging.h */,
+				C10FF1A117C14A1600ACD247 /* mutablestring.c */,
+				C10FF1A217C14A1600ACD247 /* mutablestring.h */,
+				C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */,
+				C10FF19D17C1398C00ACD247 /* openinghandshakeparser.h */,
 				C1354AE817A7047E00A629EF /* utf8.c */,
 				C1354AE917A7047E00A629EF /* utf8.h */,
 				C1354AEA17A7047E00A629EF /* websocket.c */,
@@ -457,6 +471,8 @@
 				C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */,
 				C1B77F5117A7C32500348CBE /* socket.h in Headers */,
 				C15C5C3617B3CCED00B55FBA /* http_parser.h in Headers */,
+				C10FF1A017C1398C00ACD247 /* openinghandshakeparser.h in Headers */,
+				C10FF1A517C14A1600ACD247 /* mutablestring.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +636,8 @@
 				C1354B0217A7048E00A629EF /* UriNormalizeBase.c in Sources */,
 				C1B77F4F17A7C32500348CBE /* iocallbacks_socket.c in Sources */,
 				C15C5C3417B3CCED00B55FBA /* http_parser.c in Sources */,
+				C10FF19E17C1398C00ACD247 /* openinghandshakeparser.c in Sources */,
+				C10FF1A317C14A1600ACD247 /* mutablestring.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +686,8 @@
 				C1E702E117A9510100EB2C75 /* Websocket.cpp in Sources */,
 				C1E702DB17A950FC00EB2C75 /* frame.c in Sources */,
 				C15C5C3517B3CCED00B55FBA /* http_parser.c in Sources */,
+				C10FF19F17C1398C00ACD247 /* openinghandshakeparser.c in Sources */,
+				C10FF1A417C14A1600ACD247 /* mutablestring.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

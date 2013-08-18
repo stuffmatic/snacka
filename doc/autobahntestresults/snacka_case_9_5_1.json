@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text message message with payload of length 1 * 2**20 (1M). Sent out data in chops of 64 octets.",
    "droppedByMe": true,
-   "duration": 2125,
+   "duration": 2144,
    "expectation": "Receive echo'ed text message (with payload as sent).",
    "expected": {},
    "expectedClose": {
@@ -41,7 +41,7 @@
       "182": 1,
       "65536": 16
    },
-   "started": "2013-08-01T10:04:49Z",
+   "started": "2013-08-18T18:39:33Z",
    "txFrameStats": {
       "1": 1,
       "8": 1
@@ -103,7 +103,7 @@
          "RO",
          [
             8,
-            "8882048e23480766"
+            "88822f53b4c32cbb"
          ]
       ],
       [
@@ -116,7 +116,7 @@
          true,
          0,
          true,
-         "048e2348"
+         "2f53b4c3"
       ]
    ]
 }

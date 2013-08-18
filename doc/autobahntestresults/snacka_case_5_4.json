@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text Message fragmented into 2 fragments, octets are sent in frame-wise chops.",
    "droppedByMe": true,
-   "duration": 2,
+   "duration": 3,
    "expectation": "Message is processed and echo'ed back to us.",
    "expected": {
       "OK": [
@@ -54,7 +54,7 @@
       "24": 1,
       "181": 1
    },
-   "started": "2013-08-01T10:00:39Z",
+   "started": "2013-08-18T18:35:20Z",
    "txFrameStats": {
       "0": 1,
       "1": 1,
@@ -138,7 +138,7 @@
          "RO",
          [
             24,
-            "819244c6606d22b4010a29a30e1975a0120c23ab050330f4"
+            "819269f5ead30f878bb4049084a7589398b20e988fbd1dc7"
          ]
       ],
       [
@@ -151,7 +151,7 @@
          true,
          0,
          true,
-         "44c6606d"
+         "69f5ead3"
       ],
       [
          "TF",
@@ -179,7 +179,7 @@
          "RO",
          [
             8,
-            "88823be4b761380c"
+            "8882100bf8fe13e3"
          ]
       ],
       [
@@ -192,7 +192,7 @@
          true,
          0,
          true,
-         "3be4b761"
+         "100bf8fe"
       ]
    ]
 }

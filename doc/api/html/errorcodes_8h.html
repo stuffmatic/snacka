@@ -116,7 +116,10 @@ Enumerations</h2></td></tr>
 <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60adc019a9b7dbffadf2fc7147d43f1145f">SN_EXCEEDED_MAX_PAYLOAD_SIZE</a>, 
 <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60abb2fc572101798c954b005e2936c24d4">SN_SOCKET_FAILED_TO_CONNECT</a>, 
 <br/>
-&#160;&#160;<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a12a32c63d5679bc04e34b531f4cfb03e">SN_CANCELLED_OPERATION</a>
+&#160;&#160;<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a0e2f3bffd0d5b3bf8bbd4c419e33e1e8">SN_SOCKET_IO_ERROR</a>, 
+<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a12a32c63d5679bc04e34b531f4cfb03e">SN_CANCELLED_OPERATION</a>, 
+<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a5c730df43f00cdaae676fe78a3533e03">SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN</a>, 
+<a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60aa1d5c5dec6070fb48029a70ab69c9256">SN_OPENING_HANDSHAKE_FAILED</a>
 <br/>
  }</td></tr>
 <tr class="separator:a355e09416ce79ad0dc2052002f215f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,8 +186,17 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60abb2fc572101798c954b005e2936c24d4"></a>SN_SOCKET_FAILED_TO_CONNECT</em>&nbsp;</td><td class="fielddoc">
 <p>Failed to connect to the underlying socket. </p>
 </td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60a0e2f3bffd0d5b3bf8bbd4c419e33e1e8"></a>SN_SOCKET_IO_ERROR</em>&nbsp;</td><td class="fielddoc">
+<p>Failed to send data to or receive data from the underlying socket. </p>
+</td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60a12a32c63d5679bc04e34b531f4cfb03e"></a>SN_CANCELLED_OPERATION</em>&nbsp;</td><td class="fielddoc">
 <p>The operation was cancelled. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60a5c730df43f00cdaae676fe78a3533e03"></a>SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN</em>&nbsp;</td><td class="fielddoc">
+<p>The websocket connection is required to be open but wasn't. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a355e09416ce79ad0dc2052002f215f60aa1d5c5dec6070fb48029a70ab69c9256"></a>SN_OPENING_HANDSHAKE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>Failed to parse the opening handshake HTTP response header. </p>
 </td></tr>
 </table>
 
@@ -193,7 +205,7 @@ Enumerations</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 20:41:35 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

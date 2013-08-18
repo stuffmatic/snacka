@@ -72,7 +72,9 @@ extern "C"
         /** The operation was cancelled. */
         SN_CANCELLED_OPERATION,
         /** The websocket connection is required to be open but wasn't.*/
-        SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN
+        SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN,
+        /** Failed to parse the opening handshake HTTP response header.*/
+        SN_OPENING_HANDSHAKE_FAILED
     } snError;
     
 #ifdef __cplusplus

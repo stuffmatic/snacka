@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send a valid UTF-8 text message in fragments of 1 octet, resulting in frames ending on positions which are not code point ends.<br><br>MESSAGE:<br>\u03ba\u1f79\u03c3\u03bc\u03b5<br>cebae1bdb9cf83cebcceb5",
    "droppedByMe": true,
-   "duration": 3,
+   "duration": 2,
    "expectation": "The message is echo'ed back to us.",
    "expected": {
       "OK": [
@@ -54,7 +54,7 @@
       "17": 1,
       "181": 1
    },
-   "started": "2013-08-01T10:00:41Z",
+   "started": "2013-08-18T18:35:22Z",
    "txFrameStats": {
       "0": 11,
       "1": 1,
@@ -359,7 +359,7 @@
          "RO",
          [
             17,
-            "818b7ddcf100b36610bdc41372cec11244"
+            "818b4ffb0fc38141ee7ef6348c0df335ba"
          ]
       ],
       [
@@ -372,7 +372,7 @@
          true,
          0,
          true,
-         "7ddcf100"
+         "4ffb0fc3"
       ],
       [
          "TF",
@@ -400,7 +400,7 @@
          "RO",
          [
             8,
-            "88823452778e37ba"
+            "88826bc7f43a682f"
          ]
       ],
       [
@@ -413,7 +413,7 @@
          true,
          0,
          true,
-         "3452778e"
+         "6bc7f43a"
       ]
    ]
 }

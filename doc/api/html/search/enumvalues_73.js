@@ -11,7 +11,9 @@ var searchData=
   ['sn_5fno_5ferror',['SN_NO_ERROR',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4',1,'errorcodes.h']]],
   ['sn_5fnon_5ffinal_5fcontrol_5fframe',['SN_NON_FINAL_CONTROL_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ad97208308325f856cc6827457b122684',1,'errorcodes.h']]],
   ['sn_5fnonzero_5fresverved_5fbit',['SN_NONZERO_RESVERVED_BIT',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60ab934cf469147e679faaee8cac9834649',1,'errorcodes.h']]],
+  ['sn_5fopening_5fhandshake_5ffailed',['SN_OPENING_HANDSHAKE_FAILED',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60aa1d5c5dec6070fb48029a70ab69c9256',1,'errorcodes.h']]],
   ['sn_5fsocket_5ffailed_5fto_5fconnect',['SN_SOCKET_FAILED_TO_CONNECT',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60abb2fc572101798c954b005e2936c24d4',1,'errorcodes.h']]],
+  ['sn_5fsocket_5fio_5ferror',['SN_SOCKET_IO_ERROR',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a0e2f3bffd0d5b3bf8bbd4c419e33e1e8',1,'errorcodes.h']]],
   ['sn_5fstate_5fclosed',['SN_STATE_CLOSED',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aa6c1cbe668ffaf9388436cdfb3ba7708',1,'websocket.h']]],
   ['sn_5fstate_5fclosing',['SN_STATE_CLOSING',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aa4ebff626784b2ef6bfb6fca8b631d0e',1,'websocket.h']]],
   ['sn_5fstate_5fconnecting',['SN_STATE_CONNECTING',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161a444fe2d3e6f770fc3ca23e26737f98e5',1,'websocket.h']]],
@@ -29,5 +31,6 @@ var searchData=
   ['sn_5fstatus_5freserved_5f3',['SN_STATUS_RESERVED_3',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca161d9317916809abc3adcb98fe58e90b',1,'websocket.h']]],
   ['sn_5fstatus_5freserved_5f4',['SN_STATUS_RESERVED_4',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049caf3249f7b5e97d6bf566be3a5ab7c717c',1,'websocket.h']]],
   ['sn_5fstatus_5funexpected_5ferror',['SN_STATUS_UNEXPECTED_ERROR',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049caa0a2ae1b2dc80f0e5aa1738d0999297f',1,'websocket.h']]],
-  ['sn_5funexpected_5fcontinuation_5fframe',['SN_UNEXPECTED_CONTINUATION_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60aa96d92d3ca341a36a498ed49f9f25378',1,'errorcodes.h']]]
+  ['sn_5funexpected_5fcontinuation_5fframe',['SN_UNEXPECTED_CONTINUATION_FRAME',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60aa96d92d3ca341a36a498ed49f9f25378',1,'errorcodes.h']]],
+  ['sn_5fwebsocket_5fconnection_5fis_5fnot_5fopen',['SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a5c730df43f00cdaae676fe78a3533e03',1,'errorcodes.h']]]
 ];

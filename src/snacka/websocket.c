@@ -35,6 +35,7 @@
 
 #include "backends/bsdsocket/iocallbacks_socket.h"
 #include "websocket.h"
+#include "openinghandshakeparser.h"
 #include "frameparser.h"
 #include "utf8.h"
 #include "logging.h"
@@ -83,8 +84,6 @@ struct snWebsocket
     int hasCompletedOpeningHandshake;
     /** */
     int hasSentCloseFrame;
-    /** */
-    int handshakeResponseReadPosition;
     /** Timer used to force disconnect if the closing handshake is too slow. */
     float closingHandshakeTimer;
     /** */
@@ -105,6 +104,8 @@ struct snWebsocket
     snLogCallback logCallback;
     /** */
     double prevPollTime;
+    /** */
+    snOpeningHandshakeParser openingHandshakeParser;
 };
 
 static void log(snWebsocket* sn, const char* message, ...)
@@ -125,6 +126,7 @@ static int generateMaskingKey()
 {
     return rand();
 }
+
 
 snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBytes, const char* payload)
 {
@@ -501,16 +503,6 @@ static void sendOpeningHandshake(snWebsocket* ws)
                                   ws->cancelCallback);
 }
 
-static void processHandshakeResponseLine(const char* line, int numBytes)
-{
-    //TODO
-}
-
-static void validateHandshakeResponse(const char* response, int numBytes)
-{
-    //TODO
-}
-
 snError snWebsocket_connect(snWebsocket* ws, const char* url)
 {
     invokeStateCallback(ws, SN_STATE_CONNECTING);
@@ -569,6 +561,9 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
                                                 ws->port,
                                                 ws->cancelCallback);
     
+    
+    snOpeningHandshakeParser_init(&ws->openingHandshakeParser);
+    
     if (e != SN_NO_ERROR)
     {
         invokeStateCallback(ws, SN_STATE_CLOSED);
@@ -576,7 +571,6 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     }
     
     ws->hasCompletedOpeningHandshake = 0;
-    ws->handshakeResponseReadPosition = 0;
     ws->hasSentCloseFrame = 0;
     
     sendOpeningHandshake(ws);
@@ -691,7 +685,7 @@ void snWebsocket_poll(snWebsocket* ws)
     {
         return;
     }
-
+    
     if (0)
     {
         log(ws, "bytes from socket:\n");
@@ -703,38 +697,38 @@ void snWebsocket_poll(snWebsocket* ws)
         
         log(ws, "\n-----------------------\n");
     }
+
+    int readOffset = 0;
     
     if (ws->hasCompletedOpeningHandshake == 0)
     {
-        //TODO: what if rnrn sequence is split up between two consecutive buffers?
-        for (int i = 3; i < numBytesRead; i++)
+        snError result = snOpeningHandshakeParser_processBytes(&ws->openingHandshakeParser,
+                                                               readBytes,
+                                                               numBytesRead,
+                                                               &readOffset,
+                                                               &ws->hasCompletedOpeningHandshake);
+        
+        if (result != SN_NO_ERROR)
         {
-            if (readBytes[i - 3] == '\r' &&
-                readBytes[i - 2] == '\n' &&
-                readBytes[i - 1] == '\r' &&
-                readBytes[i - 0] == '\n')
-            {
-                //this could be a handshake response. TODO: perform further checks
-                ws->hasCompletedOpeningHandshake = 1;
-                invokeStateCallback(ws, SN_STATE_OPEN);
-                
-                //TODO: duplicate call to snFrameParser_processBytes in else block below
-                const int numBytesLeft = numBytesRead - i - 1;
-                snError result = snFrameParser_processBytes(&ws->frameParser,
-                                                            &readBytes[i + 1],
-                                                            numBytesLeft);
-                handlePaserResult(ws, result);
-                
-            }
+            handlePaserResult(ws, result);
+            return;
         }
+        
+        if (ws->hasCompletedOpeningHandshake)
+        {
+            invokeStateCallback(ws, SN_STATE_OPEN);
+        }
+        
     }
-    else
+    
+    assert(numBytesRead >= readOffset);
+    
+    if (ws->hasCompletedOpeningHandshake && readOffset < numBytesRead)
     {
         snError result = snFrameParser_processBytes(&ws->frameParser,
-                                                    readBytes,
-                                                    numBytesRead);
+                                                    &readBytes[readOffset],
+                                                    numBytesRead - readOffset);
         handlePaserResult(ws, result);
     }
-
 }
 

@@ -233,67 +233,65 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        </div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> SLEEP_DURATION_MS = 10;</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="comment">//void sendConnectionClose();</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordtype">void</span> requestRunLoopStop();</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordtype">void</span> requestRunLoopStop();</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordtype">bool</span> m_shouldStopRunloop;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordtype">bool</span> m_shouldStopRunloop;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        std::string m_url;</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        std::string m_url;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        thrd_t m_socketRunLoop;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        thrd_t m_socketRunLoop;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        mtx_t m_flagMutex;</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        mtx_t m_flagMutex;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <a class="code" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a> m_readyState;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <a class="code" href="structsn_websocket.html">snWebsocket</a>* m_websocket;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <a class="code" href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a> m_readyState;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <a class="code" href="structsn_websocket.html">snWebsocket</a>* m_websocket;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        mtx_t m_toSocketQueueMutex;</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        mtx_t m_toSocketQueueMutex;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        std::vector&lt;WebSocketFrame&gt; m_toSocketQueue;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        std::vector&lt;WebSocketFrame&gt; m_toSocketQueue;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        mtx_t m_fromSocketQueueMutex;</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        mtx_t m_fromSocketQueueMutex;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        std::vector&lt;WebSocketFrame&gt; m_fromSocketQueue;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        std::vector&lt;WebSocketFrame&gt; m_fromSocketQueue;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        std::vector&lt;WebSocketEvent&gt; m_eventQueue;</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        std::vector&lt;WebSocketEvent&gt; m_eventQueue;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <a class="code" href="classsn_1_1_web_socket_listener.html">WebSocketListener</a>* m_listener;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    };</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;} <span class="comment">//namespace sn</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*SN_WEBSOCKET_HPP*/</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <a class="code" href="classsn_1_1_web_socket_listener.html">WebSocketListener</a>* m_listener;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    };</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;} <span class="comment">//namespace sn</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*SN_WEBSOCKET_HPP*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
 <div class="ttc" id="websocket_8h_html_a464ca8da6d97070dc8a791aab016049ca40ffe165ee0a26703850ae52f670eb28"><div class="ttname"><a href="websocket_8h.html#a464ca8da6d97070dc8a791aab016049ca40ffe165ee0a26703850ae52f670eb28">SN_STATUS_NORMAL_CLOSURE</a></div><div class="ttdef"><b>Definition:</b> websocket.h:84</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a0c6d97330e92222baf57d8da7158d07d"><div class="ttname"><a href="classsn_1_1_web_socket.html#a0c6d97330e92222baf57d8da7158d07d">sn::WebSocket::isOpen</a></div><div class="ttdeci">bool isOpen() const </div><div class="ttdef"><b>Definition:</b> Websocket.cpp:282</div></div>
-<div class="ttc" id="errorcodes_8h_html_a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4"><div class="ttname"><a href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4">SN_NO_ERROR</a></div><div class="ttdef"><b>Definition:</b> errorcodes.h:46</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a78b5e5ddbb8cd2fc445281764117378b"><div class="ttname"><a href="classsn_1_1_web_socket.html#a78b5e5ddbb8cd2fc445281764117378b">sn::WebSocket::sendPing</a></div><div class="ttdeci">void sendPing(const std::string &amp;payload=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:316</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a0c6d97330e92222baf57d8da7158d07d"><div class="ttname"><a href="classsn_1_1_web_socket.html#a0c6d97330e92222baf57d8da7158d07d">sn::WebSocket::isOpen</a></div><div class="ttdeci">bool isOpen() const </div><div class="ttdef"><b>Definition:</b> Websocket.cpp:294</div></div>
+<div class="ttc" id="errorcodes_8h_html_a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4"><div class="ttname"><a href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a65d20627d88ec99e56b2f357c4ffc8b4">SN_NO_ERROR</a></div><div class="ttdef"><b>Definition:</b> errorcodes.h:47</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a78b5e5ddbb8cd2fc445281764117378b"><div class="ttname"><a href="classsn_1_1_web_socket.html#a78b5e5ddbb8cd2fc445281764117378b">sn::WebSocket::sendPing</a></div><div class="ttdeci">void sendPing(const std::string &amp;payload=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:328</div></div>
 <div class="ttc" id="classsn_1_1_web_socket_html"><div class="ttname"><a href="classsn_1_1_web_socket.html">sn::WebSocket</a></div><div class="ttdef"><b>Definition:</b> Websocket.hpp:49</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a25099b00a1a12851e3eafbcecb7c3385"><div class="ttname"><a href="classsn_1_1_web_socket.html#a25099b00a1a12851e3eafbcecb7c3385">sn::WebSocket::WebSocket</a></div><div class="ttdeci">WebSocket(WebSocketListener *listener=0)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:135</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a25099b00a1a12851e3eafbcecb7c3385"><div class="ttname"><a href="classsn_1_1_web_socket.html#a25099b00a1a12851e3eafbcecb7c3385">sn::WebSocket::WebSocket</a></div><div class="ttdeci">WebSocket(WebSocketListener *listener=0)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:133</div></div>
 <div class="ttc" id="_websocket_listener_8hpp_html"><div class="ttname"><a href="_websocket_listener_8hpp.html">WebsocketListener.hpp</a></div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a48afbe9b82fde4479913a1b931444729"><div class="ttname"><a href="classsn_1_1_web_socket.html#a48afbe9b82fde4479913a1b931444729">sn::WebSocket::~WebSocket</a></div><div class="ttdeci">~WebSocket()</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:167</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a48afbe9b82fde4479913a1b931444729"><div class="ttname"><a href="classsn_1_1_web_socket.html#a48afbe9b82fde4479913a1b931444729">sn::WebSocket::~WebSocket</a></div><div class="ttdeci">~WebSocket()</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:165</div></div>
 <div class="ttc" id="websocket_8h_html_a0fbbfa8ea09e95fbb0661313ba1d7161aa6c1cbe668ffaf9388436cdfb3ba7708"><div class="ttname"><a href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161aa6c1cbe668ffaf9388436cdfb3ba7708">SN_STATE_CLOSED</a></div><div class="ttdef"><b>Definition:</b> websocket.h:71</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a06b49694c65b60cacc4dcb6167355349"><div class="ttname"><a href="classsn_1_1_web_socket.html#a06b49694c65b60cacc4dcb6167355349">sn::WebSocket::getURL</a></div><div class="ttdeci">const std::string &amp; getURL() const </div><div class="ttdef"><b>Definition:</b> Websocket.cpp:344</div></div>
-<div class="ttc" id="errorcodes_8h_html_a355e09416ce79ad0dc2052002f215f60"><div class="ttname"><a href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a></div><div class="ttdeci">snError</div><div class="ttdef"><b>Definition:</b> errorcodes.h:43</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a8903a01d8170ae0f3eefd70e40f05ba4"><div class="ttname"><a href="classsn_1_1_web_socket.html#a8903a01d8170ae0f3eefd70e40f05ba4">sn::WebSocket::setListener</a></div><div class="ttdeci">void setListener(WebSocketListener *listener)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:339</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a06b49694c65b60cacc4dcb6167355349"><div class="ttname"><a href="classsn_1_1_web_socket.html#a06b49694c65b60cacc4dcb6167355349">sn::WebSocket::getURL</a></div><div class="ttdeci">const std::string &amp; getURL() const </div><div class="ttdef"><b>Definition:</b> Websocket.cpp:356</div></div>
+<div class="ttc" id="errorcodes_8h_html_a355e09416ce79ad0dc2052002f215f60"><div class="ttname"><a href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a></div><div class="ttdeci">snError</div><div class="ttdef"><b>Definition:</b> errorcodes.h:44</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a8903a01d8170ae0f3eefd70e40f05ba4"><div class="ttname"><a href="classsn_1_1_web_socket.html#a8903a01d8170ae0f3eefd70e40f05ba4">sn::WebSocket::setListener</a></div><div class="ttdeci">void setListener(WebSocketListener *listener)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:351</div></div>
 <div class="ttc" id="frameheader_8h_html_a8fe7a395e282395bee3b30f1dd0f03f7"><div class="ttname"><a href="frameheader_8h.html#a8fe7a395e282395bee3b30f1dd0f03f7">snOpcode</a></div><div class="ttdeci">snOpcode</div><div class="ttdef"><b>Definition:</b> frameheader.h:51</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a728437f3b48ec76ec204496b9acc8d55"><div class="ttname"><a href="classsn_1_1_web_socket.html#a728437f3b48ec76ec204496b9acc8d55">sn::WebSocket::getState</a></div><div class="ttdeci">snReadyState getState() const </div><div class="ttdef"><b>Definition:</b> Websocket.cpp:277</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a0667677637cbbec0a25e0999fca62e09"><div class="ttname"><a href="classsn_1_1_web_socket.html#a0667677637cbbec0a25e0999fca62e09">sn::WebSocket::connect</a></div><div class="ttdeci">void connect(const std::string &amp;url)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:251</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a2429195f9b55281e9bb7007cafb900fe"><div class="ttname"><a href="classsn_1_1_web_socket.html#a2429195f9b55281e9bb7007cafb900fe">sn::WebSocket::poll</a></div><div class="ttdeci">void poll()</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:176</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a728437f3b48ec76ec204496b9acc8d55"><div class="ttname"><a href="classsn_1_1_web_socket.html#a728437f3b48ec76ec204496b9acc8d55">sn::WebSocket::getState</a></div><div class="ttdeci">snReadyState getState() const </div><div class="ttdef"><b>Definition:</b> Websocket.cpp:289</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a0667677637cbbec0a25e0999fca62e09"><div class="ttname"><a href="classsn_1_1_web_socket.html#a0667677637cbbec0a25e0999fca62e09">sn::WebSocket::connect</a></div><div class="ttdeci">void connect(const std::string &amp;url)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:263</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a2429195f9b55281e9bb7007cafb900fe"><div class="ttname"><a href="classsn_1_1_web_socket.html#a2429195f9b55281e9bb7007cafb900fe">sn::WebSocket::poll</a></div><div class="ttdeci">void poll()</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:174</div></div>
 <div class="ttc" id="classsn_1_1_web_socket_listener_html"><div class="ttname"><a href="classsn_1_1_web_socket_listener.html">sn::WebSocketListener</a></div><div class="ttdef"><b>Definition:</b> WebsocketListener.hpp:49</div></div>
 <div class="ttc" id="websocket_8h_html_a464ca8da6d97070dc8a791aab016049c"><div class="ttname"><a href="websocket_8h.html#a464ca8da6d97070dc8a791aab016049c">snStatusCode</a></div><div class="ttdeci">snStatusCode</div><div class="ttdef"><b>Definition:</b> websocket.h:78</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a6d787a142755b148bf096dc7f74ed37c"><div class="ttname"><a href="classsn_1_1_web_socket.html#a6d787a142755b148bf096dc7f74ed37c">sn::WebSocket::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:264</div></div>
-<div class="ttc" id="classsn_1_1_web_socket_html_a92e9083ee1897659870d4de2753cc9e0"><div class="ttname"><a href="classsn_1_1_web_socket.html#a92e9083ee1897659870d4de2753cc9e0">sn::WebSocket::sendText</a></div><div class="ttdeci">void sendText(const std::string &amp;payload)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:287</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a6d787a142755b148bf096dc7f74ed37c"><div class="ttname"><a href="classsn_1_1_web_socket.html#a6d787a142755b148bf096dc7f74ed37c">sn::WebSocket::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:276</div></div>
+<div class="ttc" id="classsn_1_1_web_socket_html_a92e9083ee1897659870d4de2753cc9e0"><div class="ttname"><a href="classsn_1_1_web_socket.html#a92e9083ee1897659870d4de2753cc9e0">sn::WebSocket::sendText</a></div><div class="ttdeci">void sendText(const std::string &amp;payload)</div><div class="ttdef"><b>Definition:</b> Websocket.cpp:299</div></div>
 <div class="ttc" id="websocket_8h_html_a0fbbfa8ea09e95fbb0661313ba1d7161"><div class="ttname"><a href="websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161">snReadyState</a></div><div class="ttdeci">snReadyState</div><div class="ttdef"><b>Definition:</b> websocket.h:62</div></div>
-<div class="ttc" id="structsn_websocket_html"><div class="ttname"><a href="structsn_websocket.html">snWebsocket</a></div><div class="ttdef"><b>Definition:</b> websocket.c:52</div></div>
+<div class="ttc" id="structsn_websocket_html"><div class="ttname"><a href="structsn_websocket.html">snWebsocket</a></div><div class="ttdef"><b>Definition:</b> websocket.c:53</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 1 2013 12:12:10 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 20:41:35 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
