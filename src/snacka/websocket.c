@@ -52,22 +52,24 @@
 /** */
 struct snWebsocket
 {
+    /** Handles parsing of the websocket opening handshake response. */
+    snOpeningHandshakeParser openingHandshakeParser;
+    /** Extracts websocket frames from incoming bytes. */
+    snFrameParser frameParser;
     /** A set of callbacks for I/O operation */
     snIOCallbacks ioCallbacks;
     /** The object to pass to the I/O callbacks, e.g a socket. */
     void* ioObject;
     /** The URI scheme. */
-    char uriScheme[256]; //TODO: variable length?
+    snMutableString uriScheme;
     /** The host. */
-    char host[256]; //TODO: variable length?
+    snMutableString host;
     /** The port. */
     int port;
-    /**  */
-    char pathTail[256];
-    /** */
-    char query[256];
     /** The http request path, used in the websocket opening handshake request. */
-    char* httpRequestPath;
+    snMutableString pathTail;
+    /** */
+    snMutableString query;
     /** The maximum size of a frame, i.e header + payload. */
     int maxFrameSize;
     /** Buffer used for storing frames. */
@@ -76,10 +78,6 @@ struct snWebsocket
     int writeChunkSize;
     /** */
     char* writeChunkBuffer;
-    /** */
-    int usesExternalWriteBuffer;
-    /** Handles incoming bytes. */
-    snFrameParser frameParser;
     /** */
     int hasCompletedOpeningHandshake;
     /** */
@@ -104,8 +102,7 @@ struct snWebsocket
     snLogCallback logCallback;
     /** */
     double prevPollTime;
-    /** */
-    snOpeningHandshakeParser openingHandshakeParser;
+    
 };
 
 static void log(snWebsocket* sn, const char* message, ...)
@@ -457,16 +454,26 @@ snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
     return ws;
 }
 
+
 void snWebsocket_delete(snWebsocket* ws)
 {
+    if (ws->ioObject)
+    {
+        ws->ioCallbacks.deinitCallback(ws->ioObject);
+    }
     
-    ws->ioCallbacks.deinitCallback(ws->ioObject);
     snFrameParser_deinit(&ws->frameParser);
+    snOpeningHandshakeParser_deinit(&ws->openingHandshakeParser);
+    
+    snMutableString_deinit(&ws->uriScheme);
+    snMutableString_deinit(&ws->host);
+    snMutableString_deinit(&ws->pathTail);
+    snMutableString_deinit(&ws->query);
     
     free(ws->readBuffer);
     
     free(ws->writeChunkBuffer);
-    
+
     free(ws);
 }
 
@@ -488,23 +495,38 @@ static int getPort(UriUriA* uri)
 
 static void sendOpeningHandshake(snWebsocket* ws)
 {
-    //TODO proper Sec-WebSocket-Key
+    snMutableString req;
+    snMutableString_init(&req);
     
-    const int queryLength = strlen(ws->query);
-    char request[1024];
-    sprintf(request, "GET /%s%s%s HTTP/1.1\r\nHost: %s:%d\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
-            ws->pathTail, queryLength > 0 ? "?" : "", ws->query,
-            ws->host, ws->port);
+    snOpeningHandshakeParser_createOpeningHandshakeRequest(&ws->openingHandshakeParser,
+                                                           snMutableString_getString(&ws->host),
+                                                           ws->port,
+                                                           snMutableString_getString(&ws->pathTail),
+                                                           snMutableString_getString(&ws->query),
+                                                           &req);
+    
+    const char* reqStr = snMutableString_getString(&req);
+    
     int numBytesWritten = 0;
     ws->ioCallbacks.writeCallback(ws->ioObject,
-                                  request,
-                                  (int)strlen(request),
+                                  reqStr,
+                                  (int)strlen(reqStr),
                                   &numBytesWritten,
                                   ws->cancelCallback);
+    
+    snMutableString_deinit(&req);
 }
 
 snError snWebsocket_connect(snWebsocket* ws, const char* url)
 {
+    snMutableString_deinit(&ws->uriScheme);
+    snMutableString_deinit(&ws->host);
+    snMutableString_deinit(&ws->pathTail);
+    snMutableString_deinit(&ws->query);
+    
+    snFrameParser_reset(&ws->frameParser);
+    snOpeningHandshakeParser_init(&ws->openingHandshakeParser);
+    
     invokeStateCallback(ws, SN_STATE_CONNECTING);
     
     //parse the url
@@ -525,24 +547,20 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
         ws->port = getPort(&uri);
         
         const long hostLength = uri.hostText.afterLast - uri.hostText.first;
-        memcpy(ws->host, uri.hostText.first, hostLength);
-        ws->host[hostLength] = '\0';
+        snMutableString_appendBytes(&ws->host, uri.hostText.first, hostLength);
         
         const long schemeLength = uri.scheme.afterLast - uri.scheme.first;
-        memcpy(ws->uriScheme, uri.scheme.first, schemeLength);
-        ws->uriScheme[schemeLength] = '\0';
+        snMutableString_appendBytes(&ws->uriScheme, uri.scheme.first, schemeLength);
         
         long tailLength = 0;
         if (uri.pathTail)
         {            
             tailLength = uri.pathTail->text.afterLast - uri.pathTail->text.first;
-            memcpy(ws->pathTail, uri.pathTail->text.first, tailLength);
-            ws->pathTail[tailLength] = '\0';
+            snMutableString_appendBytes(&ws->pathTail, uri.pathTail->text.first, tailLength);
         }
         
         const long queryLength = uri.query.afterLast - uri.query.first;
-        memcpy(ws->query, uri.query.first, queryLength);
-        ws->query[queryLength] = '\0';
+        snMutableString_appendBytes(&ws->query, uri.query.first, queryLength);
         
         if (ws->port < 0)
         {
@@ -555,14 +573,10 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
         uriFreeUriMembersA(&uri);
     }
     
-    snFrameParser_reset(&ws->frameParser);
     snError e = ws->ioCallbacks.connectCallback(ws->ioObject,
-                                                ws->host,
+                                                snMutableString_getString(&ws->host),
                                                 ws->port,
                                                 ws->cancelCallback);
-    
-    
-    snOpeningHandshakeParser_init(&ws->openingHandshakeParser);
     
     if (e != SN_NO_ERROR)
     {
@@ -679,6 +693,7 @@ void snWebsocket_poll(snWebsocket* ws)
     if (e != SN_NO_ERROR)
     {
         disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR, e);
+        return;
     }
     
     if (numBytesRead == 0)
@@ -702,14 +717,20 @@ void snWebsocket_poll(snWebsocket* ws)
     
     if (ws->hasCompletedOpeningHandshake == 0)
     {
+        int done = 0;
+        //printf("hasCompletedOpeningHandshake %d\n", ws->hasCompletedOpeningHandshake);
         snError result = snOpeningHandshakeParser_processBytes(&ws->openingHandshakeParser,
                                                                readBytes,
                                                                numBytesRead,
                                                                &readOffset,
-                                                               &ws->hasCompletedOpeningHandshake);
+                                                               &done);
+        
+        ws->hasCompletedOpeningHandshake = done;
+        //printf("first character after header %c. after header '%s'\n", readBytes[readOffset], &readBytes[readOffset]);
         
         if (result != SN_NO_ERROR)
         {
+            snOpeningHandshakeParser_deinit(&ws->openingHandshakeParser);
             handlePaserResult(ws, result);
             return;
         }
@@ -717,6 +738,7 @@ void snWebsocket_poll(snWebsocket* ws)
         if (ws->hasCompletedOpeningHandshake)
         {
             invokeStateCallback(ws, SN_STATE_OPEN);
+            snOpeningHandshakeParser_deinit(&ws->openingHandshakeParser);
         }
         
     }

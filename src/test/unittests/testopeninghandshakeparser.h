@@ -27,70 +27,29 @@
  * either expressed or implied, of the copyright holders.
  */
 
-#ifndef SN_MUTABLE_STRING_H
-#define SN_MUTABLE_STRING_H
+#ifndef SN_TEST_OPENING_HANDSHAKE_PARSER_H
+#define SN_TEST_OPENING_HANDSHAKE_PARSER_H
 
-/*! \file */
+#include "openinghandshakeparser.h"
 
-#ifdef __cplusplus
-extern "C"
+static const char* const SEC_WEBSOCKET_KEY = "TODO";
+
+static void testMissingWebsocketKey()
 {
-#endif /* __cplusplus */
-
-    /** The maximum number of chars in */
-    #define SN_MUTABLE_STRING_STATIC_SIZE 255
+    snOpeningHandshakeParser p;
+    snOpeningHandshakeParser_init(&p);
     
-    /**
-     * A mutable string.
-     */
-    typedef struct snMutableString
-    {
-        /** */
-        int charCount;
-        /** 
-         * This statically allocated buffer is used for short strings
-         * to avoid excessive allocations.
-         */
-        char staticData[SN_MUTABLE_STRING_STATIC_SIZE + 1];
-        /** 
-         * This buffer is used for strings exceeding
-         * \c SN_MUTABLE_STRING_STATIC_SIZE.
-         */
-        char* dynamicData;
-    } snMutableString;
-    
-    /**
-     *
-     */
-    void snMutableString_init(snMutableString* ms);
-    
-    /**
-     *
-     */
-    void snMutableString_deinit(snMutableString* ms);
-    
-    /**
-     *
-     */
-    void snMutableString_append(snMutableString* ms, const char* toAppend);
-    
-    /**
-     *
-     */
-    void snMutableString_appendInt(snMutableString* ms, int toApped);
-    
-    /**
-     *
-     */
-    void snMutableString_appendBytes(snMutableString* ms, const char* toAppend, int numBytes);
-
-    /**
-     *
-     */
-    const char* snMutableString_getString(snMutableString* ms);
-    
-#ifdef __cplusplus
+    snOpeningHandshakeParser_deinit(&p);
 }
-#endif /* __cplusplus */
 
-#endif //SN_MUTABLE_STRING_H
+static void testWrongHTTPStatus()
+{
+    
+}
+
+static void testHeaderFollowedByFrames()
+{
+    
+}
+
+#endif //SN_TEST_OPENING_HANDSHAKE_PARSER_H

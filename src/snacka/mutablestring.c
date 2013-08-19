@@ -24,6 +24,13 @@ void snMutableString_append(snMutableString* ms, const char* toAppend)
     snMutableString_appendBytes(ms, toAppend, strlen(toAppend));
 }
 
+void snMutableString_appendInt(snMutableString* ms, int toApped)
+{
+    char temp[256];
+    sprintf(temp, "%d", toApped);
+    snMutableString_append(ms, temp);
+}
+
 void snMutableString_appendBytes(snMutableString* ms, const char* toAppend, int numBytes)
 {
     if (!toAppend)

@@ -32,7 +32,7 @@
 
 /*! \file */
 
-#include "websocket.h"
+#include "errorcodes.h"
 #include "mutablestring.h"
 #include "http_parser.h"
 
@@ -41,13 +41,21 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-    typedef enum snRecognizedHTTPField
+    struct snWebsocket;
+    
+    /**
+     *
+     */
+    typedef enum snHandshakeResponseHTTPField
     {
         SN_UNRECOGNIZED_HTTP_FIELD = -1,
         SN_HTTP_ACCEPT,
         SN_HTTP_UPGRADE,
-        SN_HTTP_CONNECTION
-    } snRecognizedHTTPField;
+        SN_HTTP_CONNECTION,
+        SN_HTTP_WS_PROTOCOL,
+        SN_HTTP_WS_EXTENSIONS
+        
+    } snHandshakeResponseHTTPField;
     
     /**
      * Incremental parser of websocket opening handshake http responses. 
@@ -62,19 +70,47 @@ extern "C"
         /** */
         snError errorCode;
         /** */
-        snRecognizedHTTPField currentHeaderField;
+        snHandshakeResponseHTTPField currentHeaderField;
         /** */
         int reachedHeaderEnd;
         /** */
         snMutableString acceptValue;
-
+        /** */
+        snMutableString connectionValue;
+        /** */
+        snMutableString upgradeValue;
+        /** */
+        snMutableString protocolValue;
+        /** */
+        snMutableString extensionsValue;
     } snOpeningHandshakeParser;
 
-    
+    /**
+     * Initializes a handshake response parser.
+     * @param parser The parser to initialize.
+     */
     void snOpeningHandshakeParser_init(snOpeningHandshakeParser* parser);
     
+    /**
+     *
+     */
     void snOpeningHandshakeParser_deinit(snOpeningHandshakeParser* parser);
+
+    /**
+     * Called when \reachedHeaderEnd has been set to validate the
+     * received http header fields.
+     * @see http://tools.ietf.org/html/rfc6455#section-4.1
+     */
+    void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakeParser* parser,
+                                                                const char* host,
+                                                                int port,
+                                                                const char* path,
+                                                                const char* queryString,
+                                                                snMutableString* request);
     
+    /**
+     *
+     */
     snError snOpeningHandshakeParser_processBytes(snOpeningHandshakeParser* parser,
                                                   const char* bytes,
                                                   int numBytes,

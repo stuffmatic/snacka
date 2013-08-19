@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send small text message, then send frame with reserved control <b>Opcode = 15</b> and non-empty payload, then send Ping.",
    "droppedByMe": false,
-   "duration": 3,
+   "duration": 2,
    "expectation": "Echo for first message is received, but then connection is failed immediately, since reserved opcode frame is used. A Pong is not received.",
    "expected": {
       "NON-STRICT": [],
@@ -28,7 +28,7 @@
       "requireClean": false
    },
    "failedByMe": false,
-   "httpRequest": "GET /runCase?case=44&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
+   "httpRequest": "GET /runCase?case=44&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key:x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
    "httpResponse": "HTTP/1.1 101 Switching Protocols\r\nServer: AutobahnTestSuite/0.5.5-0.5.14\r\nUpgrade: WebSocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n\r\n",
    "id": "4.2.5",
    "isServer": true,
@@ -51,16 +51,16 @@
    },
    "rxOctetStats": {
       "19": 1,
-      "181": 1
+      "180": 1
    },
-   "started": "2013-08-18T18:35:20Z",
+   "started": "2013-08-19T11:42:36Z",
    "txFrameStats": {
       "1": 1,
       "9": 1,
       "15": 1
    },
    "txOctetStats": {
-      "1": 24,
+      "1": 29,
       "169": 1
    },
    "wasClean": false,
@@ -72,7 +72,7 @@
       [
          "RO",
          [
-            181,
+            180,
             "474554202f72756e436173653f636173653d3434266167656e743d736e61636b6120485454502f312e310d0a486f73743a206c6f63616c686f73743a39303031 ..."
          ]
       ],
@@ -323,6 +323,38 @@
          true
       ],
       [
+         "TO",
+         [
+            1,
+            "77"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "6f"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "72"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "6c"
+         ],
+         true
+      ],
+      [
          "RO",
          [
             19,
@@ -340,6 +372,14 @@
          0,
          true,
          "066926e8"
+      ],
+      [
+         "TO",
+         [
+            1,
+            "64"
+         ],
+         true
       ]
    ]
 }

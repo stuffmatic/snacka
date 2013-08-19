@@ -196,6 +196,7 @@
 		C1354B2317A704FE00A629EF /* unittests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unittests.cpp; sourceTree = "<group>"; };
 		C15C5C3217B3CCED00B55FBA /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
 		C15C5C3317B3CCED00B55FBA /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
+		C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testopeninghandshakeparser.h; sourceTree = "<group>"; };
 		C1B3CBEE17BE13D0000F9D7C /* sput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sput.h; sourceTree = "<group>"; };
 		C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iocallbacks_socket.c; sourceTree = "<group>"; };
 		C1B77F4C17A7C32500348CBE /* iocallbacks_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iocallbacks_socket.h; sourceTree = "<group>"; };
@@ -385,6 +386,7 @@
 				C1B3CBEE17BE13D0000F9D7C /* sput.h */,
 				C1354AF717A7047E00A629EF /* testframe.h */,
 				C1354AF917A7047E00A629EF /* testframeparser.h */,
+				C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */,
 				C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */,
 				C1354B2317A704FE00A629EF /* unittests.cpp */,
 			);

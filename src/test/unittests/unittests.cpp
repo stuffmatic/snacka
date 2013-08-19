@@ -33,6 +33,7 @@
 
 #include "testframe.h"
 #include "testframeparser.h"
+#include "testopeninghandshakeparser.h"
 #include "testwebsocketcpp.h"
 
 /**
@@ -48,7 +49,12 @@ int main(int argc, const char * argv[])
     sput_run_test(testMasking);
     
     sput_enter_suite("snFrameParser tests");
-    sput_run_test(testFrameParser);
+    sput_run_test(testFrameParserHeaderEquality);
+    
+    sput_enter_suite("snOpeningHandshakeParser tests");
+    sput_run_test(testWrongHTTPStatus);
+    sput_run_test(testMissingWebsocketKey);
+    sput_run_test(testHeaderFollowedByFrames);
     
     sput_enter_suite("c++ wrapper tests");
     sput_run_test(testWebsocketCppEcho);

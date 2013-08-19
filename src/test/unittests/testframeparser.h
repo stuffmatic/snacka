@@ -27,8 +27,8 @@
  * either expressed or implied, of the copyright holders.
  */
 
-#ifndef SN_TEST_WEBSOCKET_PARSER_H
-#define SN_TEST_WEBSOCKET_PARSER_H
+#ifndef SN_TEST_FRAME_PARSER_H
+#define SN_TEST_FRAME_PARSER_H
 
 #include <assert.h>
 #include <stdio.h>
@@ -47,7 +47,7 @@ static void frameCallback(void* userData, const snFrame* frame)
     memcpy(&parsedFrame, frame, sizeof(snFrame));
 }
 
-static void testFrameParser()
+static void testFrameParserHeaderEquality()
 {
     const int bufferSize = 1 << 10;
     char buffer[bufferSize];
@@ -96,4 +96,4 @@ static void testFrameParser()
     snFrameParser_deinit(&p);
 }
 
-#endif //SN_TEST_WEBSOCKET_PARSER_H
+#endif //SN_TEST_FRAME_PARSER_H

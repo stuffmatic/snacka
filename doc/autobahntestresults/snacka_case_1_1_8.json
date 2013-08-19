@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send text message message with payload of length 65536. Sent out data in chops of 997 octets.",
    "droppedByMe": true,
-   "duration": 138,
+   "duration": 136,
    "expectation": "Receive echo'ed text message (with payload as sent). Clean close with normal code.",
    "expected": {
       "OK": [
@@ -27,7 +27,7 @@
       "requireClean": true
    },
    "failedByMe": false,
-   "httpRequest": "GET /runCase?case=8&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
+   "httpRequest": "GET /runCase?case=8&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key:x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
    "httpResponse": "HTTP/1.1 101 Switching Protocols\r\nServer: AutobahnTestSuite/0.5.5-0.5.14\r\nUpgrade: WebSocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n\r\n",
    "id": "1.1.8",
    "isServer": true,
@@ -52,10 +52,10 @@
    "rxOctetStats": {
       "8": 1,
       "14": 1,
-      "180": 1,
+      "179": 1,
       "65536": 1
    },
-   "started": "2013-08-18T18:35:19Z",
+   "started": "2013-08-19T11:42:35Z",
    "txFrameStats": {
       "1": 1,
       "8": 1
@@ -75,7 +75,7 @@
       [
          "RO",
          [
-            180,
+            179,
             "474554202f72756e436173653f636173653d38266167656e743d736e61636b6120485454502f312e310d0a486f73743a206c6f63616c686f73743a393030310d ..."
          ]
       ],

@@ -62,7 +62,7 @@
       "requireClean": true
    },
    "failedByMe": false,
-   "httpRequest": "GET /runCase?case=26&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
+   "httpRequest": "GET /runCase?case=26&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key:x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
    "httpResponse": "HTTP/1.1 101 Switching Protocols\r\nServer: AutobahnTestSuite/0.5.5-0.5.14\r\nUpgrade: WebSocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n\r\n",
    "id": "2.10",
    "isServer": true,
@@ -121,11 +121,11 @@
    },
    "rxOctetStats": {
       "8": 1,
-      "36": 1,
-      "114": 1,
-      "181": 1
+      "45": 1,
+      "105": 1,
+      "180": 1
    },
-   "started": "2013-08-18T18:35:20Z",
+   "started": "2013-08-19T11:42:36Z",
    "txFrameStats": {
       "8": 1,
       "9": 10
@@ -144,7 +144,7 @@
       [
          "RO",
          [
-            181,
+            180,
             "474554202f72756e436173653f636173653d3236266167656e743d736e61636b6120485454502f312e310d0a486f73743a206c6f63616c686f73743a39303031 ..."
          ]
       ],
@@ -383,8 +383,8 @@
       [
          "RO",
          [
-            36,
-            "8a89713e154b015f6c271e5f7166418a8922e829025289506e4d894d2f138a8937dc5435"
+            45,
+            "8a89713e154b015f6c271e5f7166418a8922e829025289506e4d894d2f138a8937dc543547bd2d5958bd301805"
          ]
       ],
       [
@@ -412,13 +412,6 @@
          "22e82902"
       ],
       [
-         "RO",
-         [
-            114,
-            "47bd2d5958bd3018058a89621c8039127df9550d7de414518a893d2650814d4729ed524734ac098a891e6f64846e0e1de8710e00a92b8a89233025b853515cd4 ..."
-         ]
-      ],
-      [
          "RF",
          [
             9,
@@ -429,6 +422,13 @@
          0,
          true,
          "37dc5435"
+      ],
+      [
+         "RO",
+         [
+            105,
+            "8a89621c8039127df9550d7de414518a893d2650814d4729ed524734ac098a891e6f64846e0e1de8710e00a92b8a89233025b853515cd44c514195158a892dfc ..."
+         ]
       ],
       [
          "RF",

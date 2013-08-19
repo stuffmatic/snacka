@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send 256K message followed by close then a ping",
    "droppedByMe": true,
-   "duration": 553,
+   "duration": 548,
    "expectation": "Case outcome depends on implimentation defined close behavior. Message and close frame are sent back to back. If the close frame is processed before the text message write is complete (as can happen in asyncronous processing models) the close frame is processed first and the text message may not be recieved or may only be partially recieved.",
    "expected": {
       "NON-STRICT": [],
@@ -28,7 +28,7 @@
       "requireClean": true
    },
    "failedByMe": false,
-   "httpRequest": "GET /runCase?case=211&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
+   "httpRequest": "GET /runCase?case=211&agent=snacka HTTP/1.1\r\nHost: localhost:9001\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key:x3JJHMbDL1EzLkh9GBhXDw==\r\nSec-WebSocket-Version: 13\r\n\r\n",
    "httpResponse": "HTTP/1.1 101 Switching Protocols\r\nServer: AutobahnTestSuite/0.5.5-0.5.14\r\nUpgrade: WebSocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n\r\n",
    "id": "7.1.6",
    "isServer": true,
@@ -58,10 +58,10 @@
    "rxOctetStats": {
       "14": 1,
       "26": 1,
-      "182": 1,
+      "181": 1,
       "65536": 4
    },
-   "started": "2013-08-18T18:35:26Z",
+   "started": "2013-08-19T11:42:43Z",
    "txFrameStats": {
       "1": 2,
       "8": 1,
@@ -83,7 +83,7 @@
       [
          "RO",
          [
-            182,
+            181,
             "474554202f72756e436173653f636173653d323131266167656e743d736e61636b6120485454502f312e310d0a486f73743a206c6f63616c686f73743a393030 ..."
          ]
       ],
