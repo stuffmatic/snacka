@@ -276,8 +276,8 @@ static snError validateResponse(snOpeningHandshakeParser* p)
             {
                 for (int i = 0;  i < strlen(upgrVal); i++)
                 {
-                    if (upgrVal[i] != comp[i][0] &&
-                        upgrVal[i] != comp[i][1])
+                    if (upgrVal[i] != comp[0][i] &&
+                        upgrVal[i] != comp[1][i])
                     {
                         result = SN_OPENING_HANDSHAKE_FAILED;
                         break;
@@ -310,8 +310,8 @@ static snError validateResponse(snOpeningHandshakeParser* p)
             {
                 for (int i = 0;  i < strlen(connVal); i++)
                 {
-                    if (connVal[i] != comp[i][0] &&
-                        connVal[i] != comp[i][1])
+                    if (connVal[i] != comp[0][i] &&
+                        connVal[i] != comp[1][i])
                     {
                         result = SN_OPENING_HANDSHAKE_FAILED;
                         break;
