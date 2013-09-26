@@ -32,7 +32,7 @@
 
 /*! \file */
 
-#include "websocket.h"
+#include "../../websocket.h"
 
 #ifdef __cplusplus
 extern "C"

@@ -1,1 +1,1 @@
-wstest -m fuzzingserver -s fuzzingserver.json
+wstest -d -m fuzzingserver -s fuzzingserver.json

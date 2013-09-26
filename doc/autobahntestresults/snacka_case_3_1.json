@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send small text message with <b>RSV = 1</b>.",
    "droppedByMe": false,
-   "duration": 1,
+   "duration": 0,
    "expectation": "The connection is failed immediately (1002/protocol error), since RSV must be 0, when no extension defining RSV meaning has been negoiated.",
    "expected": {
       "OK": []
@@ -37,7 +37,7 @@
    "rxOctetStats": {
       "180": 1
    },
-   "started": "2013-08-19T11:42:36Z",
+   "started": "2013-09-26T21:20:05Z",
    "txFrameStats": {
       "1": 1
    },

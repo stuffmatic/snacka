@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send ping without payload.",
    "droppedByMe": true,
-   "duration": 3,
+   "duration": 2,
    "expectation": "Pong (with empty payload) is sent in reply to Ping. Clean close with normal code.",
    "expected": {
       "OK": [
@@ -52,7 +52,7 @@
       "8": 1,
       "180": 1
    },
-   "started": "2013-08-19T11:42:36Z",
+   "started": "2013-09-26T21:20:05Z",
    "txFrameStats": {
       "8": 1,
       "9": 1

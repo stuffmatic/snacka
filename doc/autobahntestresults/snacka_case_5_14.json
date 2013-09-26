@@ -8,7 +8,7 @@
    "createWirelog": true,
    "description": "Send unfragmented Text Message after Continuation Frame with FIN = false, where there is nothing to continue, sent in octet-wise chops.",
    "droppedByMe": false,
-   "duration": 1,
+   "duration": 2,
    "expectation": "The connection is failed immediately, since there is no message to continue.",
    "expected": {
       "OK": []
@@ -37,13 +37,13 @@
    "rxOctetStats": {
       "180": 1
    },
-   "started": "2013-08-19T11:42:36Z",
+   "started": "2013-09-26T21:20:05Z",
    "txFrameStats": {
       "0": 1,
       "1": 1
    },
    "txOctetStats": {
-      "1": 9,
+      "1": 20,
       "169": 1
    },
    "wasClean": false,
@@ -168,6 +168,94 @@
          [
             1,
             "6e"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "74"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "69"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "6e"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "75"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "61"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "74"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "69"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "6f"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "6e"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "20"
+         ],
+         true
+      ],
+      [
+         "TO",
+         [
+            1,
+            "70"
          ],
          true
       ]

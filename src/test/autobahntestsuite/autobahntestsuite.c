@@ -33,16 +33,14 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "websocket.h"
-#include "logging.h"
-#include "frameparser.h"
+#include <snacka/websocket.h>
+#include <snacka/logging.h>
+#include <snacka/frameparser.h>
 
 
 typedef struct AutobahnTestState
 {
     snWebsocket* websocket;
-    
-    int currentTestNumber;
     
     int testCount;
     
@@ -81,7 +79,6 @@ int main(int argc, const char* argv[])
 {
     AutobahnTestState test;
     test.testCount = 0;
-    test.currentTestNumber = 1;
     test.isFetchingCaseCount = 1;
     
     //override the default read buffer size

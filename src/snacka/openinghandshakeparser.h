@@ -34,7 +34,7 @@
 
 #include "errorcodes.h"
 #include "mutablestring.h"
-#include "http_parser.h"
+#include "../external/http_parser/http_parser.h"
 
 #ifdef __cplusplus
 extern "C"
