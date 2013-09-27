@@ -89,7 +89,7 @@ namespace sn
     {
         //printf("websocketRunLoopEntryPoint: entering\n");
         threadCount++;
-        assert(threadCount == 1);
+        //assert(threadCount == 1);
         
         const int pollIntervalMs = 10;
         
