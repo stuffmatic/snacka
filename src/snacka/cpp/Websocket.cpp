@@ -243,6 +243,7 @@ void WebSocket::poll()
             {
                 if (e.type == WebSocketEvent::EVENT_ERROR)
                 {
+                    m_readyState = SN_STATE_CLOSED;
                     m_listener->onError(*this, e.errorCode);
                 }
             }
