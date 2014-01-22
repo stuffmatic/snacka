@@ -55,7 +55,6 @@
 		C1E702E017A950FC00EB2C75 /* websocket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AEA17A7047E00A629EF /* websocket.c */; };
 		C1E702E217A9510700EB2C75 /* iocallbacks_socket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */; };
 		C1E702E317A9510700EB2C75 /* socket_bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4E17A7C32500348CBE /* socket_bsd.c */; };
-		C1E702E417A9510E00EB2C75 /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2317A937AF00BD0C4D /* tinycthread.c */; };
 		C1E702E517A9511A00EB2C75 /* UriCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ABF17A7047E00A629EF /* UriCommon.c */; };
 		C1E702E617A9511A00EB2C75 /* UriCompare.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC117A7047E00A629EF /* UriCompare.c */; };
 		C1E702E717A9511A00EB2C75 /* UriEscape.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AC217A7047E00A629EF /* UriEscape.c */; };
@@ -70,8 +69,6 @@
 		C1E702F017A9511A00EB2C75 /* UriRecompose.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACE17A7047E00A629EF /* UriRecompose.c */; };
 		C1E702F117A9511A00EB2C75 /* UriResolve.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACF17A7047E00A629EF /* UriResolve.c */; };
 		C1E702F217A9511A00EB2C75 /* UriShorten.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AD017A7047E00A629EF /* UriShorten.c */; };
-		C1EF1C2517A937AF00BD0C4D /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2317A937AF00BD0C4D /* tinycthread.c */; };
-		C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C2417A937AF00BD0C4D /* tinycthread.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,8 +198,6 @@
 		C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autobahntestsuite; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E702B517A9508600EB2C75 /* libsnacka_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testwebsocketcpp.h; sourceTree = "<group>"; };
-		C1EF1C2317A937AF00BD0C4D /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tinycthread.c; sourceTree = "<group>"; };
-		C1EF1C2417A937AF00BD0C4D /* tinycthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinycthread.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				C15C5C3117B3CCED00B55FBA /* http_parser */,
-				C1EF1C1B17A8FFF100BD0C4D /* tinycthread */,
 				C1354ABE17A7047E00A629EF /* uriparser */,
 			);
 			path = external;
@@ -430,15 +424,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C1EF1C1B17A8FFF100BD0C4D /* tinycthread */ = {
-			isa = PBXGroup;
-			children = (
-				C1EF1C2317A937AF00BD0C4D /* tinycthread.c */,
-				C1EF1C2417A937AF00BD0C4D /* tinycthread.h */,
-			);
-			path = tinycthread;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -447,7 +432,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1B77F5017A7C32500348CBE /* iocallbacks_socket.h in Headers */,
-				C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */,
 				C1B77F5117A7C32500348CBE /* socket.h in Headers */,
 				C15C5C3617B3CCED00B55FBA /* http_parser.h in Headers */,
 				C10FF1A017C1398C00ACD247 /* openinghandshakeparser.h in Headers */,
@@ -609,7 +593,6 @@
 				C1354B0417A7048E00A629EF /* UriParseBase.c in Sources */,
 				C1354B0B17A7049D00A629EF /* frameparser.c in Sources */,
 				C1354B0317A7048E00A629EF /* UriParse.c in Sources */,
-				C1EF1C2517A937AF00BD0C4D /* tinycthread.c in Sources */,
 				C1354B0217A7048E00A629EF /* UriNormalizeBase.c in Sources */,
 				C1B77F4F17A7C32500348CBE /* iocallbacks_socket.c in Sources */,
 				C15C5C3417B3CCED00B55FBA /* http_parser.c in Sources */,
@@ -650,7 +633,6 @@
 				C1E702E717A9511A00EB2C75 /* UriEscape.c in Sources */,
 				C1E702DD17A950FC00EB2C75 /* frameparser.c in Sources */,
 				C1E702ED17A9511A00EB2C75 /* UriParse.c in Sources */,
-				C1E702E417A9510E00EB2C75 /* tinycthread.c in Sources */,
 				C1E702E317A9510700EB2C75 /* socket_bsd.c in Sources */,
 				C1E702E917A9511A00EB2C75 /* UriIp4.c in Sources */,
 				C1E702DE17A950FC00EB2C75 /* logging.c in Sources */,
