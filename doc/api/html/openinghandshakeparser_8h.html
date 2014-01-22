@@ -92,9 +92,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">openinghandshakeparser.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="websocket_8h_source.html">websocket.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="errorcodes_8h_source.html">errorcodes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mutablestring_8h_source.html">mutablestring.h</a>&quot;</code><br/>
-<code>#include &quot;http_parser.h&quot;</code><br/>
+<code>#include &quot;../external/http_parser/http_parser.h&quot;</code><br/>
 </div>
 <p><a href="openinghandshakeparser_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -105,30 +105,37 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a594bce5e446a7fbc4b75199baf15c0d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a594bce5e446a7fbc4b75199baf15c0d3"></a>
-typedef enum snRecognizedHTTPField&#160;</td><td class="memItemRight" valign="bottom"><b>snRecognizedHTTPField</b></td></tr>
-<tr class="separator:a594bce5e446a7fbc4b75199baf15c0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52aa40f340f5f5c2731cae5558de73a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52aa40f340f5f5c2731cae5558de73a6"></a>
+typedef enum <br class="typebreak"/>
+snHandshakeResponseHTTPField&#160;</td><td class="memItemRight" valign="bottom"><b>snHandshakeResponseHTTPField</b></td></tr>
+<tr class="separator:a52aa40f340f5f5c2731cae5558de73a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e9df5a5ba23fce448fa2a37d99c944b"><td class="memItemLeft" align="right" valign="top">typedef struct <br class="typebreak"/>
 <a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="openinghandshakeparser_8h.html#a9e9df5a5ba23fce448fa2a37d99c944b">snOpeningHandshakeParser</a></td></tr>
 <tr class="separator:a9e9df5a5ba23fce448fa2a37d99c944b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ac8dc7b673ef276745250ab6a24e5d1d6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>snRecognizedHTTPField</b> { <b>SN_UNRECOGNIZED_HTTP_FIELD</b> = -1, 
+<tr class="memitem:a82cddcd2d12a27e022b14c560fd29759"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>snHandshakeResponseHTTPField</b> { <br/>
+&#160;&#160;<b>SN_UNRECOGNIZED_HTTP_FIELD</b> = -1, 
 <b>SN_HTTP_ACCEPT</b>, 
 <b>SN_HTTP_UPGRADE</b>, 
-<b>SN_HTTP_CONNECTION</b>
+<b>SN_HTTP_CONNECTION</b>, 
+<br/>
+&#160;&#160;<b>SN_HTTP_WS_PROTOCOL</b>, 
+<b>SN_HTTP_WS_EXTENSIONS</b>
+<br/>
  }</td></tr>
-<tr class="separator:ac8dc7b673ef276745250ab6a24e5d1d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a82cddcd2d12a27e022b14c560fd29759"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aafdcf1aeb2bcebb5b5c895ea25f11e21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aafdcf1aeb2bcebb5b5c895ea25f11e21"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>snOpeningHandshakeParser_init</b> (<a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a> *parser)</td></tr>
+<tr class="memitem:aafdcf1aeb2bcebb5b5c895ea25f11e21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="openinghandshakeparser_8h.html#aafdcf1aeb2bcebb5b5c895ea25f11e21">snOpeningHandshakeParser_init</a> (<a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a> *parser)</td></tr>
 <tr class="separator:aafdcf1aeb2bcebb5b5c895ea25f11e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d918c1b62ae22b8906ff3658d79469b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d918c1b62ae22b8906ff3658d79469b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>snOpeningHandshakeParser_deinit</b> (<a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a> *parser)</td></tr>
 <tr class="separator:a7d918c1b62ae22b8906ff3658d79469b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15efc12fd3a2b20e4d8e7aaf6f177176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="openinghandshakeparser_8h.html#a15efc12fd3a2b20e4d8e7aaf6f177176">snOpeningHandshakeParser_createOpeningHandshakeRequest</a> (<a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a> *parser, const char *host, int port, const char *path, const char *queryString, <a class="el" href="structsn_mutable_string.html">snMutableString</a> *request)</td></tr>
+<tr class="separator:a15efc12fd3a2b20e4d8e7aaf6f177176"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bb750b10252be88bada881b42396bab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5bb750b10252be88bada881b42396bab"></a>
 <a class="el" href="errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60">snError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>snOpeningHandshakeParser_processBytes</b> (<a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a> *parser, const char *bytes, int numBytes, int *numBytesProcessed, int *handshakeCompleted)</td></tr>
 <tr class="separator:a5bb750b10252be88bada881b42396bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,10 +155,86 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>snOpeningHandshakePar
 
 </div>
 </div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a15efc12fd3a2b20e4d8e7aaf6f177176"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void snOpeningHandshakeParser_createOpeningHandshakeRequest </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a> *&#160;</td>
+          <td class="paramname"><em>parser</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>queryString</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsn_mutable_string.html">snMutableString</a> *&#160;</td>
+          <td class="paramname"><em>request</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Called when  has been set to validate the received http header fields. </p>
+<dl class="section see"><dt>See Also</dt><dd><a href="http://tools.ietf.org/html/rfc6455#section-4.1">http://tools.ietf.org/html/rfc6455#section-4.1</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aafdcf1aeb2bcebb5b5c895ea25f11e21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void snOpeningHandshakeParser_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsn_opening_handshake_parser.html">snOpeningHandshakeParser</a> *&#160;</td>
+          <td class="paramname"><em>parser</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initializes a handshake response parser. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parser</td><td>The parser to initialize. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 20:41:35 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 22 2014 14:47:07 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

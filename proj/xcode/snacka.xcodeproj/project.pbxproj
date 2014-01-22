@@ -36,7 +36,6 @@
 		C1354B1117A704A600A629EF /* autobahntestsuite.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AEF17A7047E00A629EF /* autobahntestsuite.c */; };
 		C1354B1217A704AB00A629EF /* echoservertest.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF517A7047E00A629EF /* echoservertest.c */; };
 		C1354B2217A704D900A629EF /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
-		C1354B2417A704FE00A629EF /* unittests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1354B2317A704FE00A629EF /* unittests.cpp */; };
 		C1354B2517A7059800A629EF /* testframe.h in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF717A7047E00A629EF /* testframe.h */; };
 		C1354B2617A7059800A629EF /* testframeparser.h in Sources */ = {isa = PBXBuildFile; fileRef = C1354AF917A7047E00A629EF /* testframeparser.h */; };
 		C15C5C3417B3CCED00B55FBA /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C15C5C3217B3CCED00B55FBA /* http_parser.c */; };
@@ -54,7 +53,6 @@
 		C1E702DE17A950FC00EB2C75 /* logging.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AE417A7047E00A629EF /* logging.c */; };
 		C1E702DF17A950FC00EB2C75 /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AE817A7047E00A629EF /* utf8.c */; };
 		C1E702E017A950FC00EB2C75 /* websocket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AEA17A7047E00A629EF /* websocket.c */; };
-		C1E702E117A9510100EB2C75 /* Websocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */; };
 		C1E702E217A9510700EB2C75 /* iocallbacks_socket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */; };
 		C1E702E317A9510700EB2C75 /* socket_bsd.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4E17A7C32500348CBE /* socket_bsd.c */; };
 		C1E702E417A9510E00EB2C75 /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2317A937AF00BD0C4D /* tinycthread.c */; };
@@ -72,11 +70,8 @@
 		C1E702F017A9511A00EB2C75 /* UriRecompose.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACE17A7047E00A629EF /* UriRecompose.c */; };
 		C1E702F117A9511A00EB2C75 /* UriResolve.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354ACF17A7047E00A629EF /* UriResolve.c */; };
 		C1E702F217A9511A00EB2C75 /* UriShorten.c in Sources */ = {isa = PBXBuildFile; fileRef = C1354AD017A7047E00A629EF /* UriShorten.c */; };
-		C1EF1C1917A8FE4500BD0C4D /* Websocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */; };
-		C1EF1C1A17A8FE4500BD0C4D /* Websocket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */; };
 		C1EF1C2517A937AF00BD0C4D /* tinycthread.c in Sources */ = {isa = PBXBuildFile; fileRef = C1EF1C2317A937AF00BD0C4D /* tinycthread.c */; };
 		C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C2417A937AF00BD0C4D /* tinycthread.h */; };
-		C1EF1C2817A945AF00BD0C4D /* WebsocketListener.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C1EF1C2717A945AF00BD0C4D /* WebsocketListener.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,7 +188,6 @@
 		C1354AF717A7047E00A629EF /* testframe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testframe.h; sourceTree = "<group>"; };
 		C1354AF917A7047E00A629EF /* testframeparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testframeparser.h; sourceTree = "<group>"; };
 		C1354B1717A704C700A629EF /* unittests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittests; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1354B2317A704FE00A629EF /* unittests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unittests.cpp; sourceTree = "<group>"; };
 		C15C5C3217B3CCED00B55FBA /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
 		C15C5C3317B3CCED00B55FBA /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
 		C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testopeninghandshakeparser.h; sourceTree = "<group>"; };
@@ -206,12 +200,9 @@
 		C1BBDD29178DC424001DFED3 /* echoservertest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = echoservertest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autobahntestsuite; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E702B517A9508600EB2C75 /* libsnacka_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Websocket.cpp; sourceTree = "<group>"; };
-		C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Websocket.hpp; sourceTree = "<group>"; };
 		C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testwebsocketcpp.h; sourceTree = "<group>"; };
 		C1EF1C2317A937AF00BD0C4D /* tinycthread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tinycthread.c; sourceTree = "<group>"; };
 		C1EF1C2417A937AF00BD0C4D /* tinycthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinycthread.h; sourceTree = "<group>"; };
-		C1EF1C2717A945AF00BD0C4D /* WebsocketListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WebsocketListener.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				C1B77F4917A7C32500348CBE /* backends */,
-				C1EF1C0E17A8FE4500BD0C4D /* cpp */,
 				C1354ADA17A7047E00A629EF /* errorcodes.h */,
 				C1354ADB17A7047E00A629EF /* frame.c */,
 				C1354ADC17A7047E00A629EF /* frame.h */,
@@ -388,7 +378,6 @@
 				C1354AF917A7047E00A629EF /* testframeparser.h */,
 				C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */,
 				C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */,
-				C1354B2317A704FE00A629EF /* unittests.cpp */,
 			);
 			path = unittests;
 			sourceTree = "<group>";
@@ -441,16 +430,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C1EF1C0E17A8FE4500BD0C4D /* cpp */ = {
-			isa = PBXGroup;
-			children = (
-				C1EF1C1317A8FE4500BD0C4D /* Websocket.cpp */,
-				C1EF1C1417A8FE4500BD0C4D /* Websocket.hpp */,
-				C1EF1C2717A945AF00BD0C4D /* WebsocketListener.hpp */,
-			);
-			path = cpp;
-			sourceTree = "<group>";
-		};
 		C1EF1C1B17A8FFF100BD0C4D /* tinycthread */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,8 +446,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1EF1C2817A945AF00BD0C4D /* WebsocketListener.hpp in Headers */,
-				C1EF1C1A17A8FE4500BD0C4D /* Websocket.hpp in Headers */,
 				C1B77F5017A7C32500348CBE /* iocallbacks_socket.h in Headers */,
 				C1EF1C2617A937AF00BD0C4D /* tinycthread.h in Headers */,
 				C1B77F5117A7C32500348CBE /* socket.h in Headers */,
@@ -603,7 +580,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1354B2417A704FE00A629EF /* unittests.cpp in Sources */,
 				C1354B2517A7059800A629EF /* testframe.h in Sources */,
 				C1354B2617A7059800A629EF /* testframeparser.h in Sources */,
 			);
@@ -627,7 +603,6 @@
 				C1354AFD17A7048E00A629EF /* UriEscape.c in Sources */,
 				C1354AFF17A7048E00A629EF /* UriIp4.c in Sources */,
 				C1354B0F17A7049D00A629EF /* utf8.c in Sources */,
-				C1EF1C1917A8FE4500BD0C4D /* Websocket.cpp in Sources */,
 				C1354B0117A7048E00A629EF /* UriNormalize.c in Sources */,
 				C1354B0717A7048E00A629EF /* UriResolve.c in Sources */,
 				C1354B0617A7048E00A629EF /* UriRecompose.c in Sources */,
@@ -685,7 +660,6 @@
 				C1E702EB17A9511A00EB2C75 /* UriNormalize.c in Sources */,
 				C1E702F117A9511A00EB2C75 /* UriResolve.c in Sources */,
 				C1E702EE17A9511A00EB2C75 /* UriParseBase.c in Sources */,
-				C1E702E117A9510100EB2C75 /* Websocket.cpp in Sources */,
 				C1E702DB17A950FC00EB2C75 /* frame.c in Sources */,
 				C15C5C3517B3CCED00B55FBA /* http_parser.c in Sources */,
 				C10FF19F17C1398C00ACD247 /* openinghandshakeparser.c in Sources */,

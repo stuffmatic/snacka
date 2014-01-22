@@ -116,48 +116,49 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * either expressed or implied, of the copyright holders.</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifndef SN_MUTABLE_STRING_H</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SN_MUTABLE_STRING_H</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="mutablestring_8h.html#a6858e11dd1dd71124fbfd068306ffd14">   42</a></span>&#160;<span class="preprocessor">    #define SN_MUTABLE_STRING_STATIC_SIZE 255</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span>    </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structsn_mutable_string.html">   47</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsn_mutable_string.html">snMutableString</a></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">int</span> charCount;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="structsn_mutable_string.html#a3c8100b9afa15186e3e31d46d3a210ee">   55</a></span>&#160;        <span class="keywordtype">char</span> <a class="code" href="structsn_mutable_string.html#a3c8100b9afa15186e3e31d46d3a210ee">staticData</a>[<a class="code" href="mutablestring_8h.html#a6858e11dd1dd71124fbfd068306ffd14">SN_MUTABLE_STRING_STATIC_SIZE</a> + 1];</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structsn_mutable_string.html#a72c9035d659a3ac3cdd8341c92652bd4">   60</a></span>&#160;        <span class="keywordtype">char</span>* <a class="code" href="structsn_mutable_string.html#a72c9035d659a3ac3cdd8341c92652bd4">dynamicData</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    } <a class="code" href="mutablestring_8h.html#a3d9d38eff35ba2c738f5a0d2e0841a26">snMutableString</a>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> snMutableString_init(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> snMutableString_deinit(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> snMutableString_append(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms, <span class="keyword">const</span> <span class="keywordtype">char</span>* toAppend);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> snMutableString_appendBytes(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms, <span class="keyword">const</span> <span class="keywordtype">char</span>* toAppend, <span class="keywordtype">int</span> numBytes);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* snMutableString_getString(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif //SN_MUTABLE_STRING_H</span></div>
-<div class="ttc" id="structsn_mutable_string_html"><div class="ttname"><a href="structsn_mutable_string.html">snMutableString</a></div><div class="ttdef"><b>Definition:</b> mutablestring.h:47</div></div>
-<div class="ttc" id="structsn_mutable_string_html_a72c9035d659a3ac3cdd8341c92652bd4"><div class="ttname"><a href="structsn_mutable_string.html#a72c9035d659a3ac3cdd8341c92652bd4">snMutableString::dynamicData</a></div><div class="ttdeci">char * dynamicData</div><div class="ttdef"><b>Definition:</b> mutablestring.h:60</div></div>
-<div class="ttc" id="structsn_mutable_string_html_a3c8100b9afa15186e3e31d46d3a210ee"><div class="ttname"><a href="structsn_mutable_string.html#a3c8100b9afa15186e3e31d46d3a210ee">snMutableString::staticData</a></div><div class="ttdeci">char staticData[SN_MUTABLE_STRING_STATIC_SIZE+1]</div><div class="ttdef"><b>Definition:</b> mutablestring.h:55</div></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef SN_MUTABLE_STRING_H</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SN_MUTABLE_STRING_H</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="mutablestring_8h.html#a6858e11dd1dd71124fbfd068306ffd14">   41</a></span>&#160;<span class="preprocessor">    #define SN_MUTABLE_STRING_STATIC_SIZE 255</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span>    </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structsn_mutable_string.html">   46</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsn_mutable_string.html">snMutableString</a></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">int</span> charCount;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structsn_mutable_string.html#a3c8100b9afa15186e3e31d46d3a210ee">   54</a></span>&#160;        <span class="keywordtype">char</span> <a class="code" href="structsn_mutable_string.html#a3c8100b9afa15186e3e31d46d3a210ee">staticData</a>[<a class="code" href="mutablestring_8h.html#a6858e11dd1dd71124fbfd068306ffd14">SN_MUTABLE_STRING_STATIC_SIZE</a> + 1];</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="structsn_mutable_string.html#a72c9035d659a3ac3cdd8341c92652bd4">   59</a></span>&#160;        <span class="keywordtype">char</span>* <a class="code" href="structsn_mutable_string.html#a72c9035d659a3ac3cdd8341c92652bd4">dynamicData</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    } <a class="code" href="mutablestring_8h.html#a3d9d38eff35ba2c738f5a0d2e0841a26">snMutableString</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> snMutableString_init(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> snMutableString_deinit(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> snMutableString_append(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms, <span class="keyword">const</span> <span class="keywordtype">char</span>* toAppend);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> snMutableString_appendInt(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms, <span class="keywordtype">int</span> toApped);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> snMutableString_appendBytes(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms, <span class="keyword">const</span> <span class="keywordtype">char</span>* toAppend, <span class="keywordtype">int</span> numBytes);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* snMutableString_getString(<a class="code" href="structsn_mutable_string.html">snMutableString</a>* ms);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif //SN_MUTABLE_STRING_H</span></div>
+<div class="ttc" id="structsn_mutable_string_html"><div class="ttname"><a href="structsn_mutable_string.html">snMutableString</a></div><div class="ttdef"><b>Definition:</b> mutablestring.h:46</div></div>
+<div class="ttc" id="structsn_mutable_string_html_a72c9035d659a3ac3cdd8341c92652bd4"><div class="ttname"><a href="structsn_mutable_string.html#a72c9035d659a3ac3cdd8341c92652bd4">snMutableString::dynamicData</a></div><div class="ttdeci">char * dynamicData</div><div class="ttdef"><b>Definition:</b> mutablestring.h:59</div></div>
+<div class="ttc" id="structsn_mutable_string_html_a3c8100b9afa15186e3e31d46d3a210ee"><div class="ttname"><a href="structsn_mutable_string.html#a3c8100b9afa15186e3e31d46d3a210ee">snMutableString::staticData</a></div><div class="ttdeci">char staticData[SN_MUTABLE_STRING_STATIC_SIZE+1]</div><div class="ttdef"><b>Definition:</b> mutablestring.h:54</div></div>
 <div class="ttc" id="mutablestring_8h_html_a3d9d38eff35ba2c738f5a0d2e0841a26"><div class="ttname"><a href="mutablestring_8h.html#a3d9d38eff35ba2c738f5a0d2e0841a26">snMutableString</a></div><div class="ttdeci">struct snMutableString snMutableString</div></div>
-<div class="ttc" id="mutablestring_8h_html_a6858e11dd1dd71124fbfd068306ffd14"><div class="ttname"><a href="mutablestring_8h.html#a6858e11dd1dd71124fbfd068306ffd14">SN_MUTABLE_STRING_STATIC_SIZE</a></div><div class="ttdeci">#define SN_MUTABLE_STRING_STATIC_SIZE</div><div class="ttdef"><b>Definition:</b> mutablestring.h:42</div></div>
+<div class="ttc" id="mutablestring_8h_html_a6858e11dd1dd71124fbfd068306ffd14"><div class="ttname"><a href="mutablestring_8h.html#a6858e11dd1dd71124fbfd068306ffd14">SN_MUTABLE_STRING_STATIC_SIZE</a></div><div class="ttdeci">#define SN_MUTABLE_STRING_STATIC_SIZE</div><div class="ttdef"><b>Definition:</b> mutablestring.h:41</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 20:41:35 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 22 2014 14:47:07 for Snacka websocket client by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

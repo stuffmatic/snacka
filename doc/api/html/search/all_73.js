@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['sendping',['sendPing',['../classsn_1_1_web_socket.html#a78b5e5ddbb8cd2fc445281764117378b',1,'sn::WebSocket']]],
-  ['sendtext',['sendText',['../classsn_1_1_web_socket.html#a92e9083ee1897659870d4de2753cc9e0',1,'sn::WebSocket']]],
-  ['setlistener',['setListener',['../classsn_1_1_web_socket.html#a8903a01d8170ae0f3eefd70e40f05ba4',1,'sn::WebSocket']]],
   ['sn_5fcancelled_5foperation',['SN_CANCELLED_OPERATION',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a12a32c63d5679bc04e34b531f4cfb03e',1,'errorcodes.h']]],
   ['sn_5fcontrol_5fframe_5fpayload_5ftoo_5flarge',['SN_CONTROL_FRAME_PAYLOAD_TOO_LARGE',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60a3a7f4fc14a63563f589d181f82a5545a',1,'errorcodes.h']]],
   ['sn_5fexceeded_5fmax_5fpayload_5fsize',['SN_EXCEEDED_MAX_PAYLOAD_SIZE',['../errorcodes_8h.html#a355e09416ce79ad0dc2052002f215f60adc019a9b7dbffadf2fc7147d43f1145f',1,'errorcodes.h']]],
@@ -71,6 +68,8 @@ var searchData=
   ['snopcode',['snOpcode',['../frameheader_8h.html#a8fe7a395e282395bee3b30f1dd0f03f7',1,'snOpcode():&#160;frameheader.h'],['../frameheader_8h.html#ae03a75ba7fedfb7489113e6b289c8447',1,'snOpcode():&#160;frameheader.h']]],
   ['snopencallback',['snOpenCallback',['../websocket_8h.html#a5e9b7a526cfcde6ab66cb7e7d93aff72',1,'websocket.h']]],
   ['snopeninghandshakeparser',['snOpeningHandshakeParser',['../structsn_opening_handshake_parser.html',1,'snOpeningHandshakeParser'],['../openinghandshakeparser_8h.html#a9e9df5a5ba23fce448fa2a37d99c944b',1,'snOpeningHandshakeParser():&#160;openinghandshakeparser.h']]],
+  ['snopeninghandshakeparser_5fcreateopeninghandshakerequest',['snOpeningHandshakeParser_createOpeningHandshakeRequest',['../openinghandshakeparser_8h.html#a15efc12fd3a2b20e4d8e7aaf6f177176',1,'openinghandshakeparser.c']]],
+  ['snopeninghandshakeparser_5finit',['snOpeningHandshakeParser_init',['../openinghandshakeparser_8h.html#aafdcf1aeb2bcebb5b5c895ea25f11e21',1,'openinghandshakeparser.c']]],
   ['snreadystate',['snReadyState',['../websocket_8h.html#a0fbbfa8ea09e95fbb0661313ba1d7161',1,'snReadyState():&#160;websocket.h'],['../websocket_8h.html#af4c53db5552eee33a84d826485974221',1,'snReadyState():&#160;websocket.h']]],
   ['snsilentlogcallback',['snSilentLogCallback',['../logging_8h.html#aadc9f173f21812dc50e8785aac46443c',1,'logging.c']]],
   ['snstatuscode',['snStatusCode',['../websocket_8h.html#a464ca8da6d97070dc8a791aab016049c',1,'snStatusCode():&#160;websocket.h'],['../websocket_8h.html#a6a86133eac2338dc8dd89f6cf6e92d0e',1,'snStatusCode():&#160;websocket.h']]],

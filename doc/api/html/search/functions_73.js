@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['sendping',['sendPing',['../classsn_1_1_web_socket.html#a78b5e5ddbb8cd2fc445281764117378b',1,'sn::WebSocket']]],
-  ['sendtext',['sendText',['../classsn_1_1_web_socket.html#a92e9083ee1897659870d4de2753cc9e0',1,'sn::WebSocket']]],
-  ['setlistener',['setListener',['../classsn_1_1_web_socket.html#a8903a01d8170ae0f3eefd70e40f05ba4',1,'sn::WebSocket']]],
   ['sndefaultlogcallback',['snDefaultLogCallback',['../logging_8h.html#a783026d0152c8aacfca202ca4a5cf744',1,'logging.c']]],
   ['snframe_5flog',['snFrame_log',['../frame_8h.html#a7a30e9520869c2a9dee8d607a27d8fce',1,'frame.c']]],
   ['snframeheader_5fapplymask',['snFrameHeader_applyMask',['../frameheader_8h.html#af27c8781dab3ed461371f3c799e1f580',1,'frameheader.c']]],
@@ -15,6 +12,8 @@ var searchData=
   ['snframeparser_5finit',['snFrameParser_init',['../frameparser_8h.html#a85417f7ebe5e2ffde3a12ee39c175a8e',1,'frameparser.c']]],
   ['snframeparser_5fprocessbytes',['snFrameParser_processBytes',['../frameparser_8h.html#a6b4687dcf2ab9565684a3bcd7b2f3d12',1,'frameparser.c']]],
   ['snframeparser_5freset',['snFrameParser_reset',['../frameparser_8h.html#ad1542beba616a4a3c54cca378f74d46c',1,'frameparser.c']]],
+  ['snopeninghandshakeparser_5fcreateopeninghandshakerequest',['snOpeningHandshakeParser_createOpeningHandshakeRequest',['../openinghandshakeparser_8h.html#a15efc12fd3a2b20e4d8e7aaf6f177176',1,'openinghandshakeparser.c']]],
+  ['snopeninghandshakeparser_5finit',['snOpeningHandshakeParser_init',['../openinghandshakeparser_8h.html#aafdcf1aeb2bcebb5b5c895ea25f11e21',1,'openinghandshakeparser.c']]],
   ['snsilentlogcallback',['snSilentLogCallback',['../logging_8h.html#aadc9f173f21812dc50e8785aac46443c',1,'logging.c']]],
   ['snutf8validatestring',['snUTF8ValidateString',['../utf8_8h.html#af7ae12071338964d1df535198d94f735',1,'utf8.c']]],
   ['snutf8validatestringincremental',['snUTF8ValidateStringIncremental',['../utf8_8h.html#a6ac45b590de54a038268960d75888deb',1,'utf8.c']]],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['urischeme',['uriScheme',['../structsn_websocket.html#a57fda4cad6a32ab408437d9daaf4c95e',1,'snWebsocket']]]
+  ['urischeme',['uriScheme',['../structsn_websocket.html#ab97d0adb55942fe56dd6525b5816f30a',1,'snWebsocket']]]
 ];
