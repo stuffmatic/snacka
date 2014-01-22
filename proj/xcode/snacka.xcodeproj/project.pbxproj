@@ -197,7 +197,6 @@
 		C1BBDD29178DC424001DFED3 /* echoservertest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = echoservertest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autobahntestsuite; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E702B517A9508600EB2C75 /* libsnacka_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testwebsocketcpp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,7 +370,6 @@
 				C1354AF717A7047E00A629EF /* testframe.h */,
 				C1354AF917A7047E00A629EF /* testframeparser.h */,
 				C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */,
-				C1EF1C2117A909A900BD0C4D /* testwebsocketcpp.h */,
 			);
 			path = unittests;
 			sourceTree = "<group>";
