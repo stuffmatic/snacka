@@ -220,22 +220,23 @@ static void sendCloseFrame(snWebsocket* ws, snStatusCode code)
 /**
  * Intercepts state changes before passing them on to the user defined callback.
  */
-void invokeStateCallback(snWebsocket* ws, snReadyState state)
+void transitionToStateAndInvokeStateCallback(snWebsocket* ws, snReadyState state)
 {
+    const int oldState = ws->websocketState;
+    ws->websocketState = state;
+    
     if (state == SN_STATE_OPEN && ws->openCallback)
     {
-        ws->websocketState = state;
         ws->openCallback(ws->callbackData);
     }
-    else if (state == SN_STATE_CLOSED && ws->websocketState == SN_STATE_CONNECTING && ws->closeCallback)
+    else if (state == SN_STATE_CLOSED && oldState == SN_STATE_CONNECTING && ws->closeCallback)
     {
-        ws->websocketState = state;
         //an error occurred before completing the opening handshake
         ws->closeCallback(ws->callbackData, SN_STATUS_UNEXPECTED_ERROR);
     }
-    else
+    else if (state == SN_STATE_CLOSED && oldState == SN_STATE_OPEN && ws->closeCallback)
     {
-        ws->websocketState = state;
+        ws->closeCallback(ws->callbackData, SN_STATUS_ENDPOINT_GOING_AWAY);
     }
 }
 
@@ -256,7 +257,7 @@ static void disconnectWithStatus(snWebsocket* ws, snStatusCode status, snError e
         ws->closeCallback(ws->callbackData, status);
     }
     
-    invokeStateCallback(ws, SN_STATE_CLOSED);
+    transitionToStateAndInvokeStateCallback(ws, SN_STATE_CLOSED);
     
     if (error != SN_NO_ERROR && ws->errorCallback)
     {
@@ -527,7 +528,7 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     snFrameParser_reset(&ws->frameParser);
     snOpeningHandshakeParser_init(&ws->openingHandshakeParser);
     
-    invokeStateCallback(ws, SN_STATE_CONNECTING);
+    transitionToStateAndInvokeStateCallback(ws, SN_STATE_CONNECTING);
     
     //parse the url
     UriParserStateA state;
@@ -580,7 +581,7 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     
     if (e != SN_NO_ERROR)
     {
-        invokeStateCallback(ws, SN_STATE_CLOSED);
+        transitionToStateAndInvokeStateCallback(ws, SN_STATE_CLOSED);
         return e;
     }
     
@@ -597,11 +598,12 @@ void snWebsocket_disconnect(snWebsocket* ws, int disconnectImmediately)
     if (disconnectImmediately)
     {
         disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY, SN_NO_ERROR);
+        transitionToStateAndInvokeStateCallback(ws, SN_STATE_CLOSED);
     }
     else
     {
         sendCloseFrame(ws, SN_STATUS_NORMAL_CLOSURE);
-        invokeStateCallback(ws, SN_STATE_CLOSING);
+        transitionToStateAndInvokeStateCallback(ws, SN_STATE_CLOSING);
     }
 }
 
@@ -737,7 +739,7 @@ void snWebsocket_poll(snWebsocket* ws)
         
         if (ws->hasCompletedOpeningHandshake)
         {
-            invokeStateCallback(ws, SN_STATE_OPEN);
+            transitionToStateAndInvokeStateCallback(ws, SN_STATE_OPEN);
             snOpeningHandshakeParser_deinit(&ws->openingHandshakeParser);
         }
         
