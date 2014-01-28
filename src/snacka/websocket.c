@@ -305,7 +305,7 @@ void invokeFrameCallback(void* data, const snFrame* frame)
     snError headerValidationResult = snFrameHeader_validate(&frame->header);
     if (headerValidationResult != SN_NO_ERROR)
     {
-        //TODO: error handling
+        disconnectWithStatus(ws, SN_STATUS_PROTOCOL_ERROR, headerValidationResult);
         return;
     }
         
