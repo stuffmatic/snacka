@@ -643,11 +643,12 @@ static void handlePaserResult(snWebsocket* ws, snError error)
         status = SN_STATUS_INCONSISTENT_DATA;
     }
     
-    if (ws->errorCallback)
+    /*if (ws->errorCallback)
     {
         ws->errorCallback(ws->callbackData, error);
-    }
+    }*/
     
+    //invokes error callback if an error occurred.
     disconnectWithStatus(ws, status, error);
 }
 
