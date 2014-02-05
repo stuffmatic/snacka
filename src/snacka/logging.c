@@ -42,5 +42,5 @@ void snDefaultLogCallback(const char* format, ...)
 
 void snSilentLogCallback(const char* format, ...)
 {
-    //silent
+    /*silent*/
 }

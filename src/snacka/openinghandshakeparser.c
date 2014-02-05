@@ -50,7 +50,8 @@ static int stringStartsWith(const char* haystack, int haystackLen, const char* n
     
     const int minLen = haystackLen < needleLen ? haystackLen : needleLen;
     
-    for (int i = 0; i < minLen; i++)
+    int i;
+    for (i = 0; i < minLen; i++)
     {
         if (haystack[i] != needle[i])
         {
@@ -121,16 +122,16 @@ static int on_header_value(http_parser* p, const char *at, size_t length)
 
 static int on_message_begin(http_parser* p)
 {
-    snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
-    //printf("-------------ON MESSAGE BEGIN----------\n");
+    /*snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
+     printf("-------------ON MESSAGE BEGIN----------\n");*/
     return 0;
 }
 
 static int on_message_complete(http_parser* p)
 {
-    snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
-    //c->response.bodySize = c->response.size - c->response.bodyStart;
-    //printf("-----------ON MESSAGE COMPLETE---------\n");
+    /*snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
+    c->response.bodySize = c->response.size - c->response.bodyStart;
+    printf("-----------ON MESSAGE COMPLETE---------\n");*/
     return 0;
 }
 
@@ -154,7 +155,7 @@ static int on_headers_complete(http_parser* p)
 
 static void generateKey(snMutableString* key)
 {
-    //TODO: randomize properly
+    /*TODO: randomize properly*/
     snMutableString_append(key, "x3JJHMbDL1EzLkh9GBhXDw==");
 }
 
@@ -162,7 +163,7 @@ void snOpeningHandshakeParser_init(snOpeningHandshakeParser* p)
 {
     memset(p, 0, sizeof(snOpeningHandshakeParser));
     
-    //set up http header parser
+    /*set up http header parser*/
     memset(&p->httpParserSettings, 0, sizeof(http_parser_settings));
     
     p->httpParserSettings.on_headers_complete = on_headers_complete;
@@ -202,7 +203,7 @@ void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakePa
 {
     const int queryLength = strlen(queryString);
     
-    //GET
+    /*GET*/
     snMutableString_append(request, "GET /");
     snMutableString_append(request, path);
     if (queryLength > 0)
@@ -212,20 +213,20 @@ void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakePa
     }
     snMutableString_append(request, " HTTP/1.1\r\n");
     
-    //Host
+    /*Host*/
     snMutableString_append(request, "Host: ");
     snMutableString_append(request, host);
     snMutableString_append(request, ":");
     snMutableString_appendInt(request, port);
     snMutableString_append(request, "\r\n");
     
-    //Upgrade
+    /*Upgrade*/
     snMutableString_append(request, "Upgrade: websocket\r\n");
     
-    //Connection
+    /*Connection*/
     snMutableString_append(request, "Connection: Upgrade\r\n");
     
-    //Key
+    /*Key*/
     snMutableString_append(request, "Sec-WebSocket-Key:");
     
     snMutableString key;
@@ -236,7 +237,7 @@ void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakePa
     
     snMutableString_append(request, "\r\n");
     
-    //Version
+    /*Version*/
     snMutableString_append(request, "Sec-WebSocket-Version: 13\r\n");
     snMutableString_append(request, "\r\n");
 }
@@ -274,7 +275,8 @@ static snError validateResponse(snOpeningHandshakeParser* p)
             }
             else
             {
-                for (int i = 0;  i < strlen(upgrVal); i++)
+                int i;
+                for (i = 0;  i < strlen(upgrVal); i++)
                 {
                     if (upgrVal[i] != comp[0][i] &&
                         upgrVal[i] != comp[1][i])
@@ -308,7 +310,8 @@ static snError validateResponse(snOpeningHandshakeParser* p)
             }
             else
             {
-                for (int i = 0;  i < strlen(connVal); i++)
+                int i;
+                for (i = 0;  i < strlen(connVal); i++)
                 {
                     if (connVal[i] != comp[0][i] &&
                         connVal[i] != comp[1][i])
@@ -337,7 +340,7 @@ static snError validateResponse(snOpeningHandshakeParser* p)
             result = SN_OPENING_HANDSHAKE_FAILED;
         }
         
-        //TODO: validate accept value
+        /*TODO: validate accept value*/
         
     }
     
@@ -389,7 +392,7 @@ snError snOpeningHandshakeParser_processBytes(snOpeningHandshakeParser* p,
     
     if (HTTP_PARSER_ERRNO(&p->httpParser) != HPE_OK)
     {
-        //http response header parsing error
+        /*http response header parsing error*/
         return SN_OPENING_HANDSHAKE_FAILED;
     }
     

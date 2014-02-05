@@ -32,9 +32,11 @@
 
 void snFrame_log(const snFrame* frame)
 {
-    snFrameHeader_log(&frame->header);
     const int nCols = 40;
-    for (int i = 0; i < frame->header.payloadSize; i++)
+    int i;
+    
+    snFrameHeader_log(&frame->header);
+    for (i = 0; i < frame->header.payloadSize; i++)
     {
         printf("%c", frame->payload[i]);
         if ((i % nCols) == nCols - 1)

@@ -93,4 +93,4 @@ extern "C"
 }
 #endif /* __cplusplus */
 
-#endif //SN_MUTABLE_STRING_H
+#endif /*SN_MUTABLE_STRING_H*/

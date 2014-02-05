@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C102A611189D574F00AD4CCF /* unittests.c in Sources */ = {isa = PBXBuildFile; fileRef = C102A610189D574F00AD4CCF /* unittests.c */; };
 		C10FF19E17C1398C00ACD247 /* openinghandshakeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */; };
 		C10FF19F17C1398C00ACD247 /* openinghandshakeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */; };
 		C10FF1A017C1398C00ACD247 /* openinghandshakeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = C10FF19D17C1398C00ACD247 /* openinghandshakeparser.h */; };
@@ -135,6 +136,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C102A610189D574F00AD4CCF /* unittests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unittests.c; sourceTree = "<group>"; };
 		C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = openinghandshakeparser.c; sourceTree = "<group>"; };
 		C10FF19D17C1398C00ACD247 /* openinghandshakeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openinghandshakeparser.h; sourceTree = "<group>"; };
 		C10FF1A117C14A1600ACD247 /* mutablestring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mutablestring.c; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				C1354AF717A7047E00A629EF /* testframe.h */,
 				C1354AF917A7047E00A629EF /* testframeparser.h */,
 				C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */,
+				C102A610189D574F00AD4CCF /* unittests.c */,
 			);
 			path = unittests;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1354B2517A7059800A629EF /* testframe.h in Sources */,
+				C102A611189D574F00AD4CCF /* unittests.c in Sources */,
 				C1354B2617A7059800A629EF /* testframeparser.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,7 +690,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -727,7 +731,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -768,7 +772,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -806,7 +810,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_STRICT_ALIASING = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -972,7 +976,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/snacka_ios.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1015,7 +1019,7 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/snacka_ios.dst;
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

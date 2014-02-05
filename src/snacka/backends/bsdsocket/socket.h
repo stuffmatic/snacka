@@ -38,15 +38,16 @@ extern "C"
 {
 #endif /* __cplusplus */
     
+    typedef enum stfSocketConnectionState
+    {
+        STF_SOCKET_NOT_CONNECTED,
+        STF_SOCKET_CONNECTED,
+        STF_SOCKET_CONNECTING,
+        STF_SOCKET_CONNECTION_FAILED
+    } stfSocketConnectionState;
+    
     /** */
     typedef struct stfSocket stfSocket;
-    
-    /** 
-     * Called continually while trying to connect to a socket.
-     * @param callbackData Custom user data.
-     * @return 1 to keep waiting, 0 to abort. 
-     */
-    typedef int (*stfSocketCancelCallback)(void* callbackData);
     
     /** */
     stfSocket* stfSocket_new(void);
@@ -55,27 +56,24 @@ extern "C"
     void stfSocket_delete(stfSocket* socket);
     
     /** 
-     * Connects to a socket at a given host and port. 
+     * Starts connecting a socket to a given host and port. This function returns
+     * immediately. Call \c stfSocket_getConnectionState to see if the connection
+     * failed, succeeded or is still in progress.
      * @param s The socket to connect.
      * @param host The host to connect to.
      * @param port The port to connect to.
-     * @param timeout Fail the connection attempt after this many seconds. Ignored if <= 0.0.
-     * @param cancelCallback Called continually while attempting to connect, allowing
-     * the caller to abort a connection attempt. Can be NULL.
-     * @param callbackData User data passed to \c cancelCallback.
      */
-    int stfSocket_connect(stfSocket* s, const char* host, int port,
-                          stfSocketCancelCallback cancelCallback, void* callbackData);
+    int stfSocket_connect(stfSocket* s, const char* host, int port);
     
     /** */
     void stfSocket_disconnect(stfSocket* socket);
     
     /** */
-    int stfSocket_isConnected(stfSocket* socket);
+    stfSocketConnectionState stfSocket_poll(stfSocket* socket);
     
     /** */
-    int stfSocket_sendData(stfSocket* socket, const char* data, int numBytes, int* numSentBytes,
-                           stfSocketCancelCallback cancelCallback, void* callbackData);
+    int stfSocket_sendData(stfSocket* socket, const char* data, int numBytes,
+                           int* numSentBytes);
 
     /** */    
     int stfSocket_receiveData(stfSocket* s, char* data, int maxNumBytes, int* numBytesReceived);
@@ -84,4 +82,4 @@ extern "C"
 }
 #endif /* __cplusplus */
 
-#endif //STF_SOCKET_H
+#endif /*STF_SOCKET_H*/

@@ -12,7 +12,7 @@ LIB_NAME = snacka
 AR = ar
 ARFLAGS = rcs
 CC = gcc
-CFLAGS = -Wall -O3 -std=c99 -c -Isrc -Isrc/include
+CFLAGS = -Wall -O3 -std=c89 -pedantic -c -Isrc -Isrc/include
 LOADLIBES = -L./
 
 all: $(TEST_OBJS) $(LIB_OBJS) $(LIB_HEADERS)

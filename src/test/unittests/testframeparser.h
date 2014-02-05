@@ -68,7 +68,8 @@ static void testFrameParserHeaderEquality()
         SN_OPCODE_TEXT
     };
     
-    for (int i = 0; i < numCases; i++)
+    int i;
+    for (i = 0; i < numCases; i++)
     {
         memset(&parsedFrame, 0, sizeof(snFrame));
         
@@ -85,7 +86,8 @@ static void testFrameParserHeaderEquality()
         int size = 0;
         snFrameHeader_toBytes(&h, headerBytes, &size);
         
-        for (int j = 0; j < size; j++)
+        int j;
+        for (j = 0; j < size; j++)
         {
             snFrameParser_processBytes(&p, &headerBytes[j], 1);
         }        
@@ -96,4 +98,4 @@ static void testFrameParserHeaderEquality()
     snFrameParser_deinit(&p);
 }
 
-#endif //SN_TEST_FRAME_PARSER_H
+#endif /*SN_TEST_FRAME_PARSER_H*/

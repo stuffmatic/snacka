@@ -93,7 +93,7 @@ extern "C"
         /** The key used to mask the payload, if \c isMasked is not zero.*/
         int maskingKey;
         /** The number of payload bytes. */
-        unsigned long long payloadSize;
+        unsigned long payloadSize;
     } snFrameHeader;
     
     /**

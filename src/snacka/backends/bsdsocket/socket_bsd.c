@@ -53,6 +53,7 @@ struct stfSocket
     char* host;
     int port;
     int logErrors;
+    stfSocketConnectionState connectionState;
 };
 
 static void log(stfSocket* s, const char* fmt, ...)
@@ -73,12 +74,13 @@ static int shouldStopOnError(stfSocket* s, int error, int* ignores, int numInore
     
     if (error == 0)
     {
-        //all good
+        /*all good*/
         return 0;
     }
     
-    //see if this error code should be ignored
-    for (int i = 0; i < numInores; i++)
+    /*see if this error code should be ignored*/
+    int i;
+    for (i = 0; i < numInores; i++)
     {
         if (ignores[i] == error)
         {
@@ -95,7 +97,7 @@ static int shouldStopOnError(stfSocket* s, int error, int* ignores, int numInore
             log(s, "errno == EACCES: (For UNIX domain sockets, which are identified by pathname) Write permission is denied on the destination socket file, or search permission is denied for one of the directories the path prefix. (See path_resolution(7).)\n");
             break;
         }
-        case EAGAIN: //same as EWOULDBLOCK
+        case EAGAIN: /*same as EWOULDBLOCK*/
         {
             log(s, "errno == EAGAIN || errno == EWOULDBLOCK: The socket is marked nonblocking and the requested operation would block. POSIX.1-2001 allows either error to be returned for this case, and does not require these constants to have the same value, so a portable application should check for both possibilities.\n");
             break;
@@ -186,7 +188,7 @@ static int shouldStopOnError(stfSocket* s, int error, int* ignores, int numInore
         }
     }
     
-#endif //DEBUG
+#endif /*DEBUG*/
     
     return 1;
 }
@@ -195,6 +197,7 @@ stfSocket* stfSocket_new()
 {
     stfSocket* newSocket = malloc(sizeof(stfSocket));
     memset(newSocket, 0, sizeof(stfSocket));
+    newSocket->connectionState = STF_SOCKET_NOT_CONNECTED;
     newSocket->logErrors = 1;
     newSocket->fileDescriptor = -1;
     return newSocket;
@@ -217,18 +220,17 @@ void stfSocket_delete(stfSocket* socket)
 
 int stfSocket_connect(stfSocket* s,
                       const char* host,
-                      int port,
-                      stfSocketCancelCallback cancelCallback,
-                      void* callbackData)
+                      int port)
 {
     errno = 0;
     
     if (s->fileDescriptor != -1)
     {
-        //shut down existing connection
+        /*shut down existing connection*/
         stfSocket_disconnect(s);
     }
     
+    /* Create hints for getaddrinfo */
     struct addrinfo* addrinfoResult;
     struct addrinfo hints;
     memset(&hints, 0, sizeof(struct addrinfo));
@@ -238,109 +240,65 @@ int stfSocket_connect(stfSocket* s,
     char service[256];
     sprintf(service, "%d", port);
     
-    //TODO: this call is blocking...
+    /* Get address to connect to. TODO: this call is blocking...*/
     int error = getaddrinfo(host, service, &hints, &addrinfoResult);
     if (error != 0)
     {
         return 0;
     }
     
-    // loop through all the results and connect to the first we can
-    for(struct addrinfo* p = addrinfoResult; p != NULL; p = p->ai_next)
+    /* create the socket */
+    struct addrinfo* p = addrinfoResult;
+    for(p = addrinfoResult; p != NULL; p = p->ai_next)
     {
-        int connected = 0;
-        
         s->fileDescriptor = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
         if (s->fileDescriptor == -1)
         {
-            //printf("client: socket, errno %d\n", errno);
+            
             continue;
         }
-        
-        //set socket to non-blocking
-        int flags = fcntl(s->fileDescriptor, F_GETFL, 0);
-        fcntl(s->fileDescriptor, F_SETFL, flags | O_NONBLOCK);
-        
-        //attempt async connect, regularly
-        //invoking cancelCallback to see if we should
-        //abort the connection attempt
-        const float timeout = 3.0f;
-        float t = 0.0f;
-        float dt = 0.01f;
-        
-        /*const int connectResult = */connect(s->fileDescriptor, p->ai_addr, p->ai_addrlen);
-        
-        while (t < timeout)
-        {
-            if (cancelCallback)
-            {
-                if (cancelCallback(callbackData) == 0)
-                {
-                    //caller requested timeout
-                    stfSocket_disconnect(s);
-                    return 0;
-                }
-            }
-            
-            struct fd_set fdset;
-            FD_ZERO(&fdset);
-            FD_SET(s->fileDescriptor, &fdset);
-            assert(FD_ISSET(s->fileDescriptor, &fdset));
-            struct timeval timeoutStruct = { 0, 1000000 * dt };
-            int selRes = select(s->fileDescriptor + 1, NULL, &fdset, NULL, &timeoutStruct);
-            
-            assert(selRes >= 0);
-            
-            if (selRes > 0)
-            {
-                socklen_t len = sizeof(errno);
-                
-                getsockopt(s->fileDescriptor, SOL_SOCKET, SO_ERROR, &errno, &len);
-                
-                if (errno == 0)
-                {
-                    //connected
-                    connected = 1;
-                    break;
-                }
-                else
-                {
-                    //log(s, "select() following non blocking connect() failed, errno %d\n", errno);
-                    s->fileDescriptor = -1;
-                    break;
-                }
-            }
-            
-            t += dt;
-            usleep(1000 * dt);
-        }
-        
-        if (t >= timeout)
-        {
-            close(s->fileDescriptor);
-            s->fileDescriptor = -1;
-        }
-        
-        if (connected)
+        else
         {
             break;
         }
     }
+    
+    if (s->fileDescriptor == -1)
+    {
+        return 1;
+    }
+    
+    /*set socket to non-blocking*/
+    int flags = fcntl(s->fileDescriptor, F_GETFL, 0);
+    fcntl(s->fileDescriptor, F_SETFL, flags | O_NONBLOCK);
+    
+    /*attempt async connect. call stfSocket_getConnectionState to see how it went. */
+    const int connectResult = connect(s->fileDescriptor, p->ai_addr, p->ai_addrlen);
+    
+    if (connectResult != -1)
+    {
+        return 0;
+    }
+
+    
+    freeaddrinfo(addrinfoResult);
     
     if (s->fileDescriptor < 0)
     {
         return 0;
     }
     
-    //disable nagle's algrithm
+    /*disable nagle's algrithm*/
     int flag = 1;
     int result = setsockopt(s->fileDescriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof flag);
     assert(result == 0);
     
-    //disable sigpipe
+    /*disable sigpipe*/
     int set = 1;
     result = setsockopt(s->fileDescriptor, SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof(int));
     assert(result == 0);
+    
+    s->connectionState = STF_SOCKET_CONNECTING;
     
     return 1;
    
@@ -355,23 +313,68 @@ void stfSocket_disconnect(stfSocket* socket)
     close(socket->fileDescriptor);
     
     socket->fileDescriptor = -1;
+    socket->connectionState = STF_SOCKET_NOT_CONNECTED;
 }
 
-int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSentBytes,
-                       stfSocketCancelCallback cancelCallback, void* callbackData)
+stfSocketConnectionState stfSocket_poll(stfSocket* socket)
+{
+    if (socket->fileDescriptor == -1)
+    {
+        return STF_SOCKET_NOT_CONNECTED;
+    }
+    
+    if (socket->connectionState == STF_SOCKET_CONNECTING)
+    {
+        struct fd_set fdset;
+        FD_ZERO(&fdset);
+        FD_SET(socket->fileDescriptor, &fdset);
+        assert(FD_ISSET(socket->fileDescriptor, &fdset));
+        int selRes = select(socket->fileDescriptor + 1, NULL, &fdset, NULL, NULL);
+        assert(selRes >= 0);
+        
+        if (selRes > 0)
+        {
+            socklen_t len = sizeof(errno);
+            
+            getsockopt(socket->fileDescriptor, SOL_SOCKET, SO_ERROR, &errno, &len);
+            
+            if (errno == 0)
+            {
+                /*connected*/
+                //connected = 1;
+                socket->connectionState = STF_SOCKET_CONNECTED;
+            }
+            else
+            {
+                /*log(s, "select() following non blocking connect() failed, errno %d\n", errno);*/
+                stfSocket_disconnect(socket);
+                return STF_SOCKET_CONNECTION_FAILED;
+            }
+        }
+        else if (selRes < 0)
+        {
+            stfSocket_disconnect(socket);
+            return STF_SOCKET_CONNECTION_FAILED;
+        }
+    }
+    
+    return socket->connectionState;
+}
+
+int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSentBytes)
 {
     int numBytesSentTot = 0;
     while (numBytesSentTot < numBytes)
     {
         errno = 0;
-        //wait for the socket to become availalbe for writing
+        /*wait for the socket to become availalbe for writing*/
         fd_set rfds;
         FD_ZERO(&rfds);
         FD_SET(s->fileDescriptor, &rfds);
         
         struct timeval tv;
         tv.tv_sec = 0;
-        tv.tv_usec = 10000; //10 ms
+        tv.tv_usec = 10000; /*10 ms*/
         
         int selRet = select(s->fileDescriptor + 1, NULL, &rfds, NULL, &tv);
         
@@ -381,33 +384,25 @@ int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSen
         }
         else if (selRet == 0)
         {
-            //printf("no data yet\n");
+            /*printf("no data yet\n");*/
         }
         else
         {
-            //printf("new data available\n");
+            /*printf("new data available\n");*/
         }
         
-        //check if we should abort
-        if (cancelCallback)
-        {
-            if (cancelCallback(callbackData) == 0)
-            {
-                return 0;
-            }
-        }
-        
-        //try to send all the bytes we have left
+        /*try to send all the bytes we have left*/
         const int chunkSize = numBytes - numBytesSentTot;
         ssize_t ret = send(s->fileDescriptor,
                            (const void*)(&data[numBytesSentTot]),
                            chunkSize,
                            0);
         
-        //check errors
+        /*check errors*/
         int ignores[2] = {EAGAIN, EWOULDBLOCK};
         if (shouldStopOnError(s, errno, ignores, 2))
         {
+            stfSocket_disconnect(s);
             return 0;
         }
         
@@ -416,7 +411,7 @@ int stfSocket_sendData(stfSocket* s, const char* data, int numBytes, int* numSen
             numBytesSentTot += ret;
         }
         
-        //printf("sent %d/%d\n", numBytesSentTot, numBytes);
+        /*printf("sent %d/%d\n", numBytesSentTot, numBytes);*/
     }
     
     return 1;
@@ -435,6 +430,7 @@ int stfSocket_receiveData(stfSocket* s, char* data, int maxNumBytes, int* numByt
     int ignores[2] = {EAGAIN, EWOULDBLOCK};
     if (shouldStopOnError(s, errno, ignores, 2))
     {
+        stfSocket_disconnect(s);
         success = 0;
     }
     

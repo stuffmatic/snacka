@@ -42,7 +42,7 @@ void snMutableString_appendBytes(snMutableString* ms, const char* toAppend, int 
     
     if (newCharCount > SN_MUTABLE_STRING_STATIC_SIZE)
     {
-        //too big to be static. copy the data
+        /*too big to be static. copy the data*/
         if (ms->charCount <= SN_MUTABLE_STRING_STATIC_SIZE)
         {
             assert(ms->dynamicData == 0);

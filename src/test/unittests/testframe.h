@@ -37,16 +37,16 @@
 #include "websocket.h"
 #include "testframe.h"
 
+#define NUM_CASES 5
 
 static void testFrameHeaderSerialization()
 {
     
-    const int numCases = 5;
-    int maskFlags[numCases] = {1, 0, 1, 1, 1};
-    int maskingKeys[numCases] = {21, 0, 4000, 12399, 9999};
-    int finalFlags[numCases] = {0, 1, 1, 1, 0};
-    unsigned long long payloadSizes[numCases] = {(1 << 16) - 1, 1 << 2, (1 << 16) + 1, 126, 127};
-    snOpcode opcodes[numCases] =
+    int maskFlags[NUM_CASES] = {1, 0, 1, 1, 1};
+    int maskingKeys[NUM_CASES] = {21, 0, 4000, 12399, 9999};
+    int finalFlags[NUM_CASES] = {0, 1, 1, 1, 0};
+    unsigned long long payloadSizes[NUM_CASES] = {(1 << 16) - 1, 1 << 2, (1 << 16) + 1, 126, 127};
+    snOpcode opcodes[NUM_CASES] =
     {
         SN_OPCODE_TEXT,
         SN_OPCODE_BINARY,
@@ -55,7 +55,8 @@ static void testFrameHeaderSerialization()
         SN_OPCODE_TEXT
     };
     
-    for (int i = 0; i < numCases; i++)
+    int i;
+    for (i = 0; i < NUM_CASES; i++)
     {
         snFrameHeader hOrig;
         memset(&hOrig, 0, sizeof(snFrameHeader));
@@ -90,22 +91,22 @@ static void testFrameHeaderSerialization()
         {
             sput_fail_if(1, "Deserialized header does not equal reference header");
         }
-        //printf("Orig header (byte size %d): ", headerSizeOrig);
-        //snFrameHeader_log(&hOrig);
-        //printf("Ref header (byte size %d): ", headerSizeRef);
-        //snFrameHeader_log(&hRef);
-        //printf("\n");
+        /*printf("Orig header (byte size %d): ", headerSizeOrig);
+        snFrameHeader_log(&hOrig);
+        printf("Ref header (byte size %d): ", headerSizeRef);
+        snFrameHeader_log(&hRef);
+        printf("\n");*/
     }
 }
 
 static void testFrameHeaderValidation()
 {
-    //TODO
+    /*TODO*/
 }
 
 static void testMasking()
 {
-    //TODO
+    /*TODO*/
 }
 
-#endif //SN_TEST_WEBSOCKET_FRAME_H
+#endif /*SN_TEST_WEBSOCKET_FRAME_H*/

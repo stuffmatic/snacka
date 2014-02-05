@@ -37,8 +37,8 @@
 
 static snError onFinishedParsingFrame(snFrameParser* parser)
 {
-    //pass the frame to the frame callback,
-    //even if it's a continuation frame
+    /*pass the frame to the frame callback,
+    even if it's a continuation frame*/
     snFrame f;
     memcpy(&f.header, &parser->currentFrameHeader, sizeof(snFrameHeader));
     char* messageBuffer = NULL;
@@ -63,20 +63,20 @@ static snError onFinishedParsingFrame(snFrameParser* parser)
         parser->continuationOffset += f.header.payloadSize;
     }
     
-    //invoke the frame callback, if specified
+    /*invoke the frame callback, if specified*/
     if (parser->frameCallback)
     {
         parser->frameCallback(parser->frameCallbackData, &f);
     }
     
-    //invoke the message callback if
+    /*invoke the message callback if*/
     if (f.header.isFinal)
     {
         int totalPayloadSize = parser->continuationOffset + f.header.payloadSize;
         if (isUTF8)
         {
             parser->buffer[totalPayloadSize] = '\0';
-            //totalPayloadSize++;
+            /*totalPayloadSize++;*/
         }
         
         unsigned char b = '\0';
@@ -102,7 +102,7 @@ static snError onFinishedParsingFrame(snFrameParser* parser)
             }
         }
         
-        //allow pings, pongs and close frames in between continuation frames
+        /*allow pings, pongs and close frames in between continuation frames*/
         if (f.header.opcode != SN_OPCODE_PONG &&
             f.header.opcode != SN_OPCODE_PING &&
             f.header.opcode != SN_OPCODE_CONNECTION_CLOSE)
@@ -141,8 +141,8 @@ static snError onFinishedParsingHeader(snFrameParser* parser)
         header->opcode != SN_OPCODE_PING &&
         header->opcode != SN_OPCODE_PONG)
     {
-        //only pings, pongs and continuation frames
-        //are allowed while waiting for a final fragment frame.
+        /*only pings, pongs and continuation frames
+         are allowed while waiting for a final fragment frame.*/
         return SN_EXPECTED_CONTINUATION_FRAME;
     }
     
@@ -169,7 +169,7 @@ static snError onFinishedParsingHeader(snFrameParser* parser)
         }
         else
         {
-            //start collecting fragments
+            /*start collecting fragments*/
             parser->utf8State = 0;
             
             parser->continuationOpcode = header->opcode;
@@ -241,21 +241,21 @@ snError snFrameParser_processBytes(snFrameParser* parser,
                                    const char* bytes,
                                    int numBytes)
 {
-    //https://tools.ietf.org/html/rfc6455#section-5.2
+    /*https://tools.ietf.org/html/rfc6455#section-5.2*/
     
     int currentSrcByte = 0;
     
-    //printf("snFrameParser_processBytes: %d bytes\n", numBytes);
+    /*printf("snFrameParser_processBytes: %d bytes\n", numBytes);*/
     
     while (currentSrcByte < numBytes)
     {
         if (parser->isParsingHeader)
         {
             int doneParsingHeader = 0;
-            //parse header bytes one at a time
+            /*parse header bytes one at a time*/
             if (parser->currentFrameByte == 0)
             {
-                //first header byte. read FIN flag and opcode
+                /*first header byte. read FIN flag and opcode*/
                 const char b = bytes[currentSrcByte];
                 const int rsv1 = (b & 0x40) >> 6;
                 const int rsv2 = (b & 0x20) >> 5;
@@ -274,7 +274,7 @@ snError snFrameParser_processBytes(snFrameParser* parser,
             }
             else if (parser->currentFrameByte == 1)
             {
-                //second header byte. read MASK flag and 7 payload size bits
+                /*second header byte. read MASK flag and 7 payload size bits*/
                 const char b = bytes[currentSrcByte];
                 const int isMasked = (b & 0x80) >> 7;
                 parser->currentFrameHeader.isMasked = isMasked;
@@ -282,19 +282,19 @@ snError snFrameParser_processBytes(snFrameParser* parser,
                 
                 if (payloadSize == 126)
                 {
-                    //the next two bytes contain the payload size
+                    /*the next two bytes contain the payload size*/
                     parser->firstPayloadSizeByte = 2;
                     parser->numPayloadSizeBytes = 2;
                 }
                 else if (payloadSize == 127)
                 {
-                    //the next 8 bytes contain the payload size
+                    /*the next 8 bytes contain the payload size*/
                     parser->firstPayloadSizeByte = 2;
                     parser->numPayloadSizeBytes = 8;
                 }
                 else
                 {
-                    //the payload size is given by the 7 bits just read.
+                    /*the payload size is given by the 7 bits just read.*/
                     parser->currentFrameHeader.payloadSize = payloadSize;
                     parser->firstPayloadSizeByte = 2;
                     if (!parser->currentFrameHeader.isMasked)
@@ -310,7 +310,7 @@ snError snFrameParser_processBytes(snFrameParser* parser,
                 
                 if (idx == parser->numPayloadSizeBytes - 1)
                 {
-                    //done parsing payload size
+                    /*done parsing payload size*/
                     if (parser->numPayloadSizeBytes == 2)
                     {
                         unsigned char b0 = parser->payloadSizeBytes[0];
@@ -319,7 +319,8 @@ snError snFrameParser_processBytes(snFrameParser* parser,
                     }
                     else if (parser->numPayloadSizeBytes == 8)
                     {
-                        for (int i = 0; i < 8; i++)
+                        int i;
+                        for (i = 0; i < 8; i++)
                         {
                             parser->currentFrameHeader.payloadSize |= (((unsigned char*)parser->payloadSizeBytes)[i] << ((7 - i) * 8));
                         }
@@ -343,7 +344,8 @@ snError snFrameParser_processBytes(snFrameParser* parser,
                     parser->maskingKeyBytes[idx] = bytes[currentSrcByte];
                     if (idx == 3)
                     {
-                        for (int i = 0; i < 4; i++)
+                        int i;
+                        for (i = 0; i < 4; i++)
                         {
                             parser->currentFrameHeader.maskingKey |= ((unsigned char*)parser->maskingKeyBytes)[i] << (3 - i) * 8;
                         }
@@ -358,7 +360,7 @@ snError snFrameParser_processBytes(snFrameParser* parser,
             
             if (!doneParsingHeader)
             {
-                //step to the next header byte
+                /*step to the next header byte*/
                 parser->currentFrameByte++;
             }
             else
@@ -390,8 +392,8 @@ snError snFrameParser_processBytes(snFrameParser* parser,
                 }
             }
             
-            //store ping/pong payload bytes in a separate buffer to allow for
-            //pings/pongs in between continuation frames.
+            /*store ping/pong payload bytes in a separate buffer to allow for
+              pings/pongs in between continuation frames.*/
             if (parser->currentFrameHeader.opcode == SN_OPCODE_PING ||
                 parser->currentFrameHeader.opcode == SN_OPCODE_PONG)
             {

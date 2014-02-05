@@ -48,11 +48,20 @@ snError snSocketConnectCallback(void* userData,
                                 int port)
 {
     stfSocket* socket = (stfSocket*)userData;
-    int result = stfSocket_connect(socket, host, port, 0, 0);
+    int result = stfSocket_connect(socket, host, port);
     if (result == 0)
     {
         return SN_SOCKET_FAILED_TO_CONNECT;
     }
+    return SN_NO_ERROR;
+}
+
+snError snSocketIsOpenCallback(void* userData, int* isOpen)
+{
+    stfSocket* socket = (stfSocket*)userData;
+    
+    *isOpen = stfSocket_poll(socket) == STF_SOCKET_CONNECTED;
+    
     return SN_NO_ERROR;
 }
 
@@ -88,7 +97,7 @@ snError snSocketWriteCallback(void* userData,
     const int success = stfSocket_sendData(socket,
                                            buffer,
                                            bufferSize,
-                                           numBytesWritten, 0, 0);
+                                           numBytesWritten);
     
     return success ? SN_NO_ERROR : SN_SOCKET_IO_ERROR;
 }

@@ -47,7 +47,7 @@
 
 #define SN_DEFAULT_WRITE_CHUNK_SIZE 1 << 16
 
-#define SN_CLOSING_HANDSHAKE_TIMEOUT 2.0 //in seconds
+#define SN_CLOSING_HANDSHAKE_TIMEOUT 2.0 /*in seconds*/
 
 /** */
 struct snWebsocket
@@ -87,8 +87,6 @@ struct snWebsocket
     /** */
     snReadyState websocketState;
     /** */
-    snIOCancelCallback cancelCallback;
-    /** */
     snOpenCallback openCallback;
     /** */
     snFrameCallback frameCallback;
@@ -111,7 +109,7 @@ static void log(snWebsocket* sn, const char* message, ...)
     {
         va_list args;
         va_start(args, message);
-        vprintf(message, args); //TODO: actually use log callback
+        vprintf(message, args); /*TODO: actually use log callback*/
         va_end(args);
 
     }
@@ -127,6 +125,8 @@ static int generateMaskingKey()
 
 snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBytes, const char* payload)
 {
+    /*TODO: return an error if bytes could not be sent on the first try?*/
+    
     if (ws->hasSentCloseFrame)
     {
         return SN_NO_ERROR;
@@ -160,41 +160,39 @@ snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBy
     
     assert(payloadSize + headerSize <= ws->maxFrameSize);
     
-    //send header
+    /*send header*/
     int nBytesWritten = 0;
     snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject,
                                                        headerBytes,
                                                        headerSize,
-                                                       &nBytesWritten,
-                                                       ws->cancelCallback);
+                                                       &nBytesWritten);
     if (sendResult != SN_NO_ERROR)
     {
         disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR, sendResult);
         return sendResult;
     }
     
-    //send masked payload in chunks
+    /*send masked payload in chunks*/
     int numBytesSent = 0;
     while (numBytesSent < payloadSize)
     {
         const int numBytesLeft = payloadSize - numBytesSent;
         const int chunkSize = numBytesLeft < ws->writeChunkSize ? numBytesLeft : ws->writeChunkSize;
-        //copy the current chunk into the write buffer
+        /*copy the current chunk into the write buffer*/
         memcpy(ws->writeChunkBuffer, &f.payload[numBytesSent], chunkSize);
-        //apply mask in place
+        /*apply mask in place*/
         snFrameHeader_applyMask(&f.header, ws->writeChunkBuffer, chunkSize, numBytesSent);
-        //send masked bytes
+        /*send masked bytes*/
         snError sendResult = ws->ioCallbacks.writeCallback(ws->ioObject,
                                                            ws->writeChunkBuffer,
                                                            chunkSize,
-                                                           &nBytesWritten,
-                                                           ws->cancelCallback);
+                                                           &nBytesWritten);
         if (sendResult != SN_NO_ERROR)
         {
             disconnectWithStatus(ws, SN_STATUS_UNEXPECTED_ERROR, sendResult);
             return sendResult;
         }
-        //move to the next chunk
+        /*move to the next chunk*/
         numBytesSent += chunkSize;
     }
     
@@ -231,7 +229,7 @@ void transitionToStateAndInvokeStateCallback(snWebsocket* ws, snReadyState state
     }
     else if (state == SN_STATE_CLOSED && oldState == SN_STATE_CONNECTING && ws->closeCallback)
     {
-        //an error occurred before completing the opening handshake
+        /*an error occurred before completing the opening handshake*/
         ws->closeCallback(ws->callbackData, SN_STATUS_UNEXPECTED_ERROR);
     }
     else if (state == SN_STATE_CLOSED && oldState == SN_STATE_OPEN && ws->closeCallback)
@@ -285,7 +283,7 @@ static int isValidCloseCode(int code)
             break;
     }
     
-    //https://tools.ietf.org/html/rfc6455#section-7.4.2
+    /*https://tools.ietf.org/html/rfc6455#section-7.4.2*/
     
     if (code >= 3000 && code <= 4999)
     {
@@ -353,6 +351,7 @@ void invokeFrameCallback(void* data, const snFrame* frame)
 static void setDefaultIOCallbacks(snIOCallbacks* ioc)
 {
     ioc->connectCallback = snSocketConnectCallback;
+    ioc->isOpenCallback = snSocketIsOpenCallback;
     ioc->deinitCallback = snSocketDeinitCallback;
     ioc->disconnectCallback = snSocketDisconnectCallback;
     ioc->initCallback = snSocketInitCallback;
@@ -427,11 +426,6 @@ snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
         if (settings->frameCallback)
         {
             ws->frameCallback = settings->frameCallback;
-        }
-        
-        if (settings->cancelCallback)
-        {
-            ws->cancelCallback = settings->cancelCallback;
         }
     }
     
@@ -512,8 +506,7 @@ static void sendOpeningHandshake(snWebsocket* ws)
     ws->ioCallbacks.writeCallback(ws->ioObject,
                                   reqStr,
                                   (int)strlen(reqStr),
-                                  &numBytesWritten,
-                                  ws->cancelCallback);
+                                  &numBytesWritten);
     
     snMutableString_deinit(&req);
 }
@@ -530,20 +523,20 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     
     transitionToStateAndInvokeStateCallback(ws, SN_STATE_CONNECTING);
     
-    //parse the url
+    /*parse the url*/
     UriParserStateA state;
     UriUriA uri;
   
     state.uri = &uri;
     if (uriParseUriA(&state, url) != URI_SUCCESS)
     {
-        //parsing failed
+        /*parsing failed */
         uriFreeUriMembersA(&uri);
         return SN_INVALID_URL;
     }
     else
     {
-        //parsing succeeded
+        /* parsing succeeded */
         
         ws->port = getPort(&uri);
         
@@ -565,19 +558,25 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
         
         if (ws->port < 0)
         {
-            //no port given in the url. use default port 80
+            /*no port given in the url. use default port 80 */
             ws->port = 80;
         }
         
-        //printf("scheme '%s', host '%s', port '%d'\n", ws->uriScheme, ws->host, ws->port);
+        /*printf("scheme '%s', host '%s', port '%d'\n", ws->uriScheme, ws->host, ws->port); */
         
         uriFreeUriMembersA(&uri);
     }
     
     snError e = ws->ioCallbacks.connectCallback(ws->ioObject,
                                                 snMutableString_getString(&ws->host),
-                                                ws->port,
-                                                ws->cancelCallback);
+                                                ws->port);
+    
+    //TODO: move outside.
+    int isOpen = 0;
+    while (!isOpen)
+    {
+        ws->ioCallbacks.isOpenCallback(ws->ioObject, &isOpen);
+    }
     
     if (e != SN_NO_ERROR)
     {
@@ -634,7 +633,7 @@ static void handlePaserResult(snWebsocket* ws, snError error)
         return;
     }
     
-    //printf("handle parser result: error %d\n", error);
+    /*printf("handle parser result: error %d\n", error); */
     
     snStatusCode status = SN_STATUS_PROTOCOL_ERROR;
     
@@ -648,7 +647,7 @@ static void handlePaserResult(snWebsocket* ws, snError error)
         ws->errorCallback(ws->callbackData, error);
     }*/
     
-    //invokes error callback if an error occurred.
+    /*invokes error callback if an error occurred. */
     disconnectWithStatus(ws, status, error);
 }
 
@@ -659,7 +658,7 @@ void snWebsocket_poll(snWebsocket* ws)
         return;
     }
     
-    //update timer
+    /*update timer */
     {
         int firstPoll = ws->prevPollTime == 0.0f;
         
@@ -708,7 +707,8 @@ void snWebsocket_poll(snWebsocket* ws)
     {
         log(ws, "bytes from socket:\n");
         log(ws, "-----------------------\n");
-        for (int i = 0; i < numBytesRead; i++)
+        int i;
+        for (i = 0; i < numBytesRead; i++)
         {
             log(ws, "%c", readBytes[i]);
         }
@@ -721,7 +721,7 @@ void snWebsocket_poll(snWebsocket* ws)
     if (ws->hasCompletedOpeningHandshake == 0)
     {
         int done = 0;
-        //printf("hasCompletedOpeningHandshake %d\n", ws->hasCompletedOpeningHandshake);
+        /*printf("hasCompletedOpeningHandshake %d\n", ws->hasCompletedOpeningHandshake); */
         snError result = snOpeningHandshakeParser_processBytes(&ws->openingHandshakeParser,
                                                                readBytes,
                                                                numBytesRead,
@@ -729,7 +729,7 @@ void snWebsocket_poll(snWebsocket* ws)
                                                                &done);
         
         ws->hasCompletedOpeningHandshake = done;
-        //printf("first character after header %c. after header '%s'\n", readBytes[readOffset], &readBytes[readOffset]);
+        /*printf("first character after header %c. after header '%s'\n", readBytes[readOffset], &readBytes[readOffset]); */
         
         if (result != SN_NO_ERROR)
         {

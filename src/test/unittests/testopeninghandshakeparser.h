@@ -52,4 +52,4 @@ static void testHeaderFollowedByFrames()
     
 }
 
-#endif //SN_TEST_OPENING_HANDSHAKE_PARSER_H
+#endif /*SN_TEST_OPENING_HANDSHAKE_PARSER_H*/

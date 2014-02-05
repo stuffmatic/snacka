@@ -47,6 +47,8 @@ extern "C"
                                     const char* url,
                                     int port);
     
+    snError snSocketIsOpenCallback(void* socket, int* isOpen);
+    
     snError snSocketDisconnectCallback(void* socket);
     
     snError snSocketReadCallback(void* socket,

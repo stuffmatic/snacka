@@ -40,9 +40,6 @@ extern "C"
 {
 #endif /* __cplusplus */
     
-    /** Return zero to cancel. */
-    typedef int (*snIOCancelCallback)(void* data);
-    
     /**
      * Creates or initializes a custom IO object.
      */
@@ -58,8 +55,14 @@ extern "C"
      */
     typedef snError (*snIOConnectCallback)(void* ioObject,
                                            const char* host,
-                                           int port,
-                                           snIOCancelCallback cancelCallback);
+                                           int port);
+    
+    /**
+     * Checks if a custom IO object is open, i.e ready for reading/writing.
+     * @param ioObject The IO object
+     * @param result Gets set to a non-zero value if the IO object is open, otherwise zero.
+     */
+    typedef snError (*snIOIsOpenCallback)(void* ioObject, int* result);
     
     /**
      * Disconnects from a custom IO object.
@@ -82,8 +85,7 @@ extern "C"
     typedef snError (*snIOWriteCallback)(void* ioObject,
                                          const char* buffer,
                                          int bufferSize,
-                                         int* numBytesWritten,
-                                         snIOCancelCallback cancelCallback);
+                                         int* numBytesWritten);
     
     /**
      * A set of callbacks representing operations on a custom IO object, e.g a socket.
@@ -96,6 +98,8 @@ extern "C"
         snIODeinitCallback deinitCallback;
         /** */
         snIOConnectCallback connectCallback;
+        /** */
+        snIOIsOpenCallback isOpenCallback;
         /** */
         snIODisconnectCallback disconnectCallback;
         /** */

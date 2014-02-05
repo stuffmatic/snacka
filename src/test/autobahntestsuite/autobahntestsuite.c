@@ -61,7 +61,7 @@ void messageCallback(void* userData, snOpcode opcode, const char* data, int numB
     }
     else
     {
-        //echo any text or binary messages
+        /*echo any text or binary messages*/
         if (opcode == SN_OPCODE_TEXT ||
             opcode == SN_OPCODE_BINARY)
         {
@@ -77,66 +77,69 @@ void messageCallback(void* userData, snOpcode opcode, const char* data, int numB
  */
 int main(int argc, const char* argv[])
 {
-    AutobahnTestState test;
-    test.testCount = 0;
-    test.isFetchingCaseCount = 1;
-    
-    //override the default read buffer size
-    //since some autobahn tests involve
-    //large payloads
-    snWebsocketSettings s;
-    memset(&s, 0, sizeof(snWebsocketSettings));
-    s.maxFrameSize = 1 << 25;
-    
-    snWebsocket* ws = snWebsocket_createWithSettings(NULL, //skip open callback
-                                                     messageCallback,
-                                                     NULL, //skip close callback
-                                                     NULL, //skip error callback
-                                                     &test,
-                                                     &s);
-    test.websocket = ws;
-    
     const int pollDurationMs = 1;
     const char* agentName = "snacka";
     const char* baseURL = "ws://localhost:9001/";
     
-    //fetch test case count
+    snWebsocketSettings s;
+    
+    AutobahnTestState test;
+    test.testCount = 0;
+    test.isFetchingCaseCount = 1;
+    
+    /*override the default read buffer size
+      since some autobahn tests involve
+      large payloads*/
+
+    memset(&s, 0, sizeof(snWebsocketSettings));
+    s.maxFrameSize = 1 << 25;
+    
+    test.websocket = snWebsocket_createWithSettings(NULL, /*skip open callback*/
+                                                    messageCallback,
+                                                    NULL, /*skip close callback*/
+                                                    NULL, /*skip error callback*/
+                                                    &test,
+                                                    &s);
+    
+    /*fetch test case count*/
     {
         char caseCountURL[1024];
         sprintf(caseCountURL, "%s%s", baseURL, "getCaseCount");
-        snWebsocket_connect(ws, caseCountURL);
+        snWebsocket_connect(test.websocket, caseCountURL);
         
         printf("Fetching test count...\n");
         printf("----------------------\n");
         while (test.isFetchingCaseCount == 1 &&
-               snWebsocket_getState(ws) != SN_STATE_CLOSED)
+               snWebsocket_getState(test.websocket) != SN_STATE_CLOSED)
         {
-            snWebsocket_poll(ws);
+            snWebsocket_poll(test.websocket);
             usleep(1000 * pollDurationMs);
         }
         printf("Fetched test count %d\n", test.testCount);
         printf("\n");
     }
 
-    //run tests
+    /*run tests*/
     {
+        int i;
+        
         printf("Running tests...\n");
         printf("----------------------\n");
         
-        for (int i = 0; i < test.testCount; i++)
-        //for (int i = 246; i < 254; i++)
+        for (i = 0; i < test.testCount; i++)
+        /*for (int i = 246; i < 254; i++)*/
         {
-            //form the URL of the current test and connect
+            /*form the URL of the current test and connect*/
             char testCaseURL[1024];
-            const int testNumber = i + 1;
+            int testNumber = i + 1;
             sprintf(testCaseURL, "%srunCase?case=%d&agent=%s", baseURL, testNumber, agentName);
-            snWebsocket_connect(ws, testCaseURL);
+            snWebsocket_connect(test.websocket, testCaseURL);
             
-            //run the test
+            /*run the test*/
             printf("Running test %d/%d, %s\n", testNumber, test.testCount, testCaseURL);
-            while (snWebsocket_getState(ws) != SN_STATE_CLOSED)
+            while (snWebsocket_getState(test.websocket) != SN_STATE_CLOSED)
             {
-                snWebsocket_poll(ws);
+                snWebsocket_poll(test.websocket);
                 usleep(1000 * pollDurationMs);
             }
         }
@@ -144,17 +147,18 @@ int main(int argc, const char* argv[])
         printf("\n");
     }
     
-    //generate reports
+    /*generate reports*/
     {
+        char updateReportsURL[1024];
+        
         printf("Generating reports...\n");
         printf("----------------------\n");
         
-        char updateReportsURL[1024];
         sprintf(updateReportsURL, "%supdateReports?agent=%s", baseURL, agentName);
-        snWebsocket_connect(ws, updateReportsURL);
-        while (snWebsocket_getState(ws) != SN_STATE_CLOSED)
+        snWebsocket_connect(test.websocket, updateReportsURL);
+        while (snWebsocket_getState(test.websocket) != SN_STATE_CLOSED)
         {
-            snWebsocket_poll(ws);
+            snWebsocket_poll(test.websocket);
             usleep(1000 * pollDurationMs);
         }
         

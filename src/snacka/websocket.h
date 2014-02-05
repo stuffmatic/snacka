@@ -162,7 +162,7 @@ extern "C"
          * connection was closed due to a failure to perform a TLS handshake
          * (e.g., the server certificate can't be verified).
          */
-        SN_STATUS_RESERVED_4 = 1015,
+        SN_STATUS_RESERVED_4 = 1015
         
     } snStatusCode;
     
@@ -238,8 +238,6 @@ extern "C"
         snFrameCallback frameCallback;
         /** If NULL, default socket I/O is used. */
         snIOCallbacks* ioCallbacks;
-        /** Gets called to see if time consuming I/O operations should be cancelled. Ignored if NULL. */
-        snIOCancelCallback cancelCallback;
     } snWebsocketSettings;
     
     /**
