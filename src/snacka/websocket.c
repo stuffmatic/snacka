@@ -79,6 +79,8 @@ struct snWebsocket
     /** */
     char* writeChunkBuffer;
     /** */
+    int isWaitingForSocketConnection;
+    /** */
     int hasCompletedOpeningHandshake;
     /** */
     int hasSentCloseFrame;
@@ -567,27 +569,18 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
         uriFreeUriMembersA(&uri);
     }
     
+    ws->hasCompletedOpeningHandshake = 0;
+    ws->hasSentCloseFrame = 0;
+    ws->isWaitingForSocketConnection = 1;
     snError e = ws->ioCallbacks.connectCallback(ws->ioObject,
                                                 snMutableString_getString(&ws->host),
                                                 ws->port);
-    
-    //TODO: move outside.
-    int isOpen = 0;
-    while (!isOpen)
-    {
-        ws->ioCallbacks.isOpenCallback(ws->ioObject, &isOpen);
-    }
     
     if (e != SN_NO_ERROR)
     {
         transitionToStateAndInvokeStateCallback(ws, SN_STATE_CLOSED);
         return e;
     }
-    
-    ws->hasCompletedOpeningHandshake = 0;
-    ws->hasSentCloseFrame = 0;
-    
-    sendOpeningHandshake(ws);
     
     return SN_NO_ERROR;
 }
@@ -658,7 +651,37 @@ void snWebsocket_poll(snWebsocket* ws)
         return;
     }
     
-    /*update timer */
+    if (ws->isWaitingForSocketConnection)
+    {
+        /* Poll to see how the pending connection went */
+        int isOpen = 0;
+        snError e = ws->ioCallbacks.isOpenCallback(ws->ioObject, &isOpen);
+        
+        if (e != SN_NO_ERROR)
+        {
+            /* The underlying socket failed to connect. */
+            if (ws->errorCallback)
+            {
+                ws->errorCallback(ws->callbackData, SN_SOCKET_FAILED_TO_CONNECT);
+                return;
+            }
+        }
+
+        if (isOpen)
+        {
+            /* The socket is open, send the opening handshake. */
+            ws->isWaitingForSocketConnection = 0;
+            sendOpeningHandshake(ws);
+        }
+        else
+        {
+            /*The underlying socket is still trying to connect. Nothing further. */
+            printf("The underlying socket is still trying to connect. Nothing further. \n");
+            return;
+        }
+    }
+    
+    /*update timer. TODO: ditch in favor of passing a timestep to poll */
     {
         int firstPoll = ws->prevPollTime == 0.0f;
         

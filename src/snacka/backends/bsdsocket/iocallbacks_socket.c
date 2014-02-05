@@ -60,9 +60,11 @@ snError snSocketIsOpenCallback(void* userData, int* isOpen)
 {
     stfSocket* socket = (stfSocket*)userData;
     
-    *isOpen = stfSocket_poll(socket) == STF_SOCKET_CONNECTED;
+    stfSocketConnectionState state = stfSocket_poll(socket);
     
-    return SN_NO_ERROR;
+    *isOpen =  (state == STF_SOCKET_CONNECTED);
+    
+    return state == STF_SOCKET_CONNECTION_FAILED ? SN_SOCKET_FAILED_TO_CONNECT : SN_NO_ERROR;
 }
 
 snError snSocketDisconnectCallback(void* userData)

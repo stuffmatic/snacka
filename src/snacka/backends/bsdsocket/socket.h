@@ -40,7 +40,7 @@ extern "C"
     
     typedef enum stfSocketConnectionState
     {
-        STF_SOCKET_NOT_CONNECTED,
+        STF_SOCKET_NOT_CONNECTED = 0,
         STF_SOCKET_CONNECTED,
         STF_SOCKET_CONNECTING,
         STF_SOCKET_CONNECTION_FAILED
