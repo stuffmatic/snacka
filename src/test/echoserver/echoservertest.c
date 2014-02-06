@@ -35,6 +35,11 @@
 #include "frameparser.h"
 #include <unistd.h>
 
+static void errorCallback(void* userData, snError errorCode)
+{
+    printf("Websocket error, code %d\n", errorCode);
+}
+
 static void messageCallback(void* userData, snOpcode opcode, const char* data, int numBytes)
 {
     if (opcode == SN_OPCODE_TEXT)
@@ -54,7 +59,7 @@ static void messageCallback(void* userData, snOpcode opcode, const char* data, i
 int main(int argc, const char* argv[])
 {
     /*create a websocket with default settings*/
-    snWebsocket* ws = snWebsocket_create(NULL, messageCallback, NULL, NULL, NULL);
+    snWebsocket* ws = snWebsocket_create(NULL, messageCallback, NULL, errorCallback, NULL);
     
     /*if zero, this client will connect to a server
       started by running in echoserver.py, otherwise the client

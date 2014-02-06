@@ -329,7 +329,10 @@ stfSocketConnectionState stfSocket_poll(stfSocket* socket)
         FD_ZERO(&fdset);
         FD_SET(socket->fileDescriptor, &fdset);
         assert(FD_ISSET(socket->fileDescriptor, &fdset));
-        int selRes = select(socket->fileDescriptor + 1, NULL, &fdset, NULL, NULL);
+        struct timeval timeout;
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 1000; //1 ms
+        int selRes = select(socket->fileDescriptor + 1, NULL, &fdset, NULL, &timeout);
         assert(selRes >= 0);
         
         if (selRes > 0)
