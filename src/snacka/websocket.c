@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Per Gantelius
+ * Copyright (c) 2013 - 2014, Per Gantelius
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -676,7 +676,7 @@ void snWebsocket_poll(snWebsocket* ws)
         else
         {
             /*The underlying socket is still trying to connect. Nothing further. */
-            printf("The underlying socket is still trying to connect. Nothing further. \n");
+            //printf("The underlying socket is still trying to connect. Nothing further. \n");
             return;
         }
     }
@@ -734,6 +734,18 @@ void snWebsocket_poll(snWebsocket* ws)
         for (i = 0; i < numBytesRead; i++)
         {
             log(ws, "%c", readBytes[i]);
+        }
+        
+        log(ws, "\nhex..................\n");
+        int lbCounter = 0;
+        for (i = 0; i < numBytesRead; i++)
+        {
+            log(ws, "%d ", (unsigned char)readBytes[i]);
+            lbCounter = (lbCounter + 1) % 15;
+            if (lbCounter == 0 && i > 0)
+            {
+                log(ws, "\n");
+            }
         }
         
         log(ws, "\n-----------------------\n");

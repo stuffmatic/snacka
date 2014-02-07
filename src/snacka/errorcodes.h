@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2013, Per Gantelius
+ * Copyright (c) 2013 - 2014, Per Gantelius
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,6 +76,8 @@ extern "C"
         /** Failed to parse the opening handshake HTTP response header.*/
         SN_OPENING_HANDSHAKE_FAILED
     } snError;
+    
+    const char* snErrorToString(snError error);
     
 #ifdef __cplusplus
 }

@@ -42,6 +42,8 @@
 		C15C5C3417B3CCED00B55FBA /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C15C5C3217B3CCED00B55FBA /* http_parser.c */; };
 		C15C5C3517B3CCED00B55FBA /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C15C5C3217B3CCED00B55FBA /* http_parser.c */; };
 		C15C5C3617B3CCED00B55FBA /* http_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = C15C5C3317B3CCED00B55FBA /* http_parser.h */; };
+		C17B57EE18A4FE90004C8F4B /* errorcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = C17B57ED18A4FE90004C8F4B /* errorcodes.c */; };
+		C17B57EF18A4FE90004C8F4B /* errorcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = C17B57ED18A4FE90004C8F4B /* errorcodes.c */; };
 		C1AB82CD179CFEA5000064D2 /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
 		C1B77F4F17A7C32500348CBE /* iocallbacks_socket.c in Sources */ = {isa = PBXBuildFile; fileRef = C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */; };
 		C1B77F5017A7C32500348CBE /* iocallbacks_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B77F4C17A7C32500348CBE /* iocallbacks_socket.h */; };
@@ -189,6 +191,7 @@
 		C1354B1717A704C700A629EF /* unittests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittests; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15C5C3217B3CCED00B55FBA /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
 		C15C5C3317B3CCED00B55FBA /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
+		C17B57ED18A4FE90004C8F4B /* errorcodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = errorcodes.c; sourceTree = "<group>"; };
 		C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testopeninghandshakeparser.h; sourceTree = "<group>"; };
 		C1B3CBEE17BE13D0000F9D7C /* sput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sput.h; sourceTree = "<group>"; };
 		C1B77F4B17A7C32500348CBE /* iocallbacks_socket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iocallbacks_socket.c; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B77F4917A7C32500348CBE /* backends */,
+				C17B57ED18A4FE90004C8F4B /* errorcodes.c */,
 				C1354ADA17A7047E00A629EF /* errorcodes.h */,
 				C1354ADB17A7047E00A629EF /* frame.c */,
 				C1354ADC17A7047E00A629EF /* frame.h */,
@@ -590,6 +594,7 @@
 				C1354AFF17A7048E00A629EF /* UriIp4.c in Sources */,
 				C1354B0F17A7049D00A629EF /* utf8.c in Sources */,
 				C1354B0117A7048E00A629EF /* UriNormalize.c in Sources */,
+				C17B57EE18A4FE90004C8F4B /* errorcodes.c in Sources */,
 				C1354B0717A7048E00A629EF /* UriResolve.c in Sources */,
 				C1354B0617A7048E00A629EF /* UriRecompose.c in Sources */,
 				C1354B0417A7048E00A629EF /* UriParseBase.c in Sources */,
@@ -638,6 +643,7 @@
 				C1E702E317A9510700EB2C75 /* socket_bsd.c in Sources */,
 				C1E702E917A9511A00EB2C75 /* UriIp4.c in Sources */,
 				C1E702DE17A950FC00EB2C75 /* logging.c in Sources */,
+				C17B57EF18A4FE90004C8F4B /* errorcodes.c in Sources */,
 				C1E702DC17A950FC00EB2C75 /* frameheader.c in Sources */,
 				C1E702E217A9510700EB2C75 /* iocallbacks_socket.c in Sources */,
 				C1E702EF17A9511A00EB2C75 /* UriQuery.c in Sources */,
