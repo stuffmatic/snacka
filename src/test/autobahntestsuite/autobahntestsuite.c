@@ -81,7 +81,7 @@ int main(int argc, const char* argv[])
     const char* agentName = "snacka";
     const char* baseURL = "ws://localhost:9001/";
     
-    snWebsocketSettings s;
+    snWebsocketOptions o;
     
     AutobahnTestState test;
     test.testCount = 0;
@@ -91,15 +91,15 @@ int main(int argc, const char* argv[])
       since some autobahn tests involve
       large payloads*/
 
-    memset(&s, 0, sizeof(snWebsocketSettings));
-    s.maxFrameSize = 1 << 25;
+    memset(&s, 0, sizeof(snWebsocketOptions));
+    o.maxFrameSize = 1 << 25;
     
     test.websocket = snWebsocket_createWithSettings(NULL, /*skip open callback*/
                                                     messageCallback,
                                                     NULL, /*skip close callback*/
                                                     NULL, /*skip error callback*/
                                                     &test,
-                                                    &s);
+                                                    &o);
     
     /*fetch test case count*/
     {

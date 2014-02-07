@@ -37,7 +37,10 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-    /** The maximum number of chars in */
+    /** 
+     * Mutable strings shorter than this value are allocated on the stack.
+     * Set to 0 to allocate all mutable strings dynamically.
+     */
     #define SN_MUTABLE_STRING_STATIC_SIZE 255
     
     /**

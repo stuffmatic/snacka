@@ -223,9 +223,9 @@ extern "C"
     /** @{ */
     
     /**
-     * Websocket creation settings.
+     * Websocket creation options.
      */
-    typedef struct snWebsocketSettings
+    typedef struct snWebsocketOptions
     {
         /** 
          * The desired maximum frame size in bytes. If 0, the default
@@ -234,11 +234,11 @@ extern "C"
         int maxFrameSize;
         /** */
         snLogCallback logCallback;
-        /** A callback to pass received frames to. Ignored if NULL. */
+        /** A callback to pass received frames (including continuation frames) to. Ignored if NULL. */
         snFrameCallback frameCallback;
         /** If NULL, default socket I/O is used. */
         snIOCallbacks* ioCallbacks;
-    } snWebsocketSettings;
+    } snWebsocketOptions;
     
     /**
      * Creates a new web socket.
@@ -264,7 +264,7 @@ extern "C"
      * @param closeCallback A function to call when the websocket connection is closed. Ignored if NULL.
      * @param errorCallback A function to call when an error occurs. Ignored if NULL.
      * @param callbackData A pointer passed to \c openCallback, \c messageCallback, \c closeCallback and \c errorCallback.
-     * @param settings Custom websocket settings.
+     * @param options Custom websocket options. Ignored if NULL.
      * @return The created websocket or NULL on error.
      */
     snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
@@ -272,7 +272,7 @@ extern "C"
                                                 snCloseCallback closeCallback,
                                                 snErrorCallback errorCallback,
                                                 void* callbackData,
-                                                snWebsocketSettings* settings);
+                                                snWebsocketOptions* options);
     
     /**
      * Closes and deletes a given websocket.
@@ -294,7 +294,7 @@ extern "C"
      * @param disconnectImmediately If non-zero, the closing handshake
      * is not performed and the connection is dropped immediately with status
      * \c SN_STATUS_ENDPOINT_GOING_AWAY. Otherwise, the connection
-     * is dropped when the closing handshake is completed or takes too long.
+     * is dropped when the closing handshake is completed or times out.
      */
     void snWebsocket_disconnect(snWebsocket* ws, int disconnectImmediately);
     
@@ -345,7 +345,7 @@ extern "C"
     /**
      * Receives incoming data, if any, and notifies the caller of newly available frames
      * and connection state changes.
-     * @param ws The websocket
+     * @param ws The websocket.
      */
     void snWebsocket_poll(snWebsocket* ws);
     

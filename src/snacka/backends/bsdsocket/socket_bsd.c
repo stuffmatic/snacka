@@ -291,12 +291,12 @@ int stfSocket_connect(stfSocket* s,
     /*disable nagle's algrithm*/
     int flag = 1;
     int result = setsockopt(s->fileDescriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof flag);
-    assert(result == 0);
+    //assert(result == 0);
     
     /*disable sigpipe*/
     int set = 1;
     result = setsockopt(s->fileDescriptor, SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof(int));
-    assert(result == 0);
+    //assert(result == 0);
     
     s->connectionState = STF_SOCKET_CONNECTING;
     

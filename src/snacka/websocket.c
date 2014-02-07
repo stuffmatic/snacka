@@ -127,7 +127,7 @@ static int generateMaskingKey()
 
 snError snWebsocket_sendFrame(snWebsocket* ws, snOpcode opcode, int numPayloadBytes, const char* payload)
 {
-    /*TODO: return an error if bytes could not be sent on the first try?*/
+    /*TODO: refactor to allow for incremental sending.*/
     
     if (ws->hasSentCloseFrame)
     {
@@ -372,18 +372,18 @@ snWebsocket* snWebsocket_create(snOpenCallback openCallback,
     
     setDefaultIOCallbacks(&ioc);
     
-    snWebsocketSettings s;
-    s.frameCallback = NULL;
-    s.ioCallbacks = &ioc;
-    s.logCallback = NULL;
-    s.maxFrameSize = 0;
+    snWebsocketOptions o;
+    o.frameCallback = NULL;
+    o.ioCallbacks = &ioc;
+    o.logCallback = NULL;
+    o.maxFrameSize = 0;
     
     return snWebsocket_createWithSettings(openCallback,
                                           messageCallback,
                                           closeCallback,
                                           errorCallback,
                                           callbackData,
-                                          &s);
+                                          &o);
 }
 
 snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
@@ -391,11 +391,11 @@ snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
                                             snCloseCallback closeCallback,
                                             snErrorCallback errorCallback,
                                             void* callbackData,
-                                            snWebsocketSettings* settings)
+                                            snWebsocketOptions* options)
 {
     snIOCallbacks ioCallbacksFallback;
     setDefaultIOCallbacks(&ioCallbacksFallback);
-    snIOCallbacks* ioCallbacks = settings->ioCallbacks == NULL ? &ioCallbacksFallback : settings->ioCallbacks;
+    snIOCallbacks* ioCallbacks = options->ioCallbacks == NULL ? &ioCallbacksFallback : options->ioCallbacks;
     
     snWebsocket* ws = (snWebsocket*)malloc(sizeof(snWebsocket));
     memset(ws, 0, sizeof(snWebsocket));
@@ -413,21 +413,21 @@ snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
     
     ws->logCallback = snSilentLogCallback;
     
-    if (settings)
+    if (options)
     {
-        if (settings->maxFrameSize != 0)
+        if (options->maxFrameSize != 0)
         {
-            ws->maxFrameSize = settings->maxFrameSize;
+            ws->maxFrameSize = options->maxFrameSize;
         }
                 
-        if (settings->logCallback)
+        if (options->logCallback)
         {
-            ws->logCallback = settings->logCallback;
+            ws->logCallback = options->logCallback;
         }
         
-        if (settings->frameCallback)
+        if (options->frameCallback)
         {
-            ws->frameCallback = settings->frameCallback;
+            ws->frameCallback = options->frameCallback;
         }
     }
     
@@ -662,6 +662,7 @@ void snWebsocket_poll(snWebsocket* ws)
             /* The underlying socket failed to connect. */
             if (ws->errorCallback)
             {
+                ws->websocketState = SN_STATE_CLOSED;
                 ws->errorCallback(ws->callbackData, SN_SOCKET_FAILED_TO_CONNECT);
                 return;
             }
