@@ -41,80 +41,60 @@ static const char* HTTP_CONNECTION_FIELD_NAME = "Connection";
 static const char* HTTP_WS_PROTOCOL_NAME = "Sec-WebSocket-Protocol";
 static const char* HTTP_WS_EXTENSIONS_NAME = "Sec-WebSocket-Extensions";
 
-static int stringStartsWith(const char* haystack, int haystackLen, const char* needle, int needleLen)
-{
-    if (haystackLen < needleLen)
-    {
-        return 0;
-    }
-    
-    const int minLen = haystackLen < needleLen ? haystackLen : needleLen;
-    
-    int i;
-    for (i = 0; i < minLen; i++)
-    {
-        if (haystack[i] != needle[i])
-        {
-            return 0;
-        }
-    }
-    
-    return 1;
-}
+static snError validateResponse(snOpeningHandshakeParser* p);
+
 
 static int on_header_field(http_parser* p, const char *at, size_t length)
 {
     snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
     
-    parser->currentHeaderField = SN_UNRECOGNIZED_HTTP_FIELD;
-    
-    if (stringStartsWith(at, length, HTTP_ACCEPT_FIELD_NAME, strlen(HTTP_ACCEPT_FIELD_NAME)))
-    {
-        parser->currentHeaderField = SN_HTTP_ACCEPT;
-    }
-    else if (stringStartsWith(at, length, HTTP_UPGRADE_FIELD_NAME, strlen(HTTP_UPGRADE_FIELD_NAME)))
-    {
-        parser->currentHeaderField = SN_HTTP_UPGRADE;
-    }
-    else if (stringStartsWith(at, length, HTTP_CONNECTION_FIELD_NAME, strlen(HTTP_CONNECTION_FIELD_NAME)))
-    {
-        parser->currentHeaderField = SN_HTTP_CONNECTION;
-    }
-    else if (stringStartsWith(at, length, HTTP_WS_PROTOCOL_NAME, strlen(HTTP_WS_PROTOCOL_NAME)))
-    {
-        parser->currentHeaderField = SN_HTTP_WS_PROTOCOL;
-    }
-    else if (stringStartsWith(at, length, HTTP_WS_EXTENSIONS_NAME, strlen(HTTP_WS_EXTENSIONS_NAME)))
-    {
-        parser->currentHeaderField = SN_HTTP_WS_EXTENSIONS;
-    }
+    /* Collect bytes forming the name of the current header field. */
+    snMutableString_appendBytes(&parser->currentHeaderFieldName, at, length);
     
     return 0;
 }
 
 static int on_header_value(http_parser* p, const char *at, size_t length)
 {
-    snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
     
-    if (parser->currentHeaderField == SN_HTTP_ACCEPT)
+    snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
+    if (strlen(snMutableString_getString(&parser->currentHeaderFieldName)) > 0)
     {
-        snMutableString_appendBytes(&parser->acceptValue, at, length);
+        /*This is the first byte of a header field, the name of which is 
+         stored in parser->currentHeaderFieldName. See if it's a field
+         we should care about.*/
+        
+        parser->currentHeaderField = SN_UNRECOGNIZED_HTTP_FIELD;
+        const char* fn = snMutableString_getString(&parser->currentHeaderFieldName);
+        
+        if (strcmp(HTTP_ACCEPT_FIELD_NAME, fn) == 0)
+        {
+            parser->currentHeaderField = SN_HTTP_ACCEPT;
+        }
+        else if (strcmp(HTTP_UPGRADE_FIELD_NAME, fn) == 0)
+        {
+            parser->currentHeaderField = SN_HTTP_UPGRADE;
+        }
+        else if (strcmp(HTTP_CONNECTION_FIELD_NAME, fn) == 0)
+        {
+            parser->currentHeaderField = SN_HTTP_CONNECTION;
+        }
+        else if (strcmp(HTTP_WS_PROTOCOL_NAME, fn) == 0)
+        {
+            parser->currentHeaderField = SN_HTTP_WS_PROTOCOL;
+        }
+        else if (strcmp(HTTP_WS_EXTENSIONS_NAME, fn) == 0)
+        {
+            parser->currentHeaderField = SN_HTTP_WS_EXTENSIONS;
+        }
+        
+        snMutableString_deinit(&parser->currentHeaderFieldName);
     }
-    else if (parser->currentHeaderField == SN_HTTP_CONNECTION)
+    
+    
+    if (parser->currentHeaderField != SN_UNRECOGNIZED_HTTP_FIELD)
     {
-        snMutableString_appendBytes(&parser->connectionValue, at, length);
-    }
-    else if (parser->currentHeaderField == SN_HTTP_UPGRADE)
-    {
-        snMutableString_appendBytes(&parser->upgradeValue, at, length);
-    }
-    else if (parser->currentHeaderField == SN_HTTP_WS_EXTENSIONS)
-    {
-        snMutableString_appendBytes(&parser->extensionsValue, at, length);
-    }
-    else if (parser->currentHeaderField == SN_HTTP_WS_PROTOCOL)
-    {
-        snMutableString_appendBytes(&parser->protocolValue, at, length);
+        snMutableString_appendBytes(&parser->headerFieldValues[parser->currentHeaderField], at, length);
     }
     
     return 0;
@@ -138,6 +118,8 @@ static int on_message_complete(http_parser* p)
 static int on_headers_complete(http_parser* p)
 {
     snOpeningHandshakeParser* parser = (snOpeningHandshakeParser*)p->data;
+    snError e = SN_NO_ERROR;
+    
     if (p->status_code != 101)
     {
         /*
@@ -145,10 +127,19 @@ static int on_headers_complete(http_parser* p)
          Any status code other than 101 indicates that the WebSocket handshake
          has not completed and that the semantics of HTTP still apply.
          */
-        parser->errorCode = SN_OPENING_HANDSHAKE_FAILED;
+        e = SN_INVALID_OPENING_HANDSHAKE_HTTP_STATUS;
+    }
+    else
+    {
+        e = validateResponse(parser);
     }
     
-    parser->reachedHeaderEnd = 1;
+    if (parser->parsingCallback)
+    {
+        parser->parsingCallback(parser->callbackData, e);
+    }
+    
+    snOpeningHandshakeParser_deinit(parser);
     
     return 0;
 }
@@ -159,9 +150,15 @@ static void generateKey(snMutableString* key)
     snMutableString_append(key, "x3JJHMbDL1EzLkh9GBhXDw==");
 }
 
-void snOpeningHandshakeParser_init(snOpeningHandshakeParser* p)
+void snOpeningHandshakeParser_init(snOpeningHandshakeParser* p,
+                                   snOpeningHandshakeParsingCallback parsingCallback,
+                                   void* callbackData)
 {
+    int i;
     memset(p, 0, sizeof(snOpeningHandshakeParser));
+    
+    p->parsingCallback = parsingCallback;
+    p->callbackData = callbackData;
     
     /*set up http header parser*/
     memset(&p->httpParserSettings, 0, sizeof(http_parser_settings));
@@ -175,23 +172,21 @@ void snOpeningHandshakeParser_init(snOpeningHandshakeParser* p)
     p->httpParser.data = p;
     
     p->currentHeaderField = SN_UNRECOGNIZED_HTTP_FIELD;
-
-    snMutableString_init(&p->acceptValue);
-    snMutableString_init(&p->connectionValue);
-    snMutableString_init(&p->upgradeValue);
-    snMutableString_init(&p->protocolValue);
-    snMutableString_init(&p->extensionsValue);
-
-    p->errorCode = SN_NO_ERROR;
+    snMutableString_init(&p->currentHeaderFieldName);
+    for (i = 0; i < SN_HTTP_PARSED_HEADER_FIELD_COUNT; i++)
+    {
+        snMutableString_init(&p->headerFieldValues[i]);
+    }
 }
 
 void snOpeningHandshakeParser_deinit(snOpeningHandshakeParser* p)
 {
-    snMutableString_deinit(&p->acceptValue);
-    snMutableString_deinit(&p->connectionValue);
-    snMutableString_deinit(&p->upgradeValue);
-    snMutableString_deinit(&p->protocolValue);
-    snMutableString_deinit(&p->extensionsValue);
+    int i;
+    for (i = 0; i < SN_HTTP_PARSED_HEADER_FIELD_COUNT; i++)
+    {
+        snMutableString_deinit(&p->headerFieldValues[i]);
+    }
+    snMutableString_deinit(&p->currentHeaderFieldName);
 }
 
 void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakeParser* parser,
@@ -201,7 +196,7 @@ void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakePa
                                                             const char* queryString,
                                                             snMutableString* request)
 {
-    const int queryLength = strlen(queryString);
+    const size_t queryLength = strlen(queryString);
     
     /*GET*/
     snMutableString_append(request, "GET /");
@@ -245,14 +240,6 @@ void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakePa
 static snError validateResponse(snOpeningHandshakeParser* p)
 {
     /*http://tools.ietf.org/html/rfc6455#section-4.1*/
-    assert(p->reachedHeaderEnd);
-    
-    if (p->errorCode != SN_NO_ERROR)
-    {
-        return p->errorCode;
-    }
-        
-    snError result = SN_NO_ERROR;
     
     /*
      If the response lacks an |Upgrade| header field or the |Upgrade|
@@ -261,17 +248,17 @@ static snError validateResponse(snOpeningHandshakeParser* p)
      _Fail the WebSocket Connection_.
      */
     {
-        const char* upgrVal = snMutableString_getString(&p->upgradeValue);
+        const char* upgrVal = snMutableString_getString(&p->headerFieldValues[SN_HTTP_UPGRADE]);
         if (strlen(upgrVal) == 0)
         {
-            result = SN_OPENING_HANDSHAKE_FAILED;
+            return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
         }
         else
         {
             const char* comp[2] = {"websocket", "WEBSOCKET"};
             if (strlen(upgrVal) != strlen(comp[0]))
             {
-                result = SN_OPENING_HANDSHAKE_FAILED;
+                return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
             }
             else
             {
@@ -281,7 +268,7 @@ static snError validateResponse(snOpeningHandshakeParser* p)
                     if (upgrVal[i] != comp[0][i] &&
                         upgrVal[i] != comp[1][i])
                     {
-                        result = SN_OPENING_HANDSHAKE_FAILED;
+                        return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
                         break;
                     }
                 }
@@ -296,17 +283,17 @@ static snError validateResponse(snOpeningHandshakeParser* p)
      MUST _Fail the WebSocket Connection_.
      */
     {
-        const char* connVal = snMutableString_getString(&p->connectionValue);
+        const char* connVal = snMutableString_getString(&p->headerFieldValues[SN_HTTP_CONNECTION]);
         if (strlen(connVal) == 0)
         {
-            result = SN_OPENING_HANDSHAKE_FAILED;
+            return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
         }
         else
         {
             const char* comp[2] = {"UPGRADE", "upgrade"};
             if (strlen(connVal) != strlen(comp[0]))
             {
-                result = SN_OPENING_HANDSHAKE_FAILED;
+                return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
             }
             else
             {
@@ -316,7 +303,7 @@ static snError validateResponse(snOpeningHandshakeParser* p)
                     if (connVal[i] != comp[0][i] &&
                         connVal[i] != comp[1][i])
                     {
-                        result = SN_OPENING_HANDSHAKE_FAILED;
+                        return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
                         break;
                     }
                 }
@@ -334,10 +321,10 @@ static snError validateResponse(snOpeningHandshakeParser* p)
     Connection_.
      */
     {
-        const char* accVal = snMutableString_getString(&p->acceptValue);
+        const char* accVal = snMutableString_getString(&p->headerFieldValues[SN_HTTP_ACCEPT]);
         if (strlen(accVal) == 0)
         {
-            result = SN_OPENING_HANDSHAKE_FAILED;
+            return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
         }
         
         /*TODO: validate accept value*/
@@ -355,9 +342,9 @@ static snError validateResponse(snOpeningHandshakeParser* p)
      */
     {
         /* No extensions were sent, so none should be received.*/
-        if (strlen(snMutableString_getString(&p->extensionsValue)) != 0)
+        if (strlen(snMutableString_getString(&p->headerFieldValues[SN_HTTP_WS_EXTENSIONS])) != 0)
         {
-            result = SN_OPENING_HANDSHAKE_FAILED;
+            return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
         }
     }
     
@@ -368,10 +355,10 @@ static snError validateResponse(snOpeningHandshakeParser* p)
      subprotocol not requested by the client), the client MUST _Fail
      the WebSocket Connection_.
      */
-    if (strlen(snMutableString_getString(&p->protocolValue)) != 0)
+    if (strlen(snMutableString_getString(&p->headerFieldValues[SN_HTTP_WS_PROTOCOL])) != 0)
     {
         /* No protocols were sent, so none should be received.*/
-        result = SN_OPENING_HANDSHAKE_FAILED;
+        return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
     }
     
     return SN_NO_ERROR;
@@ -380,28 +367,19 @@ static snError validateResponse(snOpeningHandshakeParser* p)
 snError snOpeningHandshakeParser_processBytes(snOpeningHandshakeParser* p,
                                               const char* bytes,
                                               int numBytes,
-                                              int* numBytesProcessed,
-                                              int* handshakeCompleted)
+                                              int* numBytesProcessed)
 {
-    assert(!p->reachedHeaderEnd);
+    
+    if (HTTP_PARSER_ERRNO(&p->httpParser) != HPE_OK)
+    {
+        /*http response header parsing error*/
+        return SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE;
+    }
     
     *numBytesProcessed = http_parser_execute(&p->httpParser,
                                              &p->httpParserSettings,
                                              bytes,
                                              numBytes);
     
-    if (HTTP_PARSER_ERRNO(&p->httpParser) != HPE_OK)
-    {
-        /*http response header parsing error*/
-        return SN_OPENING_HANDSHAKE_FAILED;
-    }
-    
-    if (p->reachedHeaderEnd)
-    {
-        p->errorCode = validateResponse(p);
-    }
-    
-    *handshakeCompleted = p->reachedHeaderEnd;
-    
-    return p->errorCode;
+    return SN_NO_ERROR;
 }

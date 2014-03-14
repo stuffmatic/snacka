@@ -30,26 +30,119 @@
 #ifndef SN_TEST_OPENING_HANDSHAKE_PARSER_H
 #define SN_TEST_OPENING_HANDSHAKE_PARSER_H
 
+#include "mutablestring.h"
 #include "openinghandshakeparser.h"
 
 static const char* const SEC_WEBSOCKET_KEY = "TODO";
 
-static void testMissingWebsocketKey()
+static snError parserResult = SN_NO_ERROR;
+static int doneParsing = 0;
+
+static void openingHandshakeParsingCallback(void* userData, snError result)
+{
+    parserResult = result;
+    doneParsing = 1;
+}
+
+static void runParserTest(snMutableString* response, snError expectedResult)
 {
     snOpeningHandshakeParser p;
-    snOpeningHandshakeParser_init(&p);
     
-    snOpeningHandshakeParser_deinit(&p);
+    const char* bytes = snMutableString_getString(response);
+    const size_t nBytes = strlen(bytes);
+    
+    doneParsing = 0;
+    
+    for (int chunkSize = 1; chunkSize < nBytes; chunkSize++)
+    {
+        //parse using different chunk sizes
+        int bytePos = 0;
+        snOpeningHandshakeParser_init(&p, openingHandshakeParsingCallback, &parserResult);
+        while (!doneParsing)
+        {
+            int numBytesProcessed = 0;
+            snOpeningHandshakeParser_processBytes(&p, &bytes[bytePos], chunkSize, &numBytesProcessed);
+            bytePos += numBytesProcessed;
+        }
+        
+        sput_fail_unless(expectedResult == parserResult, "Opening handshake parser should give the expected result");
+        
+        snOpeningHandshakeParser_deinit(&p);
+    }
+}
+
+static void testMissingWebsocketKey()
+{
+    snMutableString s;
+    snMutableString_init(&s);
+    
+    snMutableString_append(&s, "HTTP/1.1 101 Web Socket Protocol Handshake\r\n");
+    snMutableString_append(&s, "Upgrade: WebSocket\r\n");
+    snMutableString_append(&s, "Connection: Upgrade\r\n");
+    //snMutableString_append(&s, "Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n");
+    snMutableString_append(&s, "Server: Kaazing Gateway\r\n");
+    snMutableString_append(&s, "Date: Sat, 08 Feb 2014 13:17:08 GMT\r\n");
+    snMutableString_append(&s, "\r\n\r\n");
+    
+    runParserTest(&s, SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE);
+    
+    snMutableString_deinit(&s);
 }
 
 static void testWrongHTTPStatus()
 {
+    snMutableString s;
+    snMutableString_init(&s);
     
+    snMutableString_append(&s, "HTTP/1.1 102 Web Socket Protocol Handshake\r\n");
+    snMutableString_append(&s, "Upgrade: WebSocket\r\n");
+    snMutableString_append(&s, "Connection: Upgrade\r\n");
+    snMutableString_append(&s, "Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n");
+    snMutableString_append(&s, "Server: Kaazing Gateway\r\n");
+    snMutableString_append(&s, "Date: Sat, 08 Feb 2014 13:17:08 GMT\r\n");
+    snMutableString_append(&s, "\r\n\r\n");
+    
+    runParserTest(&s, SN_INVALID_OPENING_HANDSHAKE_HTTP_STATUS);
+    
+    snMutableString_deinit(&s);
+    
+}
+
+static void testWellFormedResponse()
+{
+    snMutableString s;
+    snMutableString_init(&s);
+    
+    snMutableString_append(&s, "HTTP/1.1 101 Web Socket Protocol Handshake\r\n");
+    snMutableString_append(&s, "Upgrade: WebSocket\r\n");
+    snMutableString_append(&s, "Connection: Upgrade\r\n");
+    snMutableString_append(&s, "Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n");
+    snMutableString_append(&s, "Server: Kaazing Gateway\r\n");
+    snMutableString_append(&s, "Date: Sat, 08 Feb 2014 13:17:08 GMT\r\n");
+    snMutableString_append(&s, "\r\n\r\n");
+    
+    runParserTest(&s, SN_NO_ERROR);
+    
+    snMutableString_deinit(&s);
 }
 
 static void testHeaderFollowedByFrames()
 {
+    snMutableString s;
+    snMutableString_init(&s);
     
+    snMutableString_append(&s, "HTTP/1.1 101 Web Socket Protocol Handshake\r\n");
+    snMutableString_append(&s, "Upgrade: WebSocket\r\n");
+    snMutableString_append(&s, "Connection: Upgrade\r\n");
+    snMutableString_append(&s, "Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=\r\n");
+    snMutableString_append(&s, "Server: Kaazing Gateway\r\n");
+    snMutableString_append(&s, "Date: Sat, 08 Feb 2014 13:17:08 GMT\r\n");
+    snMutableString_append(&s, "\r\n\r\n");
+    snMutableString_append(&s, "some extra stuff here");
+    
+    runParserTest(&s, SN_NO_ERROR);
+    
+    snMutableString_deinit(&s);
 }
 
 #endif /*SN_TEST_OPENING_HANDSHAKE_PARSER_H*/

@@ -87,6 +87,8 @@ struct snWebsocket
     /** Timer used to force disconnect if the closing handshake is too slow. */
     float closingHandshakeTimer;
     /** */
+    snOpeningHandshakeParsingCallback openingHandshakeParsingCallback;
+    /** */
     snReadyState websocketState;
     /** */
     snOpenCallback openCallback;
@@ -252,10 +254,10 @@ static void disconnectWithStatus(snWebsocket* ws, snStatusCode status, snError e
     
     ws->ioCallbacks.disconnectCallback(ws->ioObject);
     
-    if (ws->closeCallback)
+    /*if (ws->closeCallback)
     {
         ws->closeCallback(ws->callbackData, status);
-    }
+    }*/
     
     transitionToStateAndInvokeStateCallback(ws, SN_STATE_CLOSED);
     
@@ -359,6 +361,19 @@ static void setDefaultIOCallbacks(snIOCallbacks* ioc)
     ioc->initCallback = snSocketInitCallback;
     ioc->readCallback = snSocketReadCallback;
     ioc->writeCallback = snSocketWriteCallback;
+}
+
+void openingHandshakeParsingCallback(void* userData, snError result)
+{
+    snWebsocket* ws = (snWebsocket*)userData;
+    if (result != SN_NO_ERROR)
+    {
+        disconnectWithStatus(ws, SN_STATUS_PROTOCOL_ERROR, result);
+    }
+    else
+    {
+        ws->hasCompletedOpeningHandshake = 1;
+    }
 }
 
 snWebsocket* snWebsocket_create(snOpenCallback openCallback,
@@ -521,7 +536,9 @@ snError snWebsocket_connect(snWebsocket* ws, const char* url)
     snMutableString_deinit(&ws->query);
     
     snFrameParser_reset(&ws->frameParser);
-    snOpeningHandshakeParser_init(&ws->openingHandshakeParser);
+    snOpeningHandshakeParser_init(&ws->openingHandshakeParser,
+                                  openingHandshakeParsingCallback,
+                                  ws);
     
     transitionToStateAndInvokeStateCallback(ws, SN_STATE_CONNECTING);
     
@@ -591,6 +608,7 @@ void snWebsocket_disconnect(snWebsocket* ws, int disconnectImmediately)
     {
         disconnectWithStatus(ws, SN_STATUS_ENDPOINT_GOING_AWAY, SN_NO_ERROR);
         transitionToStateAndInvokeStateCallback(ws, SN_STATE_CLOSED);
+        assert(snWebsocket_getState(ws) == SN_STATE_CLOSED);
     }
     else
     {
@@ -626,19 +644,12 @@ static void handlePaserResult(snWebsocket* ws, snError error)
         return;
     }
     
-    /*printf("handle parser result: error %d\n", error); */
-    
     snStatusCode status = SN_STATUS_PROTOCOL_ERROR;
     
     if (error == SN_INVALID_UTF8)
     {
         status = SN_STATUS_INCONSISTENT_DATA;
     }
-    
-    /*if (ws->errorCallback)
-    {
-        ws->errorCallback(ws->callbackData, error);
-    }*/
     
     /*invokes error callback if an error occurred. */
     disconnectWithStatus(ws, status, error);
@@ -737,18 +748,19 @@ void snWebsocket_poll(snWebsocket* ws)
             log(ws, "%c", readBytes[i]);
         }
         
+        /*
         log(ws, "\nhex..................\n");
         int lbCounter = 0;
         for (i = 0; i < numBytesRead; i++)
         {
-            log(ws, "%d ", (unsigned char)readBytes[i]);
+            log(ws, "%x ", (unsigned char)readBytes[i]);
             lbCounter = (lbCounter + 1) % 15;
             if (lbCounter == 0 && i > 0)
             {
                 log(ws, "\n");
             }
         }
-        
+        */
         log(ws, "\n-----------------------\n");
     }
 
@@ -756,16 +768,10 @@ void snWebsocket_poll(snWebsocket* ws)
     
     if (ws->hasCompletedOpeningHandshake == 0)
     {
-        int done = 0;
-        /*printf("hasCompletedOpeningHandshake %d\n", ws->hasCompletedOpeningHandshake); */
         snError result = snOpeningHandshakeParser_processBytes(&ws->openingHandshakeParser,
                                                                readBytes,
                                                                numBytesRead,
-                                                               &readOffset,
-                                                               &done);
-        
-        ws->hasCompletedOpeningHandshake = done;
-        /*printf("first character after header %c. after header '%s'\n", readBytes[readOffset], &readBytes[readOffset]); */
+                                                               &readOffset);
         
         if (result != SN_NO_ERROR)
         {

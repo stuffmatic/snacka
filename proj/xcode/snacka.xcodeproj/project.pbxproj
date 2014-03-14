@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C102A611189D574F00AD4CCF /* unittests.c in Sources */ = {isa = PBXBuildFile; fileRef = C102A610189D574F00AD4CCF /* unittests.c */; };
 		C10FF19E17C1398C00ACD247 /* openinghandshakeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */; };
 		C10FF19F17C1398C00ACD247 /* openinghandshakeparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */; };
 		C10FF1A017C1398C00ACD247 /* openinghandshakeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = C10FF19D17C1398C00ACD247 /* openinghandshakeparser.h */; };
@@ -42,6 +41,7 @@
 		C15C5C3417B3CCED00B55FBA /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C15C5C3217B3CCED00B55FBA /* http_parser.c */; };
 		C15C5C3517B3CCED00B55FBA /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C15C5C3217B3CCED00B55FBA /* http_parser.c */; };
 		C15C5C3617B3CCED00B55FBA /* http_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = C15C5C3317B3CCED00B55FBA /* http_parser.h */; };
+		C162848F18A667BE0045971A /* unittests.c in Sources */ = {isa = PBXBuildFile; fileRef = C162848E18A667BE0045971A /* unittests.c */; };
 		C17B57EE18A4FE90004C8F4B /* errorcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = C17B57ED18A4FE90004C8F4B /* errorcodes.c */; };
 		C17B57EF18A4FE90004C8F4B /* errorcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = C17B57ED18A4FE90004C8F4B /* errorcodes.c */; };
 		C1AB82CD179CFEA5000064D2 /* libsnacka_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBDC9F178DAB0F001DFED3 /* libsnacka_osx.a */; };
@@ -138,7 +138,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C102A610189D574F00AD4CCF /* unittests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unittests.c; sourceTree = "<group>"; };
 		C10FF19C17C1398C00ACD247 /* openinghandshakeparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = openinghandshakeparser.c; sourceTree = "<group>"; };
 		C10FF19D17C1398C00ACD247 /* openinghandshakeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openinghandshakeparser.h; sourceTree = "<group>"; };
 		C10FF1A117C14A1600ACD247 /* mutablestring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mutablestring.c; sourceTree = "<group>"; };
@@ -191,6 +190,7 @@
 		C1354B1717A704C700A629EF /* unittests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittests; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15C5C3217B3CCED00B55FBA /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
 		C15C5C3317B3CCED00B55FBA /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
+		C162848E18A667BE0045971A /* unittests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unittests.c; sourceTree = "<group>"; };
 		C17B57ED18A4FE90004C8F4B /* errorcodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = errorcodes.c; sourceTree = "<group>"; };
 		C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testopeninghandshakeparser.h; sourceTree = "<group>"; };
 		C1B3CBEE17BE13D0000F9D7C /* sput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sput.h; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 				C1354AF717A7047E00A629EF /* testframe.h */,
 				C1354AF917A7047E00A629EF /* testframeparser.h */,
 				C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */,
-				C102A610189D574F00AD4CCF /* unittests.c */,
+				C162848E18A667BE0045971A /* unittests.c */,
 			);
 			path = unittests;
 			sourceTree = "<group>";
@@ -570,7 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1354B2517A7059800A629EF /* testframe.h in Sources */,
-				C102A611189D574F00AD4CCF /* unittests.c in Sources */,
+				C162848F18A667BE0045971A /* unittests.c in Sources */,
 				C1354B2617A7059800A629EF /* testframeparser.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -968,6 +968,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
@@ -998,7 +999,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../src/include;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1010,6 +1011,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
@@ -1034,7 +1036,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../src/include;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

@@ -93,9 +93,13 @@ const char* snErrorToString(snError error)
         {
             return "Websocket connection is not open";
         }
-        case SN_OPENING_HANDSHAKE_FAILED:
+        case SN_INVALID_OPENING_HANDSHAKE_HTTP_STATUS:
         {
-            return "Opening handshake failed";
+            return "Invalid opening handshake HTTP response status";
+        }
+        case SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE:
+        {
+            return "Failed to parse opening handshake HTTP response";
         }
         default:
             break;

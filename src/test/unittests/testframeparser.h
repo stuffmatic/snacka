@@ -47,6 +47,8 @@ static void frameCallback(void* userData, const snFrame* frame)
     memcpy(&parsedFrame, frame, sizeof(snFrame));
 }
 
+#define NUM_FRAME_PARSER_TEST_CASES 5
+
 static void testFrameParserHeaderEquality()
 {
     const int bufferSize = 1 << 10;
@@ -54,12 +56,12 @@ static void testFrameParserHeaderEquality()
     snFrameParser p;
     snFrameParser_init(&p, frameCallback, NULL, NULL, NULL, buffer, bufferSize);
     
-    const int numCases = 5;
-    int maskFlags[numCases] = {0, 1, 1, 1, 1};
-    int maskingKeys[numCases] = {0, 1, 4000, 12399, 9999};
-    int finalFlags[numCases] = {0, 1, 1, 1, 0};
+    
+    int maskFlags[NUM_FRAME_PARSER_TEST_CASES] = {0, 1, 1, 1, 1};
+    int maskingKeys[NUM_FRAME_PARSER_TEST_CASES] = {0, 1, 4000, 12399, 9999};
+    int finalFlags[NUM_FRAME_PARSER_TEST_CASES] = {0, 1, 1, 1, 0};
 
-    snOpcode opcodes[numCases] =
+    snOpcode opcodes[NUM_FRAME_PARSER_TEST_CASES] =
     {
         SN_OPCODE_TEXT,
         SN_OPCODE_BINARY,
@@ -69,7 +71,7 @@ static void testFrameParserHeaderEquality()
     };
     
     int i;
-    for (i = 0; i < numCases; i++)
+    for (i = 0; i < NUM_FRAME_PARSER_TEST_CASES; i++)
     {
         memset(&parsedFrame, 0, sizeof(snFrame));
         

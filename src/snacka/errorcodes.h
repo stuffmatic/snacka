@@ -73,8 +73,10 @@ extern "C"
         SN_CANCELLED_OPERATION,
         /** The websocket connection is required to be open but wasn't. */
         SN_WEBSOCKET_CONNECTION_IS_NOT_OPEN,
-        /** Failed to parse the opening handshake HTTP response header.*/
-        SN_OPENING_HANDSHAKE_FAILED
+        /** .*/
+        SN_INVALID_OPENING_HANDSHAKE_HTTP_STATUS,
+        /** */
+        SN_FAILED_TO_PARSE_OPENING_HANDSHAKE_RESPONSE        
     } snError;
     
     const char* snErrorToString(snError error);

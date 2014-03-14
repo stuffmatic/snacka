@@ -49,13 +49,21 @@ extern "C"
     typedef enum snHandshakeResponseHTTPField
     {
         SN_UNRECOGNIZED_HTTP_FIELD = -1,
-        SN_HTTP_ACCEPT,
+        SN_HTTP_ACCEPT = 0,
         SN_HTTP_UPGRADE,
         SN_HTTP_CONNECTION,
         SN_HTTP_WS_PROTOCOL,
-        SN_HTTP_WS_EXTENSIONS
+        SN_HTTP_WS_EXTENSIONS,
+        SN_HTTP_PARSED_HEADER_FIELD_COUNT
         
     } snHandshakeResponseHTTPField;
+   
+    /** 
+     * Invoked when parsing finishes.
+     * @param userData
+     * @param result
+     */
+    typedef void (*snOpeningHandshakeParsingCallback)(void* userData, snError result);
     
     /**
      * Incremental parser of websocket opening handshake http responses. 
@@ -68,28 +76,24 @@ extern "C"
         /** */
         http_parser_settings httpParserSettings;
         /** */
-        snError errorCode;
+        snMutableString currentHeaderFieldName;
         /** */
         snHandshakeResponseHTTPField currentHeaderField;
+        /** Invoked on parsing success or failure. */
+        snOpeningHandshakeParsingCallback parsingCallback;
         /** */
-        int reachedHeaderEnd;
+        void* callbackData;
         /** */
-        snMutableString acceptValue;
-        /** */
-        snMutableString connectionValue;
-        /** */
-        snMutableString upgradeValue;
-        /** */
-        snMutableString protocolValue;
-        /** */
-        snMutableString extensionsValue;
+        snMutableString headerFieldValues[SN_HTTP_PARSED_HEADER_FIELD_COUNT];
     } snOpeningHandshakeParser;
 
     /**
      * Initializes a handshake response parser.
      * @param parser The parser to initialize.
      */
-    void snOpeningHandshakeParser_init(snOpeningHandshakeParser* parser);
+    void snOpeningHandshakeParser_init(snOpeningHandshakeParser* parser,
+                                       snOpeningHandshakeParsingCallback parsingCallback,
+                                       void* callbackData);
     
     /**
      *
@@ -97,8 +101,7 @@ extern "C"
     void snOpeningHandshakeParser_deinit(snOpeningHandshakeParser* parser);
 
     /**
-     * Called when \reachedHeaderEnd has been set to validate the
-     * received http header fields.
+     * TODO: move to websocket.c
      * @see http://tools.ietf.org/html/rfc6455#section-4.1
      */
     void snOpeningHandshakeParser_createOpeningHandshakeRequest(snOpeningHandshakeParser* parser,
@@ -114,8 +117,7 @@ extern "C"
     snError snOpeningHandshakeParser_processBytes(snOpeningHandshakeParser* parser,
                                                   const char* bytes,
                                                   int numBytes,
-                                                  int* numBytesProcessed,
-                                                  int* handshakeCompleted);
+                                                  int* numBytesProcessed);
     
 #ifdef __cplusplus
 }

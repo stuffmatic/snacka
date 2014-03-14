@@ -21,7 +21,7 @@ void snMutableString_deinit(snMutableString* ms)
 
 void snMutableString_append(snMutableString* ms, const char* toAppend)
 {
-    snMutableString_appendBytes(ms, toAppend, strlen(toAppend));
+    snMutableString_appendBytes(ms, toAppend, (int)strlen(toAppend));
 }
 
 void snMutableString_appendInt(snMutableString* ms, int toApped)
