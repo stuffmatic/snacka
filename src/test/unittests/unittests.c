@@ -31,6 +31,7 @@
 
 #include "sput.h"
 
+#include "testconnectionstate.h"
 #include "testframe.h"
 #include "testframeparser.h"
 #include "testopeninghandshakeparser.h"
@@ -55,6 +56,9 @@ int main(int argc, const char * argv[])
     sput_run_test(testWrongHTTPStatus);
     sput_run_test(testMissingWebsocketKey);
     sput_run_test(testHeaderFollowedByFrames);
+    
+    sput_enter_suite("snWebsocket state tests");
+    sput_run_test(testConnectionState);
     
     sput_finish_testing();
 }

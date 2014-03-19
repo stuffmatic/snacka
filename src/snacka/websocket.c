@@ -469,6 +469,8 @@ snWebsocket* snWebsocket_createWithSettings(snOpenCallback openCallback,
 
 void snWebsocket_delete(snWebsocket* ws)
 {
+    snWebsocket_disconnect(ws, 1);
+    
     if (ws->ioObject)
     {
         ws->ioCallbacks.deinitCallback(ws->ioObject);

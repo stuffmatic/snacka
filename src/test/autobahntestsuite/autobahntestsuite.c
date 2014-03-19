@@ -81,7 +81,7 @@ int main(int argc, const char* argv[])
     const char* agentName = "snacka";
     const char* baseURL = "ws://localhost:9001/";
     
-    snWebsocketOptions o;
+
     
     AutobahnTestState test;
     test.testCount = 0;
@@ -90,8 +90,8 @@ int main(int argc, const char* argv[])
     /*override the default read buffer size
       since some autobahn tests involve
       large payloads*/
-
-    memset(&s, 0, sizeof(snWebsocketOptions));
+    snWebsocketOptions o;
+    memset(&o, 0, sizeof(snWebsocketOptions));
     o.maxFrameSize = 1 << 25;
     
     test.websocket = snWebsocket_createWithSettings(NULL, /*skip open callback*/

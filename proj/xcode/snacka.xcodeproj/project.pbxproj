@@ -202,6 +202,7 @@
 		C1BBDD29178DC424001DFED3 /* echoservertest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = echoservertest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BBDD3A178DCF16001DFED3 /* autobahntestsuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = autobahntestsuite; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E702B517A9508600EB2C75 /* libsnacka_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsnacka_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1FF09B918D315CE00A9607A /* testconnectionstate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testconnectionstate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B3CBEE17BE13D0000F9D7C /* sput.h */,
+				C1FF09B918D315CE00A9607A /* testconnectionstate.h */,
 				C1354AF717A7047E00A629EF /* testframe.h */,
 				C1354AF917A7047E00A629EF /* testframeparser.h */,
 				C1A12DA917C2130F0020C95C /* testopeninghandshakeparser.h */,
